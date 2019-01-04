@@ -1,0 +1,15 @@
+<template name="screenshotgame">
+    <div class="ui middle inverted segment npdg">
+        <div class="ui grid center aligned items">
+            <div class="ui huge header">Official Screenshots</div>
+            <div class="ui row" style="margin-top: 0px;padding-top: 0px;">Click to enlarge</div>
+            <div class="ui four cards doubling">
+                    {{#each screenshots}}
+                    <div class="card screenshot" style="cursor: pointer;">
+                        <img style="max-height: 250px;" src="{{path_thumbnail}}">
+                    </div>
+                    {{/each}}
+                </div>
+        </div>
+    </div>
+</template>

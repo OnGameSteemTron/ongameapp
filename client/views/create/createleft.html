@@ -1,0 +1,91 @@
+<template name="createleft">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted com segment">
+        {{#if currentSingleGame}}
+        {{#with currentSingleGame}}
+        <div class="ui middle inverted segment npdg" style="cursor: pointer;">
+            {{> gametopsmall}}
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui fluid  category search">
+            <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search games...">
+                <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
+        </div>
+        <div class="label" style="    margin: 10px 0px;
+                    font-weight: 600;">Choose another game
+            in the list</div>
+            <script>
+                    $('.ui.search.category')
+                        .search({
+                            source: Session.get('games'),
+                            searchFields: ['name'],
+                            maxResults: 10,
+                            fullTextSearch: 'exact',
+                            fields: {
+                                title: 'name',
+                            },
+                            onSelect: function (result, response) {
+                                if (!CurrentGame.findOne({ steam_appid: Number(result.appid) })) {
+                                    Content.remove({ type: 'gamenews' })
+                                    Games.remove({})
+                                    steam.getGameNews(result.appid)
+                                    steam.getGameDetails(result.appid)
+                                    Session.set('createappid', result.appid)
+                                    $('.item.cr').removeClass('purple')
+                                    console.log(Session.get('createappid'))
+                                    $('.ui.dropdown.tags').dropdown('clear');
+                                    $('.ui.dropdown.tags').dropdown('setting', 'allowAdditions', true);
+                                    $('.ui.dropdown.tags').dropdown('set selected', 'ongame-' + result.appid);
+                                }
+                            }
+                        })
+                </script>
+        {{/with}}
+        {{else}}
+        <div class="label" style="    margin-bottom: 10px;
+                    font-weight: 600;">Choose a game in
+            the list</div>
+        <div class="ui fluid category search">
+            <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search games...">
+                <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
+        </div>
+        <script>
+                $('.ui.search.category')
+                    .search({
+                        source: Session.get('games'),
+                        searchFields: ['name'],
+                        maxResults: 10,
+                        fullTextSearch: 'exact',
+                        fields: {
+                            title: 'name',
+                        },
+                        onSelect: function (result, response) {
+                            if (!CurrentGame.findOne({ steam_appid: Number(result.appid) })) {
+                                Content.remove({ type: 'gamenews' })
+                                CurrentGame.remove({})
+                                Games.remove({})
+                                steam.getGameNews(result.appid)
+                                steam.getGameDetails(result.appid)
+                                Session.set('createappid', result.appid)
+                                $('.item.cr').removeClass('purple')
+                                console.log(Session.get('createappid'))
+                                $('.ui.dropdown.tags').dropdown('clear');
+                                $('.ui.dropdown.tags').dropdown('setting', 'allowAdditions', true);
+                                $('.ui.dropdown.tags').dropdown('set selected', 'ongame-' + result.appid);
+                            }
+                        }
+                    })
+            </script>
+        {{/if}}
+    </div>
+    <div class="ui purple segment bottom" style="margin-top:0px!important;">
+    </div>
+
+</template>

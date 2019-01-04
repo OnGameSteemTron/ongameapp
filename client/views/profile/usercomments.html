@@ -1,0 +1,69 @@
+<template name="usercomments">
+
+        <div class="ui purple segment top">
+            </div>
+            <div class="ui middle inverted segment">
+                <div class="ui grid center aligned two column stackable">
+                    <div class="column npdg sec">
+                                    <div class="ui grid center aligned items" style="padding: 2em;">
+                                        <div class="ui huge header">Latest comments</div>
+                                        {{#each currentAuthorHistory 'comment'}}
+                                        {{#if equals type 'comment'}}
+                                        <div class="item" style="background: #0f1217;
+                                    padding: 0.5em;
+                                    border: 1px #161b23 solid;
+                                    border-radius: 5px;">
+                                            <div class="content" style="width: 100%;    text-align: center;">
+                                                <div class="image">
+                                                    <img width='20' src="./images/apps/steem.svg">
+                                                </div>
+                                                <div class="header" style="color:white;"> {{name}} commented on </div>
+                                                <a href="/@{{name}}/{{permlink}}"
+                                                        class="user shorter">
+                                                        @{{name}}/{{permlink}}
+                                                    </a>
+                                                    <div>
+                                                        
+                                                    {{shortDescriptionForCard body}}</div>
+                                                <div class="meta">
+                                                    <span class="cinema"> <i class="clock outline icon"></i> {{DisplayTimeFrom date}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        {{/each}}
+                                    </div>
+                    </div>
+                    <div class="column npdg">
+                            <div class="ui grid center aligned items" style="padding: 2em;">
+                                    <div class="ui huge header">Latest replies</div>
+                                    {{#each currentAuthorHistory 'replies'}}
+                                    {{#if equals type 'replies'}}
+                                    <div class="item" style="background: #0f1217;
+                                padding: 0.5em;
+                                border: 1px #161b23 solid;
+                                border-radius: 5px;">
+                                        <div class="content" style="width: 100%;    text-align: center;">
+                                            <div class="image">
+                                                <img width='20' src="./images/apps/steem.svg">
+                                            </div>
+                                            <div class="header" style="color:white;"> {{name}} replied to <a  href="/@{{parent_author}}/{{parent_permlink}}" class="user shorter">
+                                                @{{parent_author}}/{{parent_permlink}}
+                                            </a></div>
+                                            <div>
+                                                    {{shortDescriptionForCard body}}</div>
+                                            <div class="meta">
+                                                <span class="cinema"> <i class="clock outline icon"></i> {{DisplayTimeFrom date}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/if}}
+                                    {{/each}}
+                                </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui purple segment bottom">
+        
+            </div>
+</template>

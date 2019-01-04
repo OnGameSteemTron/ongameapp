@@ -1,0 +1,22 @@
+<template name="news">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid center aligned" style="padding: 2em;">
+            <div class="ui row huge header">RECENT NEWS </div>
+            <div class="ui row divided doubling stackable five cards" style="max-width: 100%;padding-bottom: 3em;">
+                {{#if allTrendingContent}}
+                {{#each allTrendingContent}}
+                {{> card}}
+                {{/each}}
+                {{else}}
+                <div class="ui active dimmer ongame">
+                    <div class="ui massive text loader purple ongame">Loading News</div>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+</template>

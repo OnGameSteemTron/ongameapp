@@ -1,0 +1,56 @@
+<template name="aboutus">
+    <h1 class="ui violet banner label fluid big fundition">
+        {{translator "ABOUTUS_WHOS_BEHIND"}}
+        <div class="ui container">
+            <h5>{{translator "ABOUTUS_WE_ENJOY"}}</h5>
+            <a href="https://discord.gg/26j74Hr" target="_blank" class="ui button icon red labeled right">
+                <i class="world icon"></i>{{translator "ABOUTUS_DISCORD"}}</a>
+        </div>
+    </h1>
+    <div class="ui container">
+        <div class="ui six column grid stackable" style="padding-top:1em;">
+            {{#each team}} {{#if equals type "member"}}
+            <div class="column ">
+                <div class="ui violet button" style="overflow: hidden;padding: 0em 0em 2em;border-radius: 6em 0em;border: 4px #3f3250 solid;">
+                    <div class="column" style="padding-bottom:0px!important;margin-bottom:0px;">
+                        <div class="image">
+                            <img src="./images/team/{{img}}" style="width: 100%">
+                        </div>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;margin-bottom:0px;margin-top:5px;">
+                        <div class="content" style="text-align: left;margin-left: 5px;">
+                            <a style="color:white" class="header">{{name}}</a>
+                            <a style="color:white" href="https://steemit.com/@{{steem}}" target="_blank" class="header">@{{steem}}</a>
+                            <div class="description">
+                                <p>{{{description}}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}} {{/each}}
+        </div>
+        <div class="ui six column grid stackable" style="padding-top:1em;">
+            {{#each team}} {{#if equals type "advisor"}}
+            <div class="column ">
+                <div class="ui black button" style="overflow: hidden;padding: 0em 0em 2em;    border-radius: 6em 0em;border: 4px #22252c solid;">
+                    <div class="column" style="padding-bottom:0px!important;margin-bottom:0px;">
+                        <div class="image">
+                            <img src="./images/team/{{img}}" style="width: 100%">
+                        </div>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;margin-bottom:0px;margin-top:5px;">
+                        <div class="content" style="text-align: left;margin-left: 5px;">
+                            <a style="color:white" class="header">{{name}}</a>
+                            <a style="color:white" href="https://steemit.com/@{{steem}}" target="_blank" class="header">@{{steem}}</a>
+                            <div class="description">
+                                <p>{{{description}}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}} {{/each}}
+        </div>
+    </div>
+</template>

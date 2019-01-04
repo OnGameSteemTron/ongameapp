@@ -1,0 +1,326 @@
+<template name="useroverview">
+    {{#with currentAuthor}}
+    <div class="ui purple segment top">
+        <div class="ui inverted tiny six statistics">
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-cash icon"></i>
+                    {{estimateAccount this}}
+                </div>
+                <div class="ui mini black label">
+                    Account Value
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-android-contacts icon" style="margin-right: 5px;"></i>{{userTotalFriends follower_count}}
+                </div>
+                <div class="ui mini black label">
+                    Friends
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-trophy icon"></i> 0
+                </div>
+                <div class="ui mini black label">
+                    Tournaments
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-ios-game-controller-a icon" style="margin-right: 5px;"></i>{{userAllGames.length}}
+                </div>
+                <div class="ui mini black label">
+                    Games
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-ios-star icon" style="margin-right: 5px;"></i>{{userAllAchievements}}
+                </div>
+                <div class="ui mini black label">
+                    Achievements
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-ios-arrow-forward icon"></i>
+                </div>
+                <div class="label">
+                    View All
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui middle inverted segment npdg">
+        <div class="ui two column stackable aligned grid padded  npdg">
+            <div class="column npdg">
+                <div class="middle aligned content" style="padding: 2em">
+                    {{#if userLive}}
+                    <div class="ui header">Live Stream</div>
+                    <iframe width="100%" height="272px" src="https://www.vimm.tv/@{{name}}/embed" autoplay="true"
+                        frameborder=0></iframe>
+                    {{/if}}
+                    <!-- <div id="twitch-embed"></div>
+                    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+                    <script type="text/javascript">
+                        new Twitch.Embed("twitch-embed", {
+                          width: 854,
+                          height: 480,
+                          channel: "monstercat"
+                        });
+                      </script> -->
+
+                    <div class="ui header">More about @{{name}}</div>
+                    <div class="date">
+                        Reputation : {{displayReputation reputation}}
+                    </div>
+                    <div class="date">
+                        {{follower_count}} Followers
+                    </div>
+                    <div class="date">
+                        {{following_count}} Following
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="date">Joined on : {{DisplayTimeCreated created}}</div>
+                    <div class="date">Last vote : {{DisplayTimeFrom last_vote_time}}</div>
+                    <div class="ui divider"></div>
+                    <div class="description">
+                        {{#if json_metadata.profile.about}}
+                        {{json_metadata.profile.about}}
+                        {{/if}}
+                    </div>
+                    {{#if userRecentGames}}
+                    <div class="ui header">Recently Played</div>
+                    <div class="ui three cards">
+                        {{#each userRecentGames}}
+                        <a href="/game-{{appID}}" class="card" data-value="{{name}}" style="color:white;box-shadow: 0px 1px 3px 0px #6b07f8, 0px 0px 0px 1px #2062b6;">
+                            <img src="{{logoURL}}">
+                            <h5 class="ui mini header" style="    padding: 5px; 
+                            margin: 0px;margin-bottom: 20px;"> {{name}}</h5>
+                            <div class="ui bottom attached label mini purple noradius" style="color:#6b07f8;    margin: 0px;">
+                                Played : {{minutesToHours playTime}}
+                            </div>
+                        </a>
+                        {{/each}}
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="column npdg" style="padding-right: 2em!important;">
+                <div class="ui items">
+                    <div class="ui header">Latest posts</div>
+                    {{#if currentSuggestions}}
+                    {{#each currentSuggestions}}
+                    {{> item}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui middle  inverted segment">
+        <div class="ui seven statistics inverted">
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-steam icon"></i>
+                </div>
+                <div class="label">
+                    {{#if steam_id}}
+                    <a target="_blank" href="https://steamcommunity.com/profiles/{{steam_id}}">
+                        {{steamsettings.nickname}}
+                    </a>
+                    {{else}}
+                    Steam Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="twitch icon"></i>
+                </div>
+                <div class="label">
+                    {{#if twitch_id}}
+                    <a target="_blank" href="https://www.twitch.tv/{{twitchsettings.display_name}}">
+                        {{twitchsettings.display_name}}
+                    </a>
+                    {{else}}
+                    Twitch Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="youtube icon"></i>
+                </div>
+                <div class="label">
+                    {{#if youtube_id}}
+                    <a target="_blank" href="https://www.youtube.com/channel/{{youtube_id}}">
+                        {{#if youtube_channel.title}}
+                        {{youtube_channel.title}}
+                        {{else}}
+                        Private
+                        {{/if}}
+                    </a>
+                    {{else}}
+                    Youtube Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-xbox icon"></i>
+                </div>
+                <div class="label">
+                    {{#if xbox_id}}
+                    {{xbox_id}}
+                    {{else}}
+                    Microsoft Xbox Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-playstation icon"></i>
+                </div>
+                <div class="label">
+                    {{#if psx_id}}
+                    {{psx_id}}
+                    {{else}}
+                    SONY Playstation Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/origin.svg">
+                </div>
+                <div class="label">
+                    {{#if origin_id}}
+                    {{origin_id}}
+                    {{else}}
+                    Origin Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/epic.svg">
+                </div>
+                <div class="label">
+                    {{#if epic_id}}
+                    {{epic_id}}
+                    {{else}}
+                    Epic Games Account Not Linked
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{#if equals mainuser.name currentAuthor.name}}
+    <div class="ui middle inverted segment " style="padding: 0px;">
+        <a class="ui inverted menu seven column grid" style="padding:15px;    margin-right: 0px;">
+            {{#with mainuser}}
+            {{#if steam_id}}
+            <a class="ui item column mini green ongame ">
+                <i class="ion-steam icon"></i>
+                Connected
+            </a>
+            {{else}}
+            <a href="https://ongamelogin.herokuapp.com/authenticate" class="ui item column mini blue ongame ">
+                <i class="ion-steam icon"></i>
+                Connect
+            </a>
+            {{/if}}
+            {{#if twitch_id}}
+            <a class="ui item column mini green ongame ">
+                <i class="twitch icon"></i>
+                Connected
+            </a>
+            {{else}}
+            <a href="https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=b5x65miullqqvqf6lkqcaio2ofljt4&redirect_uri=https://ongame.io/twitchlogin&scope=user:edit+user:read:email"
+                class="ui item column mini purple ongame ">
+                <i class="twitch icon"></i>
+                Connect
+            </a>
+            {{/if}}
+            {{>youtubebutton}}
+            <a class="ui item column mini blue ongame disabled">
+                <i class="ion-xbox icon"></i>
+                Connect
+            </a>
+            <a class="ui item column mini blue ongame disabled">
+                <i class="ion-playstation icon"></i>
+                Connect
+            </a>
+            <a class="ui item column mini blue ongame disabled">
+                <img src="./images/apps/origin.svg" style="    width: 12px;
+                    margin-right: 6px;
+                    opacity: 0.25;">
+                Connect
+            </a>
+            <a class="ui item column mini blue ongame disabled">
+                <img src="./images/apps/epic.svg" style="    width: 12px;
+                    margin-right: 6px;
+                    opacity: 0.25;">
+                Connect
+            </a>
+            <!-- https://auth.api.sonyentertainmentnetwork.com/login.jsp?service_entity=psn&request_theme=liquid&redirect_ui=localhost -->
+            {{/with}}
+        </a>
+    </div>
+    {{/if}}
+    <div class="ui middle inverted segment ">
+        <div class="ui eight doubling cards">
+            {{#each userGames}}
+            <a href="/game-{{appID}}" class="card" data-value="{{name}}" style="color:white;box-shadow: 0px 1px 3px 0px #6b07f8, 0px 0px 0px 1px #2062b6;">
+                <img src="{{logoURL}}">
+                <h5 class="ui mini header" style="    padding: 5px;    
+                margin: 0px;margin-bottom: 20px;"> {{name}}</h5>
+                <div class="ui label bottom attached mini purple noradius" style="color:#6b07f8;    margin: 0px;">
+                    Played : {{minutesToHours playTime}}
+                </div>
+            </a>
+            {{/each}}
+        </div>
+        <div class="ui grid center aligned items" style="padding: 2em;">
+            <a onclick="$('.menu.profile .item').tab('change tab', 'eigth')" href="/@{{name}}/achievements" class="ui mini purple button ongame">View more</a>
+        </div>
+        {{#if steam_id}}
+        {{else}}
+        <div class="ui grid center aligned items" style="padding: 2em;">
+            <div class="ui huge header">Link your Steam Account and get Started!</div>
+        </div>
+        {{/if}}
+    </div>
+    <div class="ui middle inverted segment ">
+        {{#if currentAuthor.youtube_videos}}
+        <div class="ui grid center aligned items" style="padding: 2em;">
+            <div class="ui huge header">Youtube Videos</div>
+        </div>
+        <div class="ui eight doubling cards">
+            {{#each currentAuthor.youtube_videos}}
+            {{#if youtubeUrlFromThumbnail snippet.thumbnails.default.url}}
+            <a style="color:white" target="_blank" href="https://youtube.com/watch?v={{youtubeUrlFromThumbnail snippet.thumbnails.default.url}}"
+                class="card" data-value="{{name}}">
+                <img src="{{snippet.thumbnails.default.url}}">
+                {{snippet.title}}
+            </a>
+            {{/if}}
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="ui grid center aligned items" style="padding: 2em;">
+            <div class="ui header">Youtube videos are private or unavailable!</div>
+        </div>
+        {{/if}}
+
+    </div>
+    <div class="ui purple segment bottom">
+
+    </div>
+    {{/with}}
+</template>

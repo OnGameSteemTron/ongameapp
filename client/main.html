@@ -1,0 +1,43 @@
+<head>
+  <title>Ongame</title>
+  <link rel="shortcut icon" type="image/png" href="./images/small.png">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+</head>
+
+<body>
+</body>
+
+<template name="mainlayout">
+  {{> Template.dynamic template=top}}
+  {{>leftsidebar}}
+  {{>rightsidebar}}
+  <div class="pusher">
+    <div class="main background"></div>
+    <article>
+      <div class="ui main inverted segment">
+        {{> Template.dynamic template=main}}
+      </div>
+    </article>
+  </div>
+  <div class="ui modal external fade" id="speedbump" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notice</h4>
+        </div>
+        <div class="modal-body">
+          <p>You are now leaving our website website.</p>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="button" title="continue" class="btn btn-modal btn-continue" data-dismiss="modal">Continue</button>
+          <button type="button" title="go back" class="btn btn-modal btn-close" data-dismiss="modal">Go Back</button>
+        </div>
+        </div>
+    
+      </div>
+    </div>
+  <!-- {{> footer}} -->
+</template>

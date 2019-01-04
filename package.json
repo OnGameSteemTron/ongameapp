@@ -1,0 +1,51 @@
+{
+  "name": "ongameheroku",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.5",
+    "autolinker": "^1.8.1",
+    "bcrypt": "^3.0.2",
+    "buffer": "^5.2.1",
+    "bufferutil": "^4.0.0",
+    "dsteem": "^0.10.0",
+    "gravatar": "^1.8.0",
+    "jquery": "^3.3.1",
+    "meteor-node-stubs": "^0.4.1",
+    "moment": "^2.22.2",
+    "moment-with-locales-es6": "^1.0.1",
+    "owl.carousel": "^2.3.4",
+    "remarkable": "^1.7.1",
+    "sc2-sdk": "^2.0.1",
+    "showdown": "^1.9.0",
+    "simpl-schema": "^1.5.3",
+    "socket.io-client": "^2.2.0",
+    "steamapi": "^2.0.4",
+    "steem": "^0.7.3",
+    "steem-markdown-only": "0.0.7",
+    "tronweb": "^2.1.14",
+    "utf-8-validate": "^5.0.1",
+    "video.js": "^7.3.0",
+    "videojs-playlist": "^4.2.6",
+    "videojs-youtube": "^2.6.0",
+    "xss": "^1.0.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.1",
+    "chai": "^4.1.2",
+    "postcss": "^6.0.22",
+    "postcss-load-config": "^1.2.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "browsers": [
+          "last 2 versions"
+        ]
+      }
+    }
+  }
+}

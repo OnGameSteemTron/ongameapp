@@ -1,0 +1,139 @@
+<template name="createstreaming">
+    <div class="ui aligned inverted segment">
+        <div class="ui form inverted">
+            <div class="field" style="margin:0em 0em 1em;">
+                <div class="ui button mini icon purple">STEP 1</div>
+                <label>ENTER YOU STREAM TITLE</label>
+                <input id="title" type="text" name="title" placeholder="TITLE OF YOUR STREAM">
+            </div>
+            <div class="ui two fields">
+                {{#unless streamUrl}}
+                <div class="field">
+                    <div class="ui button mini icon purple">STEP 2</div>
+                    <label style="font-weight: bold;">SHARE YOUR STREAM LINK (YOUTUBE, TWITCH, MIXER, OR ANYTHING ELSE
+                        THAT
+                        ARE LEGIT)
+                    </label>
+                    <input id="url" type="text" name="url" placeholder="YOUR LINK">
+                </div>
+                {{/unless}}
+                <div class="field">
+                    <div class="ui button mini icon purple"> OR STEP 2</div>
+                    <div style="font-weight: bold;">START TO STREAM FROM ONGAME
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        Set a title and click here to obtain your streaming keys - Press "Start Live" and wait 30
+                        seconds
+                        before connecting and
+                        refreshing the preview (blue button), when you are live click on publish!
+                    </div>
+                    <div class="ui button mini icon purple">STEP 3</div>
+                    <label>CHOOSE YOUR LOCATION</label>
+                    <div class="grouped fields">
+                    <div class="field">
+                            <div class="ui radio checkbox location">
+                              <input id="asia_pacific_taiwan" type="radio" name="loc" checked="checked">
+                              <label>Asia</label>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <div class="ui radio checkbox location">
+                              <input id="eu_belgium" type="radio" name="loc">
+                              <label>Europe</label>
+                            </div>
+                          </div>
+                          <div class="field" style="margin-bottom:10px;">
+                            <div class="ui radio checkbox location">
+                              <input id="us_central_iowa" type="radio" name="loc">
+                              <label>USA</label>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="inline">
+                        <div class="ui mini button stream blue ongame">OBTAIN STREAM KEYS</div>
+                        <div class="ui mini button start red ongame disabled">START LIVE</div>
+                        <div class="ui mini button publish green ongame disabled">PUBLISH</div>
+                    </div>
+                </div>
+            </div>
+            {{#if isReadyToPost}}
+            <div class="ui header">{{title_preview}}</div>
+            <div style="margin-bottom: 10px;">{{{remarkableFormatter preview}}}</div>
+            <div class="ui button mini icon purple">STEP 3</div>
+            <div id="btn_submit_form" class="ui mini blue icon ongame labeled animated button" tabindex="0">
+                <i class="icon arrow right"></i>
+                <div class="visible content">PUBLISH</div>
+                <div class="hidden content">
+                    SUBMIT
+                </div>
+            </div>
+            {{/if}}
+            <div class="field">
+                <div class="ui error message"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui label alert red nodsp"></div>
+    {{#if streamUrl}}
+    <div class="ui divider"></div>
+    <div class="ui grid padded center aligned live preview nodsp">
+        <video id=stream-video width=620 height=350 class="video-js vjs-default-skin" controls>
+            <source src="{{streamUrl}}" type="application/x-mpegURL">
+        </video>
+        <script src="video.js"></script>
+        <script src="videojs-contrib-hls.min.js"></script>
+        <script>
+            var videojs = require('video.js')
+            var player = videojs('stream-video');
+            player.play();
+        </script>
+        <div class="ui button mini blue ongame icon" style=" height: 30px;" onclick="refreshPlayer()"><i class="icon refresh"></i></div>
+        <script>
+            function refreshPlayer() {
+                var videojs = require('video.js')
+                var player = videojs('stream-video');
+                player.reset()
+                var sources = [{ "type": "application/x-mpegURL", "src": Session.get('mystream').player_hls_playback_url }];
+                player.src(sources);
+                player.play();
+            }
+        </script>
+        <script src="video.js"></script>
+        <script src="videojs-contrib-hls.min.js"></script>
+    </div>
+    <div class="ui grid two column stackable paddedd">
+        <div class="column six wide">
+            <div class="ui inverted vertical menu fluid">
+                <div class="ui label purple fluid">Streaming Informations</div>
+                <div class="item">
+                    Location : {{stream.broadcast_location}}
+                </div>
+                <div class="item">
+                    Name : {{stream.name}}
+                </div>
+                <div class="item">
+                    Id : {{stream.player_id}}
+                </div>
+            </div>
+        </div>
+        <div class="column ten wide">
+            <div class="ui inverted vertical menu fluid">
+                <div class="ui label purple fluid">Connection information</div>
+                <div class="item">
+                    Server URL : <span class="selectable">{{stream.source_connection_information.primary_server}}</span>
+                </div>
+                <div class="item">
+                    Stream Key : <span class="selectable">{{stream.source_connection_information.stream_name}}</span>
+                </div>
+                <div class="item">
+                    Username : <span class="selectable">{{stream.source_connection_information.username}}</span>
+                </div>
+                <div class="item">
+                    Password : <span class="selectable">{{stream.source_connection_information.password}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+</template>

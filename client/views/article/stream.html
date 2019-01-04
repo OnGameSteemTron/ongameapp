@@ -1,0 +1,94 @@
+<template name="stream">
+
+    <div class="ui grid three column stackable">
+        <div class="three wide column">
+            {{#with currentAuthor}}
+            {{>profilecard}}
+            {{/with}}
+
+            {{#with currentSingleGame}}
+            <div class="ui middle inverted segment" style="cursor: pointer;">
+                {{> gametopsmall}}
+                {{#if price_overview.final}}
+                <div class="ui button green ongame noradius fluid" style="margin-top:10px;">
+                    BUY FOR ${{normalizePrice price_overview.final}}
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui small header">OFFICIAL NEWS</div>
+            <div class="ui items" style="padding: 0px;">
+                {{#if gameNews}}
+                {{#each gameNews}}
+                {{>feedgamenews}}
+                {{/each}}
+                {{/if}}
+            </div>
+            {{/with}}
+        </div>
+
+        <div id="articleside" class="nine wide column">
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+                <h1 class="ui header huge">{{title}}</h1>
+            </div>
+            <div class="ui middle inverted segment npdg">
+                <div class="content article">
+                    <div class="ui fluid black label noradius"><span>Published on : {{DisplayTimeCreated created}}
+                        </span>
+                        {{#if tagsArray json_metadata.tags}}
+                        <span class="ui right floated">{{#each json_metadata.tags}}
+                            <a href="/{{this}}">#{{this}}</a>{{/each}}
+                        </span>
+                        {{else}}
+                        <span class="ui right floated">
+                            <a href="/{{this}}">#{{json_metadata.tags}}</a>
+                        </span>
+                        {{/if}}
+                    </div>
+                    <video id=stream-video width=620 height=350 class="video-js vjs-default-skin" controls>
+                        <source src="https://wowzaprod186-i.akamaihd.net/hls/live/712445/65921661/playlist.m3u8" type="application/x-mpegURL">
+                    </video>
+                    <script src="video.js"></script>
+                    <script src="videojs-contrib-hls.min.js"></script>
+                    <script>
+                        var videojs = require('video.js')
+                        var player = videojs('stream-video');
+                        player.play();
+                    </script>
+                    <div class="description" style="padding:1em;">
+                        {{{remarkableFormatter body}}}
+                    </div>
+                </div>
+            </div>
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+            </div>
+            <div class="ui middle inverted com segment npdg">
+                {{>comments}}
+            </div>
+            <div class="ui purple segment bottom" style="margin-top:0px!important;">
+            </div>
+        </div>
+        <div class="three wide column">
+            <div class="ui divided cards">
+                {{#if currentSuggestions}}
+                {{#each currentSuggestions}}
+                {{#unless equals this.permlink currentArticle.permlink}}
+                {{> suggestioncard}}
+                {{/unless}}
+                {{/each}}
+                {{/if}}
+            </div>
+
+            {{#with currentSingleGame}}
+            <div class="ui huge header">Screenshots</div>
+            <div class="ui row" style="margin-top: 0px;padding-top: 0px;">Click to enlarge</div>
+            <div class="ui two cards">
+                {{#each screenshots}}
+                <div class="card screenshot" style="cursor: pointer;">
+                    <img style="max-height: 250px;" src="{{path_thumbnail}}">
+                </div>
+                {{/each}}
+            </div>
+            {{/with}}
+        </div>
+    </div>
+</template>

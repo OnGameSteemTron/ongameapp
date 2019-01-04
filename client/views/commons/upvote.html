@@ -1,0 +1,225 @@
+<template name="upvote">
+    <span class="ui button black right labeled ongame icon left floated" style="margin-left: 0px;">
+        VIEWS <i class="ion-eye icon" style="font-size: 23px;"></i>{{currentView}}</span>
+    {{#if equals active_votes.length 0}}
+    <span class="ui button black right labeled ongame icon left floated" style="margin-left: 0px;">
+        REWARD <i class="ion-cash icon" style="font-size: 23px;"></i>${{displayPayout pending_payout_value
+        total_payout_value
+        curator_payout_value}}</span>
+    {{else}}
+    <span class="ui button black right labeled ongame icon left floated upvote">
+        REWARD <i class="ion-cash icon" style="font-size: 23px;"></i>${{allRewards (displayPayout pending_payout_value
+        total_payout_value
+        curator_payout_value)}}</span>
+    <div class="ui upvote inverted pointing popup center large top left">
+        <div class='ui mini middle aligned divided list'>
+            {{#each currentArticleTips}}
+            <div class='ui item'><a href='/@{{name}}'>
+                    <div class='content'>
+                        <div class='header'>
+                            {{name}}
+                            <span> (${{donationConvert amount type}})</span>
+                        </div>
+                    </div>
+                </a></div>
+            {{/each}}
+            {{#each displayVotersTop active_votes 0}}
+            <div class='ui item'><a href='/@{{voter}}'>
+                    <div class='content'>
+                        <div class='header'>
+                            {{voter}}
+                            <span> (${{displayPayoutUpvote rsharespercent (displayPayout
+                                ../pending_payout_value ../total_payout_value ../curator_payout_value)}})</span>
+                        </div>
+                    </div>
+                </a></div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+    {{#if MainUserRate this}}
+    <span class="ui button blue left labeled ongame icon upvote right floated ">
+        <i class="ion-ios-speedometer-outline icon" style="font-size: 23px;"></i>{{active_votes.length}} VOTES
+    </span>
+    {{else}}
+    <div class="ui button tip black left labeled ongame icon right floated">
+        <i class="ion-ios-money icon" style="font-size: 23px;"><img src="../images/og.png" style="width: 22px;
+                        margin-top: 7px;"></i>{{currentArticleTips.length}}
+        TIPS
+        <div class="ui special popup top left transition hidden noshadow" style="min-width: 586px;background: black;border: 0px;border-radius: 10px;">
+            <div class="ui four divided column grid noshadow" style="padding-left:0px!important;padding-right:0px!important;">
+                <div class="one wide column" style="padding-left:0px!important;padding-right:0px!important;">
+                    <div class="ui purple vertical menu inverted small">
+                        <div class="ui header" style="padding-top: 10px;
+                                padding-left: 15px;
+                                padding-bottom: 0px;
+                                margin-bottom: 5px;">$</div>
+                        <a class="item tip">0.5</a>
+                        <a class="item tip">1</a>
+                        <a class="item tip">3</a>
+                        <a class="item tip">5</a>
+                        <a class="item tip">10</a>
+                        <a class="item tip">20</a>
+                        <a class="item tip">50</a>
+                    </div>
+                </div>
+                <div class="five wide column" style="padding-left:0px!important;padding-right:0px!important;">
+                    <div class="ui vertical menu inverted small">
+                        <div class="ui header" style="padding-top: 10px;
+                        padding-left: 15px;
+                        padding-bottom: 0px;
+                        margin-bottom: 5px;">OG</div>
+                        <a class="item tip" onclick="sendOGTip(25)">🍌 Banana <span class="ui green label">25</span></a>
+                        <a class="item tip" onclick="sendOGTip(50)">🍝 Spaghetti <span class="ui green label">50</span></a>
+                        <a class="item tip" onclick="sendOGTip(150)">🍸 OGCocktail <span class="ui green label">150</span></a>
+                        <a class="item tip" onclick="sendOGTip(250)">🎊 Confetti Ball <span class="ui green label">250</span></a>
+                        <a class="item tip" onclick="sendOGTip(500)">🐖 Pig <span class="ui green label">500</span></a>
+                        <a class="item tip" onclick="sendOGTip(1000)">🏆 OG Trophy <span class="ui green label">1000</span></a>
+                        <a class="item tip" onclick="sendOGTip(2500)">💎 Gem Stone <span class="ui green label">2500</span></a>
+                    </div>
+                </div>
+                <div class="five wide column" style="padding-left:0px!important;padding-right:0px!important;">
+                    <div class="ui vertical menu inverted small">
+                        <div class="ui header" style="padding-top: 10px;
+                        padding-left: 15px;
+                        padding-bottom: 0px;
+                        margin-bottom: 5px;">TRX</div>
+                        <a class="item tip" onclick="sendTRXTip(0.5)">🍒 Cherries <span class="ui green label">{{itemPrice
+                                0.5 'tron'}}</span></a>
+                        <a class="item tip" onclick="sendTRXTip(1)">🍱 Bento Box <span class="ui green label">{{itemPrice
+                                1 'tron'}}</span></a>
+                        <a class="item tip" onclick="sendTRXTip(3)">🍹 TronicalDrink <span class="ui green label">{{itemPrice
+                                3 'tron'}}</span></a>
+                        <a class="item tip" onclick="sendTRXTip(5)">🎆 Fireworks <span class="ui green label">{{itemPrice
+                                5 'tron'}}</span></a>
+                        <a class="item tip" onclick="sendTRXTip(10)">🐰 Easter <span class="ui green label">{{itemPrice
+                                10 'tron'}}</span></a>
+                        <a class="item tip" onclick="sendTRXTip(20)"> 🥇 Tron Medal<span class="ui green label">{{itemPrice
+                                20 'tron'}}</span></a>
+                        <a class="item tip" onclick="sendTRXTip(50)">💍 Ring <span class="ui green label">{{itemPrice
+                                50 'tron'}}</span></a>
+                    </div>
+                </div>
+                <div class="five wide column" style="padding-left:0px!important;padding-right:0px!important;">
+                    <div class="ui vertical menu inverted small">
+                        <div class="ui header" style="padding-top: 10px;
+                        padding-left: 15px;
+                        padding-bottom: 0px;
+                        margin-bottom: 5px;">STEEM</div>
+                        <a class="item tip" onclick="sendSTEEMTip(0.5)">🍍 Pineapple <span class="ui green label">{{itemPrice
+                                0.5 'steem'}}</span></a>
+                        <a class="item tip" onclick="sendSTEEMTip(1)">🍔 Hamburger <span class="ui green label">{{itemPrice
+                                1 'steem'}}</span></a>
+                        <a class="item tip" onclick="sendSTEEMTip(3)">🍺 BeerSteem <span class="ui green label">{{itemPrice
+                                3 'steem'}}</span></a>
+                        <a class="item tip" onclick="sendSTEEMTip(5)">🎇 Sparkler <span class="ui green label">{{itemPrice
+                                5 'steem'}}</span></a>
+                        <a class="item tip" onclick="sendSTEEMTip(10)">🦔 Hedgehog <span class="ui green label">{{itemPrice
+                                10 'steem'}}</span></a>
+                        <a class="item tip" onclick="sendSTEEMTip(20)">🏅 Steem Medal<span class="ui green label">{{itemPrice
+                                20 'steem'}}</span></a>
+                        <a class="item tip" onclick="sendSTEEMTip(50)">👑 Crown <span class="ui green label">{{itemPrice
+                                50 'steem'}}</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span id="vote" class="ui button black left labeled ongame icon upvote right floated v">
+        <i class="ion-ios-speedometer-outline icon" style="font-size: 23px;"></i>{{active_votes.length}} VOTES
+    </span>
+    <div class="ui inverted popup top right transition hidden" style="width:220px;background: transparent;">
+        <div class="ui grid padded">
+            <div class="field" style="margin:1em 0em 1em;padding: 0px;">
+                <div id="arc-slider" class="rslidervotec"></div>
+                <div class="ui confirm button purple ongame mini" data-author="{{author}}" data-permlink="{{permlink}}"
+                    style="position: absolute; bottom:20px;left:36%;z-index:12 ;">Confirm</div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(".button.tip").popup({
+            //target: $('#popuptoshow'),
+            popup: '.special.popup',
+            hoverable: true,
+            position: "bottom right",
+            delay: {
+                show: 300,
+                hide: 8000
+            },
+            on: "click",
+            lastResort: "bottom right"
+        });
+        function sendOGTip(amount) {
+            tronWeb.trx.sendToken('TESS8sKakjtM4A6kxdkJ52wbpj6agGCJWa', amount, 'OnGameToken', (err, result) => {
+                if (err)
+                    return console.error(err);
+                if (result) {
+                    console.log('https://tronscan.org/#/transaction/' + result.transaction.txID)
+                    $('#tip').addClass('green').removeClass('black')
+                    Meteor.call('addTip', amount, 'og',Session.get('user'), Session.get('article'), result.transaction.txID)
+
+                    var temp = setInterval(function () {
+                        $('#tip').removeClass('green').addClass('black')
+                        clearInterval(temp);
+                        Session.set('ogt_balance', Session.get('ogt_balance') - amount)
+                        ongame.getTips(Session.get('article'))
+                    }, 1000);
+                }
+            });
+        }
+        function sendTRXTip(amount) {
+            amount = amount * 1000000
+            amount = (amount / Coins.findOne({ 'id': 'tron' }).price_usd).toFixed(0)
+            tronWeb.trx.sendTrx('TESS8sKakjtM4A6kxdkJ52wbpj6agGCJWa', amount, (err, result) => {
+                if (err)
+                    return console.error(err);
+                if (result) {
+                    console.log('https://tronscan.org/#/transaction/' + result.transaction.txID)
+                    $('#tip').addClass('green').removeClass('black')
+                    Meteor.call('addTip', amount, 'tron',Session.get('user'), Session.get('article'), result.transaction.txID)
+                    var temp = setInterval(function () {
+                        $('#tip').removeClass('green').addClass('black')
+                        clearInterval(temp);
+                        Session.set('trx_balance', Session.get('trx_balance') - amount)
+                        ongame.getTips(Session.get('article'))
+                    }, 1000);
+                }
+            });
+        }
+        function sendSTEEMTip(amount) {
+            amount = (amount / Coins.findOne({ 'id': 'steem' }).price_usd).toFixed(3)
+            var url = "https://steemconnect.com/sign/transfer?to=" + User.findOne({ name: Session.get('user') }).name + Session.get('and') + "amount=" + amount + " " + 'STEEM' + Session.get('and') + "memo=OnGameTip:Session.get('article')&redirect_uri=https://ongame.io/complete"
+            window.open(url.split('+').join('_'), "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=600,height=600")
+        }
+        $('.button.upvote.labeled.ongame.v')
+            .popup({
+                inline: true,
+                hoverable: true,
+                position: 'top right',
+                delay: {
+                    show: 300,
+                    hide: 800
+                }
+            })
+        $(".rslidervotec").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 90,
+            width: 16,
+            value: 75,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return args.value + " %";
+            },
+            change: function (args) {
+                Session.set('votevalue', args.value);
+            }
+        });
+    </script>
+    {{/if}}
+</template>

@@ -1,0 +1,117 @@
+<template name="wallet">
+    <div class="ui purple segment top">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid three column stackable center aligned">
+            <div class="column npdg">
+                <div class="middle aligned content" style="padding: 2em">
+                    <div class="ui huge header">
+                        STEEM POWER
+                    </div>
+                    <div class="ui dropdown steempower right floated item">
+                            {{#if currentUser.steem}}
+                        <a class="ui teal header">{{DisplaySteemPower vesting_shares delegated_vesting_shares
+                            received_vesting_share}}</a>
+                            {{/if}}
+                        {{#if equals currentAuthor.name mainuser.name}}
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">Power Down</div>
+                            <div class="item">Delegate</div>
+                        </div>
+                        <script>
+                            $('.ui.dropdown.steempower').dropdown()
+                        </script>
+                        {{/if}}
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="description">
+                        <p>Influence tokens which give you more control over post payouts and allow you to earn on
+                            curation
+                            rewards.
+                            Part of hightouch's STEEM POWER is currently delegated. Delegation is donated for influence
+                            or
+                            to help new users perform actions on steemit. Your delegation amount can fluctuate.</p>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="ui mini purple ongame button">
+                        BUY STEEMPOWER
+                    </div>
+                </div>
+            </div>
+            <div class="column npdg sec">
+                <div class="middle aligned content" style="padding: 2em">
+                    <div class="ui huge header">
+                        STEEM & SBD
+                    </div>
+                    <div class="ui dropdown balance right floated">
+                        <a class="ui teal header">{{balance}}</a> - <a class="ui teal header">{{sbd_balance}}</a>
+                        {{#if equals currentAuthor.name mainuser.name}}
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div id="transfer" class="item transfer">Transfer</div>
+                            <!-- <div class="item">Transfer to Savings</div>
+                                            <div class="item">Power Up</div> -->
+                        </div>
+                        <script>
+                            $('.ui.dropdown.balance').dropdown()
+                        </script>
+                        {{/if}}
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="description">
+                        <p>STEEM and SBDs are tradeable tokens that may be transferred anywhere at anytime to any other
+                            cryptocurrency or
+                            FIAT.
+                            SBD can be exchanged on the market for STEEM. Steem can be converted to STEEM POWER in a
+                            process called powering up.</p>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="ui mini purple ongame button">
+                        BUY STEEM
+                    </div>
+                </div>
+            </div>
+            <div class="column npdg">
+                <div class="middle aligned content" style="padding: 2em">
+                    <div class="ui huge header">
+                        SAVINGS
+                    </div>
+                    <div class="ui dropdown savings right floated">
+                        <a class="ui teal header">{{savings_balance}}</a>
+                        {{#if equals currentAuthor.name mainuser.name}}
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">Withdraw STEEM</div>
+                        </div>
+                        <script>
+                            $('.ui.dropdown.savings').dropdown()
+                        </script>
+                        {{/if}}
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="description">
+                        <p>Balances subject to 3 day withdraw waiting period.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui center aligned middle inverted segment" style="    background: #0f1115;margin: 0px;">
+        <div class="middle aligned content" style="padding: 2em">
+            <div class="ui huge header">
+                ESTIMATED ACCOUNT VALUE
+            </div>
+            {{#if currentUser.steem}}
+            <div class="ui dropdown account right floated">
+                <a class="ui huge teal header">{{estimateAccount this}}$</a>
+            </div>
+            <div class="description">
+                <p>The estimated value is based on an average value of Steem in US dollars.</p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+</template>

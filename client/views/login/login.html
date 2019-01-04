@@ -1,0 +1,145 @@
+<template name="login">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+        {{#if currentUser}}
+                     
+        {{>linkwallets}}
+        {{else}}
+        <img src="./images/top3.png" style="    position: absolute;right: 0px;
+            bottom: 0px;">
+        <div class="ui grid centered three column stackable">
+            <div class="four wide column" style="padding: 2em;">
+            </div>
+            <div class="five wide column" style="padding: 2em;">
+                <form class="ui vertical inverted menu massive step1" style="box-shadow: 5px 5px 5px black;padding: 1em;">
+                    <div class="ui mini button ongame noradius purple fluid">
+                        AUTHENTICATION</div>
+                    <div class="ui mini fluid button black ongame labeled icon steamlogin" style="margin-top:20px;"><i
+                            class="steam icon"></i>Sign in
+                        with Steam</div>
+                    <div class="ui mini fluid button black ongame labeled icon fblogin" style="margin-top:20px;"><i
+                            class="facebook icon"></i>Sign in
+                        with Facebook</div>
+
+                    <div class="ui mini fluid button black ongame labeled icon twitchlogin" style="margin-top:20px;"><i
+                            class="twitch icon"></i>Sign in
+                        with
+                        Twitch</div>
+
+                    <div class="ui mini fluid button black ongame labeled icon googlelogin" style="margin-top:20px;"><i
+                            class="youtube icon"></i>Sign in
+                        with
+                        Youtube</div>
+                    <div class="ui mini fluid button black ongame labeled icon twitterlogin" style="margin-top:20px;"><i
+                            class="twitter icon"></i>Sign in
+                        with
+                        Twitter</div>
+                    <div class="ui mini fluid button black ongame labeled icon githublogin" style="margin-top:20px;"><i
+                            class="github icon"></i>Sign in
+                        with
+                        Github</div>
+                    <div class="ui divider"></div>
+                    <div class="ui ongame message mini">
+                        ATTENTION : Only users with TRON blockchain wallet <strong>can obtain their reward</strong>.
+                        If you dont own any, you can still login with your traditional platform, create your wallet and start to claim &
+                        collect your rewards.
+                    </div>
+                    <div>
+                        Powered by <a target="_blank" href="https://steem.com/">Steem</a>
+                        <img width="14" src="./images/apps/steem.svg"> <a target="_blank" style="color:red" href="https://tron.network/">Tron</a>
+                        <img width="14" src="./images/apps/tron.svg">
+                    </div>
+                </form>
+
+            </div>
+            <div class="four wide column" style="padding: 2em;">
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+    {{>steemloginmodal}}
+    {{>tronloginmodal}}
+</template>
+
+<!-- <div class="ui mini button ongame noradius purple fluid" style="margin-top:30px;">AUTHENTIFICATION WITH
+                    BLOCKCHAIN</div>
+                <div id="steemconnect" class="ui mini fluid button black ongame labeled icon scconnect" style="margin-top:20px;"><i>
+                        <img width='14' src="./images/apps/steem.svg" style="    position: absolute;
+                        left: 7px;
+                        top: 7px;"></i>Login
+                    with Steem</div>
+                {{#if tronlink}}
+                {{#if tronlink_logged}}
+                <div id="tron" class="ui mini fluid button black ongame labeled icon" style="margin-top:20px;"><i> <img
+                            width='14' src="./images/apps/tron.svg" style="    position: absolute;
+                    left: 7px;
+                    top: 7px;"></i>Login
+                    with TRON</div>
+
+                {{/if}}
+                {{else}}
+                <div id="tron" class="ui mini fluid button black ongame labeled icon" style="margin-top:20px;"><i> <img
+                            width='14' src="./images/apps/tron.svg" style="    position: absolute;
+                left: 7px;
+                top: 7px;"></i>Login
+                    with TRON</div>
+                {{/if}}
+                <div class="ui divider"></div> -->
+
+<!-- <form class="ui vertical inverted menu step2 transition hidden" style="overflow-wrap: break-word">
+                {{#if tronlink_logged}}
+                <div>We detected a TRX wallet with the following address: <span style="color:red">{{trx_address}}</span></div>
+                <div class="label">If you choose to continue you will link this wallet to your account.</div>
+                {{/if}}
+                {{#if trx_address}}
+
+                {{else}}
+                <div>In order to obtain your OGT tokens you will need a TRON wallet.</div>
+                {{/if}}
+                <a id="createtron" class="ui mini fluid button black ongame" style="margin-top:10px;">
+                    Create my Wallet
+                </a>
+                {{#unless trx_address}}
+                <div> You already have a TRON wallet? Use <a href="https://chrome.google.com/webstore/detail/tronlink/ibnejdfjmmkpcnlpebklmnkoeoihofec"
+                        target="_blank">Tronlink</a> instead.</div>
+                {{/unless}}
+                {{#with trx_account}}
+                <div>IMPORTANT : We don't save your keys, be sure that you saved them somewhere or you can loose your
+                    wallet.</div>
+                <div class="ui red message">Private Key : {{privateKey}}</div>
+                <div class="ui blue mini message">Public Key : {{publicKey}}</div>
+                <div class="ui mini blue message">Address Base58 : {{address.base58}}</div>
+                <div class="ui mini blue message">Address HEX : {{address.hex}}</div>
+                {{/with}}
+                {{#if trx_address}}
+                <div>Click on continue only if you have saved your TRON wallet keys.</div>
+                <a class="ui mini fluid button black ongame continue" style="margin-top:10px;">
+                    Continue
+                </a>
+                {{/if}}
+                <a class="ui mini fluid button black ongame back" style="margin-top:10px;">
+                    Go back
+                </a>
+            </form> -->
+<!-- <form class="ui vertical inverted menu step3 transition hidden" style="overflow-wrap: break-word">
+                <div class="label">Choose your username</div>
+                <div class="ui input">
+                    <input class="acc username" type="text" id="username" name="username" />
+                </div>
+                <div class="ui red message mini exist hidden">Ooops this username already exist</div>
+                <a class="ui mini fluid button black ongame confirm" style="margin-top:10px;">
+                        Confirm
+                    </a>
+                <a class="ui mini fluid button black ongame back" style="margin-top:10px;">
+                    Go back
+                </a>
+            </form> -->
+<!-- <form class="ui vertical inverted menu massive">
+                <div class="ui huge header" style="font-size: 3.1em;">ONGAME.IO</div>
+                <div class="ui purple header" style=" font-size: 1.55em;   position: absolute;
+                          top: 50px;">PLAY
+                    AND GET PAID<i class="ion-ios-game-controller-a icon" style="    margin-top: -2px;    font-size: 1.9em;"></i></div>
+                    </form> -->

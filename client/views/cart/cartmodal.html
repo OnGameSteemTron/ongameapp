@@ -1,0 +1,39 @@
+<template name="cartmodal">
+    <div class="ui small modal cart">
+        <div class="ui inverted segment">
+            <div class="header">
+                    {{data.name}}
+            </div>
+            <div class="description">
+                    <div class="ui fluid items" style="    width: 100%;">
+                            <div class="item inverted" style="    background: #0b0c11b7;padding: 10px;">
+                                <div class="ui tiny image" style="    width: 170px;">
+                                    <img src="{{data.header_image}}" style="object-fit: cover;">
+                                </div>
+                                <div class="content">
+                                    <div class="ui big header"> {{#if equals type 'premium'}} {{else}} <div class="ui mini label blue"><i
+                                                class="ion-steam icon"></i>Steam Key</div> {{/if}}</div>
+                                    <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                                        {{data.short_description}}
+                                        <div class="ui right floated header">
+                                            ${{normalizePrice data.price_overview.final}}
+                                        </div>
+                                        <div>
+                                            {{#if data.refferer}}
+                                            <div class="ui divider"></div>
+                                            Referrer : <a href="/@{{data.refferer}}">{{data.refferer}}</a> will get 5% of the sell price.
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="actions">
+                <a href="/cart" class="ui cancel button labeled icon purple ongame"><i class="ion-ios-cart icon"></i>Go to
+                    Cart</a>
+                <div class="ui cancel button blue ongame">Keep exploring</div>
+            </div>
+        </div>
+    </div>
+</template>

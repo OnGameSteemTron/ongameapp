@@ -1,0 +1,38 @@
+<template name="team">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid center aligned" style="padding: 2em;">
+            <div class="ui row huge header">SEARCH FOR A MATE</div>
+            {{#if Mate}}
+            <div class="ui fluid items" style="    width: 100%;">
+                {{#each Mate }}
+                <div class="item inverted" style="    background: #0b0c11b7;padding: 10px;">
+                    <div class="ui tiny image" style="    width: 170px;">
+                        <img src="{{header_image}}" style="object-fit: cover;">
+                    </div>
+                    <div class="content">
+                        <div class="ui big header">{{name}} {{#if equals type 'premium'}} {{else}} <div class="ui mini label blue"><i
+                                    class="ion-steam icon"></i>Steam Key</div> {{/if}}</div>
+                        <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                            {{short_description}}
+                            <div class="ui right floated header">
+                                ${{normalizePrice price_overview.final}}
+                            </div>
+                            <div>
+                                {{#if refferer}}
+                                <div class="ui divider"></div>
+                                Referrer : <a href="/@{{refferer}}">{{refferer}}</a> will get 5% of the sell price.
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+</template>

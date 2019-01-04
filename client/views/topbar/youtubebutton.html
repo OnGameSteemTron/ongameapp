@@ -1,0 +1,126 @@
+<template name="youtubebutton">
+    {{#if youtube_id}}
+    <a class="ui green mini item column left labeled icon"><i class="youtube icon"></i>Connected</a>
+     {{else}}
+     <a class="ui red mini item column left labeled icon" id="execute-request-button"><i class="youtube icon"></i>Connect Youtube</a>
+     <script>
+        var GoogleAuth;
+        function handleClientLoad() {
+          gapi.load('client:auth2', initClient);
+        }
+    
+        function initClient() {
+          gapi.client.init({
+            'clientId': '372403851024-4h2k583ks0jk37n0ok7n6n267e3epjp1.apps.googleusercontent.com',
+            'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
+            'scope': 'https://www.googleapis.com/auth/youtubepartner'
+          }).then(function () {
+            GoogleAuth = gapi.auth2.getAuthInstance();
+            GoogleAuth.isSignedIn.listen(updateSigninStatus);
+            if(!MainUser.findOne().youtube_id)
+            setSigninStatus();
+            $('#execute-request-button').click(function () {
+              handleAuthClick(event);
+            });
+          });
+        }
+    
+        function handleAuthClick(event) {
+          GoogleAuth.signIn();
+        }
+    
+        function setSigninStatus() {
+          var user = GoogleAuth.currentUser.get();
+          isAuthorized = user.hasGrantedScopes('https://www.googleapis.com/auth/youtubepartner');
+          if (isAuthorized) {
+            defineRequest();
+          }
+        }
+    
+        function updateSigninStatus(isSignedIn) {
+          setSigninStatus();
+        }
+    
+        function createResource(properties) {
+          var resource = {};
+          var normalizedProps = properties;
+          for (var p in properties) {
+            var value = properties[p];
+            if (p && p.substr(-2, 2) == '[]') {
+              var adjustedName = p.replace('[]', '');
+              if (value) {
+                normalizedProps[adjustedName] = value.split(',');
+              }
+              delete normalizedProps[p];
+            }
+          }
+          for (var p in normalizedProps) {
+            if (normalizedProps.hasOwnProperty(p) && normalizedProps[p]) {
+              var propArray = p.split('.');
+              var ref = resource;
+              for (var pa = 0; pa < propArray.length; pa++) {
+                var key = propArray[pa];
+                if (pa == propArray.length - 1) {
+                  ref[key] = normalizedProps[p];
+                } else {
+                  ref = ref[key] = ref[key] || {};
+                }
+              }
+            };
+          }
+          return resource;
+        }
+    
+        function removeEmptyParams(params) {
+          for (var p in params) {
+            if (!params[p] || params[p] == 'undefined') {
+              delete params[p];
+            }
+          }
+          return params;
+        }
+    
+        function executeRequest(request) {
+          request.execute(function (response) {
+            youtube.addYoutubeUser(response.items[0].id)
+          });
+        }
+    
+    
+        function buildApiRequest(requestMethod, path, params, properties) {
+          params = removeEmptyParams(params);
+          var request;
+          if (properties) {
+            var resource = createResource(properties);
+            request = gapi.client.request({
+              'body': resource,
+              'method': requestMethod,
+              'path': path,
+              'params': params
+            });
+          } else {
+            request = gapi.client.request({
+              'method': requestMethod,
+              'path': path,
+              'params': params
+            });
+          }
+          executeRequest(request);
+        }
+        function defineRequest() {
+          buildApiRequest('GET',
+            '/youtube/v3/channels',
+            {
+              'mine': 'true',
+              'part': 'snippet,contentDetails,statistics'
+            });
+    
+        }
+      </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+          onreadystatechange="if (this.readyState === 'complete') this.onload()">
+          </script>
+     {{/if}}
+
+</template>

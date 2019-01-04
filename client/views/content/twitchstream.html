@@ -1,0 +1,35 @@
+<template name="twitchstream">
+  <div class="example-2 column four wide">
+    <a href="/@{{display_name}}" class="wrapper back noradius" style="background: url('{{thumbnail_url}}') no-repeat;">
+      <div class="data">
+
+      </div>
+      <div class="ui top attached label purple ongame noradius">
+        <div class="date">
+          <span class="day left floated">{{DisplayTimeFrom created}}</span>
+          <ul class="menu-content">
+            <li>
+              <a class="bookmark icon"></a>
+            </li>
+            <li><i class="icon trophy"></i><span class="ui mini purple label">{{displayPayout
+                pending_payout_value total_payout_value curator_payout_value}}</span></li>
+            <li><i class="icon comments"></i><span class="ui mini purple label">3</span></li>
+            <li><i class="icon thumbs up"></i><span class="ui mini purple label">{{active_votes.length}}</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tags">
+        <div class="ui mini label purple noradius">{{type}}</div>
+      </div>
+      <div class="data2">
+        <div class="avatar top"><img src="{{avatar}}">
+          <div class="ui mini label purple">@{{user_id}}</div>
+        </div>
+        <div class="ui title huge header">{{shortDescription title}}</div>
+      </div>
+      <div class="ui bottom attached label purple mini noradius right aligned">
+        <i class="icon arrow right"></i>
+        View Channel</div>
+    </a>
+  </div>
+</template>

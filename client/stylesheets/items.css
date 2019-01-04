@@ -1,0 +1,33 @@
+
+.ui.items > .item > .content > a.header {
+    color: white;
+  }
+  
+  .ui.items > .item > .image:not(.ui) {
+    height: 70px;
+  }
+  
+  .ui.items > .item > .image > img{
+    height: 70px;
+  }
+  
+  .ui.items > .item > .content > .header:not(.ui){
+    height:1.3em!important
+  }
+
+  
+.ui.menu .ui.dropdown .menu.inverted > .item {
+    color: white!important;
+  }
+  
+  .ui.items > .item > .image:not(.ui) {
+    width: 175px;
+    height: 60px;
+    overflow: hidden;
+  }
+  
+  .ui.items > .item > .content > .header:not(.ui) {
+    font-size: 1em;
+    height: 2.7em;
+    overflow: hidden;
+  }

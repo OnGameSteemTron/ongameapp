@@ -1,0 +1,87 @@
+<template name="create">
+    <div class="ui grid three column stackable">
+        <div class="five wide column">
+            {{>createleft}}
+        </div>
+        <div class="eleven wide column">
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+            </div>
+            <div class="ui middle inverted com segment">
+                <div class="field">
+                    <label>WHICH TYPE OF CONTENT DO YOU WANT TO PUBLISH?</label>
+                    <div class="ui labeled icon menu inverted equal width grid">
+                        <a name="news" class="column item cr news" style="display: inherit;">
+                            <i class="ion-ios-pulse" style="font-size: 2.8em !important;"></i>
+                            News
+                        </a>
+                        <a name="streaming" class="column item cr streaming" style="display: inherit;">
+                            <i class="ion-ios-videocam" style="font-size: 2.8em !important;"></i>
+                            Streaming
+                        </a>
+                        <a name="video" class="column item cr video" style="display: inherit;">
+                            <i class="ion-ios-film" style="font-size: 2.8em !important;"></i>
+                            Video
+                        </a>
+                        <a name="screenshot" class="column item cr screenshot" style="display: inherit;">
+                            <i class="ion-ios-camera" style="font-size: 2.8em !important;"></i>
+                            Screenshot
+                        </a>
+                        <a name="review" class="column item cr review" style="display: inherit;">
+                            <i class="ion-ios-speedometer" style="font-size: 2.8em !important;"></i>
+                            Review
+                        </a>
+                        <a name="tips" class="column item cr tips" style="display: inherit;">
+                            <i class="ion-ios-cog" style="font-size: 2.8em !important;"></i>
+                            Cheats & tips
+                        </a>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                {{#if equals createTab 'news'}}
+                {{>createnews}}
+                {{/if}}
+                {{#if equals createTab 'video'}}
+                {{>createvideo}}
+                {{/if}}
+                {{#if equals createTab 'screenshot'}}
+                {{>createscreenshot}}
+                {{/if}}
+                {{#if equals createTab 'review'}}
+                {{>createreview}}
+                {{/if}}
+                {{#if equals createTab 'tips'}}
+                {{>createnews}}
+                {{/if}}
+                {{#if equals createTab 'streaming'}}
+                {{>createstreaming}}
+                {{else}}
+                {{#if preview}}
+                Preview
+                <div class="ui header">{{title_preview}}</div>
+                <div style="margin-bottom: 10px;">{{{remarkableFormatter preview}}}</div>
+                <!-- <div id="btn_save_form" class="ui mini red icon ongame labeled animated button" tabindex="0">
+                    <i class="icon arrow right"></i>
+                    <div class="visible content">SAVE AS DRAFT</div>
+                    <div class="hidden content">
+                        SAVE
+                    </div>
+                </div> -->
+                <div class="ui label alert red nodsp"></div>
+                {{#if isReadyToPost}}
+                <div class="ui button mini icon purple">STEP 3</div>
+                <div id="btn_submit_form" class="ui mini blue icon ongame labeled animated button" tabindex="0">
+                    <i class="icon arrow right"></i>
+                    <div class="visible content">PUBLISH</div>
+                    <div class="hidden content">
+                        SUBMIT
+                    </div>
+                </div>
+                {{/if}}
+                {{/if}}
+                {{/if}}
+            </div>
+            <div class="ui purple segment bottom" style="margin-top:0px!important;">
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,37 @@
+<template name="gametopsmall">
+        <div style="width: 100%;padding: 0px;    position: inherit;">
+            {{#if header_image}}
+            <div class="ui grid padded two column stackable doubling ">
+                <div class="sixteen wide column cover" style="padding: 0px;">
+                    <img src="{{header_image}}" style="width: 100%;border-radius: 0px 0px 0px 0px;">
+                </div>
+                <div class="sixteen wide column stackable npdg" style="padding-left:1em;padding-right: 1em;">
+                    <div class="ui aligned header" style="margin-top: 1em;">
+                        <div class="ui big header" style="    margin-bottom: 0px;">
+                            {{name}}
+                        </div>
+                        <div>
+                            {{#each categories}}
+                            {{#if filterCategories description}}
+                            <div class="ui mini red ongame button" style="    padding: 4px;
+                            font-size: 0.5em;">{{description}}</div>
+                            {{/if}}
+                            {{/each}}
+                            {{#each genres}}
+                            <div class="ui mini blue ongame button" style="    padding: 4px;
+                            font-size: 0.5em;">{{description}}</div>
+                            {{/each}}
+                        </div>
+                        <div class="ui mini purple ongame button" style="    padding: 4px;
+                        font-size: 0.5em;">Release Date : {{release_date.date}}</div>
+                    </div>
+                    <div>
+                        {{short_description}}
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="ui top cover" style="background-image:url({{background}});"></div>
+            {{/if}}
+        </div>
+    </template>

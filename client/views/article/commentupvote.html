@@ -1,0 +1,121 @@
+<template name="commentupvote">
+        {{#if equals active_votes.length 0}}
+        <span class="ui mini button black right labeled ongame icon" style="    padding: 0.4em;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px!important;
+        padding-right: 30px!important;">
+             <i class="ion-cash icon" style="font-size: 14px;"></i>{{displayPayout
+            pending_payout_value
+            total_payout_value
+            curator_payout_value}}</span>
+        {{else}}
+        <span class="ui mini button black right labeled ongame icon upvote" style="    padding: 0.4em;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px!important;
+        padding-right: 30px!important;">
+             <i class="ion-cash icon" style="font-size: 14px;"></i> {{displayPayout
+            pending_payout_value
+            total_payout_value
+            curator_payout_value}}</span>
+        {{#unless equals active_votes.length 0}}
+        <div class="ui upvote inverted pointing popup center large top left">
+            <div class='ui mini middle aligned divided list'>
+                {{#each displayVotersTop active_votes 0}}
+                <div class='ui item'><a href='/c/{{voter}}'>
+                        <div class='content'>
+                            <div class='header'>
+                                {{voter}}
+                                <span> (${{displayPayoutUpvote rsharespercent (displayPayout
+                                    ../pending_payout_value ../total_payout_value
+                                    ../curator_payout_value)}})</span>
+                            </div>
+                        </div>
+                    </a></div>
+                {{/each}}
+            </div>
+        </div>
+
+        {{/unless}}
+        {{/if}}
+        <script>
+            $('.button.upvote.ongame.right.labeled')
+                .popup({
+                    inline: true,
+                    hoverable: true,
+                    position: 'top left',
+                    delay: {
+                        show: 300,
+                        hide: 800
+                    }
+                })
+        </script>
+        {{#if mainuser}}
+        {{#if MainUserRate this}}
+        <span class="ui button mini blue left labeled ongame icon com " style="    padding: 0.4em;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px!important;
+        padding-right: 30px!important;">
+            <i class="ion-ios-speedometer-outline icon" style="font-size: 14px;    margin-left: 10px;"></i>{{active_votes.length}}
+            
+        </span>
+        {{else}}
+        <span class="ui button mini black left labeled ongame icon com " style="    padding: 0.4em;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px!important;
+        padding-right: 30px!important;">
+            <i class="ion-ios-speedometer-outline icon" style="font-size: 14px;    margin-left: 10px;"></i>{{active_votes.length}}
+            
+        </span>
+        <div class="ui inverted popup top right transition hidden" style="width:220px;background: transparent;">
+            <div class="ui grid padded">
+                <div class="field" style="margin:1em 0em 1em;padding: 0px;">
+                    <div id="arc-slider" class="rslider com"></div>
+                    <div class="ui confirm com button purple ongame mini {{permlink}}" data-author="{{author}}"
+                        data-permlink="{{permlink}}" style="position: absolute; bottom:20px;left:28%;z-index:12 ;">Confirm</div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('.button.com')
+                .popup({
+                    inline: true,
+                    hoverable: true,
+                    position: 'bottom center',
+                    delay: {
+                        show: 300,
+                        hide: 800
+                    }
+                })
+            $(".rslider.com").roundSlider({
+                sliderType: "min-range",
+                editableTooltip: false,
+                radius: 70,
+                width: 8,
+                value: 75,
+                handleSize: 0,
+                handleShape: "square",
+                circleShape: "pie",
+                startAngle: 315,
+                tooltipFormat: function (args) {
+                    return args.value + " %";
+                },
+                change: function (args) {
+                    Session.set('votevalue', args.value);
+                }
+            });
+        </script>
+        {{/if}}
+        {{else}}
+        <span class="ui button black left labeled ongame icon upvote right floated disabled" style="    padding: 0.4em;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px!important;
+        padding-right: 30px!important;">
+            <i class="ion-ios-speedometer-outline icon" style="font-size: 14px;    margin-left: 10px;"></i>{{active_votes.length}}
+            </span>
+        {{/if}}
+</template>

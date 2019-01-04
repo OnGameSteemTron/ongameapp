@@ -1,0 +1,22 @@
+<template name="videos">
+                <div class="ui purple segment top" style="margin-top:0px!important;">
+                </div>
+                <div class="ui middle inverted segment">
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui row huge header">VIDEOS</div>
+                        <div class="ui row divided doubling stackable five cards" style="max-width: 100%;">
+                            {{#if trendingVideo}}
+                            {{#each trendingVideo}}
+                            {{> card}}
+                            {{/each}}
+                            {{else}}
+                            <div class="ui active dimmer ongame" >
+                                    <div class="ui massive text loader purple ongame">Loading Livestreams</div>
+                                  </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="ui purple segment bottom">
+                </div>
+    </template>

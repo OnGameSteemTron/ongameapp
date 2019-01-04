@@ -1,0 +1,103 @@
+<template name="tronloginmodal">
+    <div class="ui small inverted tronlogin modal">
+        <div class="ui middle inverted segment">
+            <img src="./images/login3.png" style="    position: absolute;right: 0px;
+                            bottom: 0px;">
+            <div class="ui grid centered ">
+                <form class="ui vertical inverted menu massive step1" style="padding: 1em;">
+                    <div class="ui mini button ongame noradius purple fluid">
+                        TRON WALLET CREATION</div>
+                    <div class="ui mini ongame message">
+                        <div class="header">Recommended</div>
+                        <div style="margin-top:10px;">We generate a new Wallet for you and store it in
+                            our "safebox". You will never be prompted for any keys or passwords.</div>
+                        <div onclick="goWallet()" class="ui mini fluid button red ongame labeled icon gowallet"
+                            style="margin-top:20px;"><i class="icon"><img width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>Generate
+                            my Wallet</div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="ui mini ongame message">
+                        <div class="header">For cryptousers</div>
+                        <div style="margin-top:10px;">We generate a new Wallet for you and store only
+                            your public address. You have to keep all your informations safe. OnGame can not recover
+                            any passwords or keys if they are lost.</div>
+                        <div onclick="generateNewTronWallet()" class="ui mini fluid button red ongame labeled icon " style="margin-top:20px;"><i
+                                class="icon"><img width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>Generate
+                            my
+                            Wallet</div>
+                    </div>
+                </form>
+
+                <form class="ui vertical inverted menu massive step1" style="padding: 1em;">
+                    {{#with trx_account}}
+                    <div class="ui mini ongame message" style="overflow-wrap: break-word;">
+                        <div class="header">IMPORTANT : We can not recover your wallet if you loose your keys.</div>
+                        <div style="font-size: 0.8em;">Private Key : <span style="color:red">{{privateKey}}</span></div>
+                        <div style="font-size: 0.8em;">Public Key : {{publicKey}}</div>
+                        <div style="font-size: 0.8em;">Address Base58 : {{address.base58}}</div>
+                        <div style="font-size: 0.8em;">Address HEX : {{address.hex}}</div>
+                        <div onclick="download()" class="ui mini fluid button red ongame labeled icon" style="margin-top:20px;"><i
+                            class="icon"><img width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>Download as txt file</div>
+                        <div onclick="linkTR()" class="ui mini fluid button red ongame labeled icon gouserwallet" style="margin-top:20px;"><i
+                                class="icon"><img width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>I'm
+                            ready to continue</div>
+                    </div>
+                    {{/with}}
+                </form>
+                <script>
+                        const TronWeb = require('tronweb')
+                        const HttpProvider = TronWeb.providers.HttpProvider;
+                        const fullNode = new HttpProvider('https://api.trongrid.io:8090');
+                        const solidityNode = new HttpProvider('https://api.trongrid.io:8091');
+                        const eventServer = 'https://api.trongrid.io/';
+                        const privateKey = 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0';
+                        const tronWeb = new TronWeb(
+                            fullNode,
+                            solidityNode,
+                            eventServer,
+                            privateKey
+                        );
+                        function goWallet() {
+                            Meteor.call('createTronWallet')
+                            $('.ui.modal.tronlogin').modal('setting', 'transition', 'scale').modal('hide')
+                        }
+
+                        function generateNewTronWallet() {
+                            createTronSession()
+                        }
+                        const createTronSession = async () => {
+                            const account = await tronWeb.createAccount();
+                            const isValid = tronWeb.isAddress(account.address.hex);
+                            if (isValid) {
+                                Session.set('trx_account', account)
+                                Session.set('trx_address', account.address)
+                            }
+                        }
+
+                        function download(text) {
+                            var element = document.createElement('a');
+                            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(Session.get('trx_account'))));
+                            element.setAttribute('download', 'tron_wallet_keys');
+ 
+                            element.style.display = 'none';
+                            document.body.appendChild(element);
+
+                            element.click();
+
+                            document.body.removeChild(element);
+                        }
+
+                        function linkTR(){
+                            Meteor.call('userTronWallet', Session.get('trx_address').base58, Session.get('trx_address').hex)
+                            tronWeb.trx.getBalance(Session.get('trx_address').base58, (err, balance) => {
+                                if (err)
+                                    return console.error(err);
+                                Session.set('trx_balance', balance);
+                            });
+                            $('.ui.modal.tronlogin').modal('setting', 'transition', 'scale').modal('hide')
+                        }
+                    </script>
+            </div>
+        </div>
+    </div>
+</template>

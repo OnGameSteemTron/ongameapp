@@ -1,0 +1,56 @@
+<template name="topbardropdown">
+    {{#with mainuser}}
+    <div class="ui item" style="display:block!important;">
+        <div>Level {{details.level}}</div>
+        <div class="ui purple xp progress" style="width: 200px;" data-percent="{{details.xp}}">
+            <div class="bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ui item" style="display:block!important;">
+        <div>Mana</div>
+        <div class="ui blue mana progress" style="width: 200px;" data-percent="{{currentMana}}">
+            <div class="bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.purple.xp').progress({ autoSuccess: false, showActivity: true })
+        $('.blue.mana').progress({ autoSuccess: false, showActivity: true })
+    </script>
+    <a href="/cart" class="ui item">
+        <div class="ui mini circular button purple ongame" style="    width: 22px;
+            height: 22px;
+            padding: 3px;
+            position: absolute;
+            top: 17px;
+            right: 10px;">{{cart.length}}</div>
+        <i class="ion-ios-cart icon" style=" font-size: 22px;
+                margin-right: 8px;"></i>
+    </a>
+    <div class="ui item bottom dropdown inverted bottom right profile" style="padding: 0.8em 0.5em 0.7em 1em;">
+        <div>{{wallets.steem.username}}</div>
+        {{#if profile.settings.avatar}}
+        <div class="avatar topbar" style="        margin: 0em 1.5em 0em 0em !important;position: inherit;top: 0px;">
+            <img src="{{profile.settings.avatar}}" style="    height: 100%;">
+        </div>
+        {{/if}}
+        <div class="ui inverted vertical menu">
+            <a id="create" href="/@{{wallets.steem.username}}" class="item"> <i class="pencil alternate icon"></i>Profile</a>
+            <a id="top-blog" href="/@{{wallets.steem.username}}/friends" class="item"> <i class="user icon"></i>Friends</a>
+            <a id="top-rewards" href="/@{{wallets.steem.username}}/rewards" class="item"> <i class="comment icon"></i>Reward</a>
+            <a id="top-wallet" href="/@{{wallets.steem.username}}/wallet" class="item"> <i class="ion-card icon"></i>Wallet</a>
+            <a id="top-comments" href="/@{{wallets.steem.username}}/comments" class="item"> <i class="comments icon"></i>Comments</a>
+            <a id="top-replies" href="/@{{wallets.steem.username}}/replies" class="item"> <i class="trophy icon"></i>Rewards</a>
+            <a id="top-achievements" href="/@{{wallets.steem.username}}/achievements" class="item"> <i class="trophy icon"></i>Achievements</a>
+            <a id="top-statistics" href="/@{{wallets.steem.username}}/statistics" class="item"> <i class="trophy icon"></i>Statistics</a>
+            <a id="logout" class="item logout"> <i class="sign out icon"></i>{{translator 'COMMON_LOGOUT'}}</a>
+        </div>
+    </div>
+    {{/with}}
+</template>

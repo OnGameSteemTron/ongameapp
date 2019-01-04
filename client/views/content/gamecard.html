@@ -1,0 +1,21 @@
+<template name="gamecard">
+  <div class="example-2 card eight wide">
+    <a href="/game-{{id}}" class="wrapper back noradius" style="min-height: 220px;">
+      <div class="image lazy" style="max-height: 220px;">
+        <img src="{{large_capsule_image}}" style="max-height: 220px;">
+      </div>
+      <div class="data">
+
+      </div>
+
+      <div class="tags">
+      </div>
+      <div class="data2">
+          <div class="ui label green noradius" style="top:-10px;margin-left: -3px;">Buy for ${{normalizePrice final_price}}</div>
+      </div>
+      <div class="data3">
+        <div class="ui title huge header" style="margin-top:0px;">{{shortDescription name}}</div>
+      </div>
+    </a>
+  </div>
+</template>

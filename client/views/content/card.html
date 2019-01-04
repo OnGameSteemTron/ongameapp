@@ -1,0 +1,76 @@
+<template name="card">
+  <div class="example-2 card eight wide">
+    <a href="/@{{author}}/{{permlink}}" class="wrapper back noradius">
+
+      <div class="image lazy">
+        {{#if json_metadata.header_image}}
+        <img src="{{json_metadata.header_image}}">
+        {{else}}
+        <img src="{{imgFromBody this}}">
+        {{/if}}
+      </div>
+      <div class="data">
+
+      </div>
+              {{#if equals json_metadata.content 'review'}}
+              <div class="ui top right attached tiny label icon purple noradius"><i class="ion-ios-speedometer-outline icon"
+                  style="margin:0px;font-size: 2em;"></i></div>
+              {{/if}}
+              {{#if equals json_metadata.content 'video'}}
+              <div class="ui top right attached tiny label icon purple noradius"><i class="ion-ios-film icon" style="margin:0px;font-size: 2em;"></i></div>
+              {{/if}}
+              {{#if equals json_metadata.content 'streaming'}}
+              <!-- {{viewer}} -->
+              <div class="ui top right attached mini label icon black noradius" style="padding-right: 5em;
+              margin-top: 0px;">
+                    <!-- {{#if equals online 'online'}}
+                    LIVE
+                    {{/if}}
+                    {{#if equals online 'offline'}}
+                    REPLAY
+                    {{/if}}
+                    {{online}} -->
+                    {{#if isVimm}}
+                    {{isVimm}}
+                    {{/if}}
+                    <!-- {{#if equals isVimm 'online'}}
+                    LIVE
+                    {{/if}}
+                    {{#if equals (isVimm) 'offline'}}
+                    OFFLINE
+                    {{/if}} -->
+              </div>
+              <div class="ui top right attached tiny label icon purple noradius"><i class="ion-ios-videocam icon" style="margin:0px;font-size: 2em;"></i></div>
+              {{/if}}
+              {{#if equals json_metadata.content 'news'}}
+              <div class="ui top right attached tiny label icon purple noradius"><i class="ion-ios-pulse icon" style="margin:0px;font-size: 2em;"></i></div>
+              {{/if}}
+              {{#if equals json_metadata.content 'tips'}}
+              <div class="ui top right attached tiny label icon purple noradius"><i class="ion-ios-cog icon" style="margin:0px;font-size: 2em;"></i></div>
+              {{/if}}
+              {{#if equals json_metadata.content 'screenshot'}}
+              <div class="ui top right attached tiny label icon purple noradius"><i class="ion-ios-camera icon" style="margin:0px;font-size: 2em;"></i></div>
+              {{/if}}
+      <div class="data2">
+        <div class="ui mini label purple">@{{author}}</div>
+        <div class="ui payout black label mini ongame noradius">
+          <ul class="menu-content">
+            <li>
+              <a class="bookmark icon"></a>
+            </li>
+            <li><i class="icon dollar"></i>{{allRewards (displayPayout pending_payout_value
+              total_payout_value
+              curator_payout_value)}}</li>
+            <li><i class="icon comments"></i>{{children}}</li>
+            <li><i class="icon thumbs up"></i>{{allTips active_votes.length}}</li>
+          </ul>
+        </div>
+        <div class="avatar top"><img src="https://steemitimages.com/u/{{author}}/avatar"></div>
+      </div>
+      <div class="data3">
+        <div class="date ui mini label purple noradius">{{DisplayTimeFrom created}}</div>
+        <div class="ui title huge header">{{shortDescription title}}</div>
+      </div>
+    </a>
+  </div>
+</template>

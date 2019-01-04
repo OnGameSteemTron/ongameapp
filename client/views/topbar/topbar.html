@@ -1,0 +1,62 @@
+<template name="topbar">
+  <div class="ui top sidebar visible inverted main" style="transform: none;z-index: 99999;">
+    <div class="item left floated nav-right" style="float: left;
+      padding: 12px;">
+      <div class="sidebarbutton active" id="btn" style="    background: #10101b;
+          box-shadow: 0px 0px 5px #6b08f8;">
+        <div class="bar top"></div>
+        <div class="bar middle"></div>
+        <div class="bar bottom"></div>
+      </div>
+    </div>
+    <a href="/" class="ui left floated inverted menu" style="padding:10px;">
+      <div class="ui huge header">ONGAME.IO</div>
+      <div class="ui mini purple header" style="font-size: 0.8em;
+      position: absolute;
+      top: -17px;
+      left: 21.6em;">BETA</div>
+      <div class="ui tiny purple header" style="    position: absolute;
+            top: 9px;">PLAY AND GET PAID<i
+          class="ion-ios-game-controller-a icon" style="    margin-top: -2px;    font-size: 1.9em;"></i></div>
+      <!-- <img class="logo" src="./images/ongame.png" style="height: 100%;"> -->
+    </a>
+    <div class="ui inverted menu left floated compact" style="margin:0px;">
+      <div class="ui grid padded item computer only" style="    padding: 15px;">
+        <div class="ui small fluid  category search">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search games...">
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui inverted menu right floated compact" style="margin:0px;    height: 65px;">
+        {{#if keychain}}
+        <div class="item"><i> <img style="margin-right:4px;"
+              width='14' src="./images/apps/steem.svg"></i>Steem Keychain<i style="margin-left:4px;" class="icon check green"></i></div>
+        {{/if}}
+      {{#if tronlink}}
+      <div class="item"><i> <img style="margin-right:4px;"
+            width='14' src="./images/apps/tron.svg"></i>{{#if tronlink_logged}}TronLink<i style="margin-left:4px;" class="icon check green"></i>{{else}}TronLink Installed{{/if}}</div>
+      {{/if}}
+      {{#unless mainuser}}
+      <!-- <a href="/login" id="login" class="item">
+        <i class="ion-log-in icon"></i>
+        Login
+      </a> -->
+      <a href="/login" id="signup" class="item">
+        <i class="ion-person-add icon"></i>
+        Sign in Now!
+      </a>
+      {{/unless}}
+      {{#with mainuser}}
+      {{>topbardropdown}}
+      {{/with}}
+    </div>
+  </div>
+
+
+
+
+</template>

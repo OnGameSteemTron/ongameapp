@@ -1,0 +1,68 @@
+
+
+.ui.transparent.button{
+    background: transparent!important;
+    color: white;
+  }
+  
+  
+.ui.ongame.button.red{
+    border-radius: 15px;
+    border: 1px solid rgb(255, 34, 34);
+    box-shadow: 0px 0px 5px #f80707;
+  }
+  
+  .ui.ongame.button.purple{
+    border-radius: 15px;
+    border: 1px solid #8b37ff;
+    box-shadow: 0px 0px 5px #6b07f8;
+  }
+  
+  .ui.ongame.button.blue{
+    border-radius: 15px;
+    border: 1px solid #002eb0;
+    box-shadow: 0px 0px 5px #003968;
+  }
+
+  .ui.ongame.button.green{
+    border-radius: 15px;
+    border: 1px solid rgb(0, 97, 16);
+    box-shadow: 0px 0px 5px #007e0a;
+  }
+
+  .ui.sell.button.green{
+    border-radius: 15px;
+    border: 1px solid rgb(0, 199, 33);
+    box-shadow: 0px 0px 5px #3ac502;
+    background-color:  #21ba454f;
+    text-shadow: 2px 2px 5px #040814;
+  }
+
+  .ui.sell.button.blue{
+    border-radius: 15px;
+    border: 1px solid #0077ff;
+    background-color:  #078cf886;
+    box-shadow: 0px 0px 5px #078cf8;
+    text-shadow: 2px 2px 5px #040814;
+  }
+  
+  .ui.ongame.button.black{
+    border-radius: 15px;
+    border: 1px solid #8b37ff;
+    box-shadow: 0px 0px 5px #6b07f8;
+  }
+  
+  .ui.ongame.button.yellow{
+    border-radius: 15px;
+    border: 1px solid #0077ff;
+    box-shadow: 0px 0px 5px #078cf8;
+  }
+
+  .op.red.button{
+    height: 17px;
+    padding: 4px;
+    position: absolute;
+    left: 2px;
+    top: 25px;
+    font-size: 0.5em;
+  }

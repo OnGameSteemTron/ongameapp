@@ -1,0 +1,29 @@
+<template name="userblog">
+    {{#with currentAuthor}}
+    <div class="ui purple segment top">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid two column stackable">
+            <div class="column sec">
+                <div class="ui two doubling cards">
+                    {{#each userBlog}}
+                    {{>suggestioncard}}
+                    {{/each}}
+                </div>
+            </div>
+            <div class="column" >
+                <div class="ui items">
+                        <div class="ui button mini blue ongame right floated">+ CREATE NEW POST</div>
+                    <div class="ui header">Latest posts</div>
+                    {{#each userBlog}}
+                    {{> item}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+
+    </div>
+    {{/with}}
+</template>

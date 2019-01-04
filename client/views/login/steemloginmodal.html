@@ -1,0 +1,168 @@
+<template name="steemloginmodal">
+    <div class="ui small inverted steemlogin modal">
+        <div class="ui middle inverted segment">
+            <img src="./images/login4.png" style="    position: absolute;right: 0px;
+                                    bottom: 0px;">
+            <div class="ui grid">
+                <form class="ui vertical inverted menu massive smodal step1" style="padding: 1em;">
+                    <div class="ui mini button ongame noradius purple fluid">
+                        STEEM WALLET CREATION</div>
+                    <div class="ui mini ongame message">
+                        <div class="header">Username</div>
+                        <div style="margin-top:10px;">Choose your username, this will be displayed as your main name on
+                            OnGame.</div>
+                        <div class="ui input" style="margin-top:10px;">
+                            <input onkeyup="checkName()" type="text" id="account_username">
+                        </div>
+                        <div class="ui red message mini exist hidden">Ooops this username already exist</div>
+                        <div class="ui red message mini short hidden">Your username is too short</div>
+                        <div onclick="gotoStep2()" class="ui mini fluid button blue ongame labeled icon confirmusername disabled"
+                            style="margin-top:20px;"><i class="icon"><img width="14" src="./images/apps/steem.svg"
+                                    style=" margin-top: 7px;"></i>Confirm
+                            Username</div>
+                    </div>
+                    <script>
+                        function checkName() {
+                            var name = $('#account_username').val()
+                            if (name.length < 3) {
+                                $('.message.short').show()
+                            }
+                            else {
+                                $('.message.short').hide()
+                                steem.api.getAccounts([name], function (error, result) {
+                                    if (result.length > 0) {
+                                        $('.message.exist').show()
+                                        $('.confirmusername').addClass('disabled')
+                                    }
+                                    else {
+                                        $('.message.exist').hide()
+                                        $('.confirmusername').removeClass('disabled')
+                                        Session.set('new_username', name)
+                                    }
+                                })
+                            }
+                        }
+                        function checkPassword() {
+                            var pass = $('#account_password').val()
+                            if (pass.length < 6) {
+                                $('.message.passw').show()
+                                $('.confirmpass').addClass('disabled')
+                            }
+                            else {
+                                $('.message.passw').hide()
+                                $('.confirmpass').removeClass('disabled')
+                                Session.set('new_password', pass)
+                            }
+                        }
+                        function gotoStep2() {
+                            var name = $('#account_username').val()
+                            if (name.length < 3) {
+                                $('.message.short').show()
+                            }
+                            else {
+                                $('.message.short').hide()
+                                steem.api.getAccounts([name], function (error, result) {
+                                    if (result.length > 0) {
+                                        $('.message.exist').show()
+                                        $('.confirmusername').addClass('disabled')
+                                    }
+                                    else {
+                                        $('.message.exist').hide()
+                                        $('.confirmusername').removeClass('disabled')
+                                        Session.set('new_username', name)
+                                        $('.menu.smodal.step1').addClass('nodsp')
+                                        $('.menu.smodal.step2').removeClass('nodsp')
+                                    }
+                                })
+                            }
+                        }
+                        function goSteemWalletSecure() {
+                            Meteor.callPromise('createSteemWallet', Session.get('new_username'), Session.get('new_password'), true).then((result) => console.log(result))
+                            $('.ui.modal.steemlogin').modal('setting', 'transition', 'scale').modal('hide')
+                        }
+                        function goSteemWallet() {
+                           Meteor.callPromise('createSteemWallet', Session.get('new_username'), Session.get('new_password'), false).then((result) => Session.set('steem_account',result))
+                            $('.confirmpass').addClass('disabled')
+                            $('.gowallet').addClass('disabled')
+                            //Meteor.call('createSteemWallet', Session.get('new_username'), Session.get('new_password'), false)
+                            //$('.ui.modal.steemlogin').modal('setting', 'transition', 'scale').modal('hide')
+                        }
+                        function closePopup() {
+                            $('.ui.modal.steemlogin').modal('setting', 'transition', 'scale').modal('hide')
+                        }
+                    </script>
+                </form>
+                <form class="ui vertical inverted menu massive step2 smodal nodsp" style="padding: 1em;">
+                    <div class="ui mini button ongame noradius purple fluid">
+                        STEEM WALLET CREATION</div>
+                    <div class="ui mini ongame message">
+                        <div class="header">Recommended</div>
+                        <div style="margin-top:10px;">We generate a new Wallet for you and store it in
+                            our "safebox". You will never be prompted for any keys or passwords.</div>
+                        <div onclick="goSteemWalletSecure()" class="ui mini fluid button blue ongame labeled icon gowallet"
+                            style="margin-top:20px;"><i class="icon"><img width="14" src="./images/apps/steem.svg"
+                                    style=" margin-top: 7px;"></i>Generate
+                            my Wallet</div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="ui mini ongame message">
+                        <div class="header">For cryptousers</div>
+                        <div style="margin-top:10px;">We generate a new Wallet for you and store only
+                            your username. You have to choose a password and keep your informations safe. OnGame can
+                            not recover
+                            any passwords or keys if they are lost.</div>
+                        <div class="ui red message mini passw hidden">Ooops this password is too short</div>
+                        <div class="ui input" style="margin-top:10px;">
+                            <input onkeyup="checkPassword()" type="text" id="account_password">
+                        </div>
+                        <div onclick="goSteemWallet()" class="ui mini fluid button blue ongame labeled icon disabled confirmpass"
+                            style="margin-top:20px;"><i class="icon"><img width="14" src="./images/apps/steem.svg"
+                                    style=" margin-top: 7px;"></i>Generate
+                            my
+                            Wallet</div>
+                    </div>
+                </form>
+
+
+                <form class="ui vertical inverted menu massive" style="padding: 1em;">
+                    {{#with steem_account}}
+                    <div class="ui mini ongame message" style="overflow-wrap: break-word;">
+                        <div class="header">IMPORTANT : We can not recover your wallet if you loose your keys.</div>
+                        <div style="font-size: 0.8em;">Owner Key : <span style="color:red">{{owner}}</span></div>
+                        <div style="font-size: 0.8em;">Active Key : {{active}}</div>
+                        <div style="font-size: 0.8em;">Posting Key : {{posting}}</div>
+                        <div style="font-size: 0.8em;">Memo : {{memo}}</div>
+                        <div onclick="downloadSteem()" class="ui mini fluid button blue ongame labeled icon" style="margin-top:20px;"><i
+                                class="icon"><img width="14" src="./images/apps/steem.svg" style=" margin-top: 7px;"></i>Download
+                            as txt file</div>
+                        <div onclick="closePopup()" class="ui mini fluid button blue ongame labeled icon gouserwallet" style="margin-top:20px;"><i
+                                class="icon"><img width="14" src="./images/apps/steem.svg" style=" margin-top: 7px;"></i>I'm
+                            ready to continue</div>
+                    </div>
+                    {{/with}}
+                </form>
+                <script>
+                    const dsteem = require('dsteem')
+                    function downloadSteem(text) {
+                        var account = {}
+                        account.owner = dsteem.PrivateKey.fromSeed(Session.get('steem_account')[1].owner).toString()
+                        account.active = dsteem.PrivateKey.fromSeed(Session.get('steem_account')[1].active).toString()
+                        account.posting = dsteem.PrivateKey.fromSeed(Session.get('steem_account')[1].posting).toString()
+                        account.memo = dsteem.PrivateKey.fromSeed(Session.get('steem_account')[1].memo_key).toString()
+                        var element = document.createElement('a');
+                        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(account)));
+                        element.setAttribute('download', 'steem_wallet_keys');
+
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+
+                        element.click();
+
+                        document.body.removeChild(element);
+                    }
+
+                </script>
+            </div>
+        </div>
+    </div>
+</template>

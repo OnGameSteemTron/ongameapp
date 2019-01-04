@@ -1,0 +1,161 @@
+<template name="home">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment npdg" style="padding-top:1em!important;">
+        <div class="ui grid column center aligned padded">
+            <img src="./images/top1.png" style="position: absolute;
+            margin-top: -274px;
+            right: -14px;">
+            <div class="ui row huge header">LIVE STREAMING
+            </div>
+            {{#if onGameLive}}
+            <!-- {{>slider onGameLive}} -->
+            <div class="ui divider"></div>
+            {{>slider onGameLiveNew}}
+            {{else}}
+            <div class="ui active dimmer ongame">
+                <div class="ui massive text loader purple ongame">Loading Livestreams</div>
+            </div>
+
+            {{/if}}
+            <img src="./images/top5.png" style=" position: absolute;
+            /* bottom: 0px; */
+            left: -350px;
+            top: 910px;">
+                <div class="ui row huge header">MOST PLAYED GAMES </div>
+            <div class="ui divided doubling stackable nine cards" style="padding: 1em;">
+                {{#if mostPlayed}}
+                {{#each mostPlayed}}
+                {{> twitchcard}}
+                {{/each}}
+                {{else}}
+                <div class="ui active dimmer ongame">
+                    <div class="ui massive text loader purple ongame">Loading Games</div>
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui row huge header">DISCOVER NEWS GAMES</div>
+            {{#if featuredGames}}
+            {{>cardslider featuredGames}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="ui middle inverted segment" style="margin-bottom:2em;padding: 0px;margin-top: 1em;    padding-top: 1em;">
+        <div class="ui six statistics inverted">
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-steam icon"></i>
+                </div>
+                <div class="label">
+                    STEAM
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-xbox icon"></i>
+                </div>
+                <div class="label">
+                    Microsoft Xbox
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-playstation icon"></i>
+                </div>
+                <div class="label">
+                    SONY Playstation
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/wii.svg">
+                </div>
+                <div class="label">
+                    NINTENDO Wii
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/origin.svg">
+                </div>
+                <div class="label">
+                    Origin
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/epic.svg">
+                </div>
+                <div class="label">
+                    Epic Games
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="ui inverted segment" style="    margin-bottom: 2em!important;">
+            <img src="./images/top3.png" style="    position: absolute;right: 0px;
+            bottom: 0px;">
+        {{>premiumship}}
+    </div> -->
+    <div class="ui middle inverted">
+        <div class="ui grid center aligned two column stackable npdg" style="padding: 2em;">
+                <img src="./images/top2.png" style="    position: absolute;bottom: 0px;">
+            <div class="twelve wide column">
+                <div class="ui row huge header" style="max-width:100%;">NEWS</div>
+                <div class="ui four stackable doubling cards">
+                    {{#if trendingContent 'trending'}}
+                    {{#each trendingContent 'trending'}}
+                    {{> card}}
+                    {{/each}}
+                    {{else}}
+                    <div class="ui active dimmer ongame">
+                        <div class="ui massive text loader purple ongame">Loading News</div>
+                    </div>
+                    {{/if}}
+                </div>
+                <a href="/news" class="ui button mini purple ongame" style="margin-top: 2.6em;margin-bottom: 1em;">VIEW
+                    MORE</a>
+            </div>
+            <div class="four wide doubling stacklable two column">
+                <div class="ui row huge header" style="max-width:100%;">PLATFORM</div>
+                <div class="column">
+                    <div class="ui purple fluid label ongame icon">
+                        <i class="ion-xbox icon"></i>Xbox
+                    </div>
+                    <div class="ui stackable items">
+                        {{#each trendingContentXbox 'xbox'}}
+                        {{> item}}
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui purple fluid label ongame icon">
+                        <i class="ion-playstation icon"></i>Playstation
+                    </div>
+                    <div class="ui stackable items">
+                        {{#each trendingContentPsx 'psx'}}
+                        {{> item}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui grid column center aligned npdg middle inverted segment" style="    padding-bottom: 2em!important;">
+            <img src="./images/top4.png" style="  pointer-events: none;  position: absolute;
+            top: -130px;">
+        <div class="ui row huge header">VIDEOS</div>
+        {{#if trendingVideo}}
+        {{>slider trendingVideo}}
+        {{else}}
+        <div class="ui active dimmer ongame">
+            <div class="ui massive text loader purple ongame">Loading Videos</div>
+        </div>
+        {{/if}}
+    </div>
+
+    <div class="ui purple segment bottom">
+
+    </div>
+</template>

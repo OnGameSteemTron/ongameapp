@@ -1,0 +1,50 @@
+<template name="createreview">
+    <form class="ui aligned segment inverted form" style="background: #0d1015!important">
+            <div class="field" style="margin:0em 0em 1em;"><div class="ui button mini icon purple">STEP 1</div>
+                    <label>RATE DIFFERENT ASPECT OF THE GAME</label>
+                </div>
+        <div class="ui four fields">
+            <div class="field" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider story"></div>
+            </div>
+            <div class="field" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider gameplay"></div>
+            </div>
+            <div class="field" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider dialogue"></div>
+            </div>
+            <div class="field" style="margin:1em 0em 1em;">
+                    <div id="arc-slider" class="rslider replayability"></div>
+                </div>
+        </div>
+        <div class="ui four fields">
+            <div class="field" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider level"></div>
+            </div>
+            <div class="field" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider graphic"></div>
+            </div>
+            <div class="field" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider sound"></div>
+            </div>
+            <div class="field" style="margin:1em 0em 1em;">
+                    <div id="arc-slider" class="rslider valueperdollar"></div>
+                </div>
+        </div>
+        <div class="ui grid centered" style="margin-top:2em;">
+                <div class="ui massive button ongame purple">TOTAL SCORE : {{score}}</div>                
+        </div>
+        <div class="field" style="margin:3em 0em 1em;"><div class="ui button mini icon purple">STEP 2</div>
+            <label>DESCRIBE YOUR EXPERIENCE WITH SOME WORDS</label>
+            <input id="title" type="text" name="title" placeholder="{{translator 'COMMON_TITLE'}}">
+        </div>
+        <div class="field"><div class="ui button mini icon purple">STEP 3</div>
+            <label style="font-weight: bold;">GIVE MORE DETAILS</label>
+            <textarea id="summernote" type="text" value='{{shortDesc}}' name="short_desc" class="editable textarea"></textarea>
+        </div>
+        <div class="ui divider"></div>
+        <div class="field">
+            <div class="ui error message"></div>
+        </div>
+    </form>
+</template>

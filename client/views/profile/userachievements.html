@@ -1,0 +1,72 @@
+<template name="userachievements">
+    {{#with currentAuthor}}
+    <div class="ui purple segment top">
+        <div class="ui inverted tiny six statistics">
+                <div class="statistic">
+                        <div class="value">
+                            <i class="ion-ios-heart icon"></i>{{userMostPlayed.name}}
+                        </div>
+                        <div class="ui mini black label">
+                            Most played game
+                        </div>
+                    </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-ios-game-controller-a icon"></i>{{userAllGames.length}}
+                </div>
+                <div class="ui mini black label">
+                    Games
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-ios-star icon"></i>{{userAllAchievements}}
+                </div>
+                <div class="ui mini black label">
+                    Achievements
+                </div>
+            </div>
+            <div class="statistic">
+                    <div class="value">
+                        <i class="ion-ios-clock icon"></i>{{userTotalPlayedTime}}
+                    </div>
+                    <div class="ui mini black label">
+                       Minutes Played
+                    </div>
+                </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-ios-arrow-forward icon"></i>
+                </div>
+                <div class="label">
+                    View All
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui middle inverted segment npdg">
+        {{#if userAllGames}}
+        <div class="ui eight doubling cards">
+            {{#each userAllGames}}
+            <a href="/game-{{appID}}" class="card" data-value="{{name}}" style="color:white;box-shadow: 0px 1px 3px 0px #6b07f8, 0px 0px 0px 1px #2062b6;">
+                <img src="{{logoURL}}">
+                <h5 class="ui mini header" style="    padding: 5px;    
+                margin: 0px;margin-bottom: 20px;"> {{name}}</h5>
+                <div class="ui label bottom attached mini purple noradius" style="color:#6b07f8;    margin: 0px;">
+                    Played : {{minutesToHours playTime}}
+                </div>
+            </a>
+            {{/each}}
+
+        </div>
+        {{else}}
+        <div class="ui grid center aligned items" style="padding: 2em;">
+                <div class="ui huge header">There is no Steam Account linked to this profile</div>
+            </div>
+        {{/if}}
+    </div>
+    <div class="ui purple segment bottom">
+
+    </div>
+    {{/with}}
+</template>

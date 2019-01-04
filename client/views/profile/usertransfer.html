@@ -1,0 +1,60 @@
+<template name="usertransfer">
+  <div class="ui purple segment top">
+  </div>
+  <div class="ui middle inverted segment">
+      <div class="ui items">
+        <div class="ui huge header">Latest transfers</div>
+        {{#each currentAuthorHistory 'transfer'}}
+        {{#if equals type 'transfer'}}
+        {{#if equals to currentAuthor.name}}
+        <div class="item" style="background: #0f1217;
+                padding: 0.5em;
+                border: 1px #161b23 solid;
+                border-radius: 5px;">
+          <div class="content" style="width: 100%;">
+            <div class="image">
+              <img width='20' src="./images/apps/steem.svg">
+            </div>
+            <div class="header" style="color:white;"> {{to}} receveid <a>{{amount}}</a> from <a href="#!/@{{from}}">{{from}}</a>
+            </div>
+            <div class="meta">
+              <span class="cinema"> <i class="clock outline icon"></i> {{DisplayTimeFrom date}}</span>
+            </div>
+            <div class="description" style="    overflow-wrap: break-word;color:rgb(226, 226, 226)">
+              {{memo}}
+            </div>
+            <div class="extra">
+              <div class="ui purple label">{{amount}}</div>
+            </div>
+          </div>
+        </div>
+        {{else}}
+        <div class="item" style="background: #0f1217;
+                padding: 0.5em;
+                border: 1px #161b23 solid;
+                border-radius: 5px;">
+          <div class="content" style="width: 100%;">
+            <div class="image">
+              <img width='20' src="./images/apps/steem.svg">
+            </div>
+            <div class="header" style="color:white;"> {{from}} transfered <a>{{amount}}</a> to <a href="#!/@{{to}}">{{to}}</a>
+            </div>
+            <div class="meta">
+              <span class="cinema"> <i class="clock outline icon"></i> {{DisplayTimeFrom date}}</span>
+            </div>
+            <div class="description" style="    overflow-wrap: break-word;color:rgb(226, 226, 226)">
+              {{memo}}
+            </div>
+            <div class="extra">
+              <div class="ui purple label">{{amount}}</div>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+        {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  <div class="ui purple segment bottom">
+  </div>
+</template>

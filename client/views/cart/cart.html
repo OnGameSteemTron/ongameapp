@@ -1,0 +1,258 @@
+<template name="cart">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid center aligned" style="padding: 2em;">
+            <div class="ui row huge header">IN YOUR CART </div>
+            {{#if cart}}
+            <div class="ui fluid items" style="    width: 100%;">
+                {{#each cart}}
+                <div class="item inverted" style="    background: #0b0c11b7;padding: 10px;">
+                    <div class="ui tiny image" style="    width: 170px;">
+                        <img src="{{header_image}}" style="object-fit: cover;">
+                    </div>
+                    <div class="content">
+                        <div class="ui mini right floated black ongame remove button icon"><i class="icon remove"></i></div>
+                        <div class="ui big header">{{name}} {{#if equals type 'premium'}} {{else}} <div class="ui mini label blue"><i
+                                    class="ion-steam icon"></i>Steam Key</div> {{/if}}</div>
+                        <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                            {{short_description}}
+                            <div class="ui right floated header">
+                                ${{normalizePrice price_overview.final}}
+                            </div>
+                            <div>
+                                {{#if refferer}}
+                                <div class="ui divider"></div>
+                                Referrer : <a href="/@{{refferer}}">{{refferer}}</a> will get 5% of the sell price.
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="ui fluid item" style="    width: 100%;margin-bottom: 20px;">
+                <div class="ui divider"></div>
+                <div class="ui right floated header">
+                    <div>TOTAL : ${{totalPrice}}</div>
+                </div>
+            </div>
+            {{/if}}
+            <div>
+
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="    display: -webkit-inline-box;">
+                    <button class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                        <input type="hidden" name="business" value="info@fundition.org">
+                        <input type="hidden" name="cmd" value="_donations">
+                        <input type="hidden" name="amount" value="{{totalPrice}}">
+                        <input type="hidden" name="item_name" value="Ongame Purchase">
+                        <input type="hidden" name="item_number" value="{{productList}}">
+                        <input type="hidden" name="currency_code" value="USD">
+                        <input type="hidden" name="lc" value="en_US">
+                        <!-- Display the payment button. -->
+                        <input type="image" name="submit" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMTAwIDMyIiB4bWxucz0iaHR0cDomI3gyRjsmI3gyRjt3d3cudzMub3JnJiN4MkY7MjAwMCYjeDJGO3N2ZyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pbllNaW4gbWVldCI+PHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSAxMiA0LjkxNyBMIDQuMiA0LjkxNyBDIDMuNyA0LjkxNyAzLjIgNS4zMTcgMy4xIDUuODE3IEwgMCAyNS44MTcgQyAtMC4xIDI2LjIxNyAwLjIgMjYuNTE3IDAuNiAyNi41MTcgTCA0LjMgMjYuNTE3IEMgNC44IDI2LjUxNyA1LjMgMjYuMTE3IDUuNCAyNS42MTcgTCA2LjIgMjAuMjE3IEMgNi4zIDE5LjcxNyA2LjcgMTkuMzE3IDcuMyAxOS4zMTcgTCA5LjggMTkuMzE3IEMgMTQuOSAxOS4zMTcgMTcuOSAxNi44MTcgMTguNyAxMS45MTcgQyAxOSA5LjgxNyAxOC43IDguMTE3IDE3LjcgNi45MTcgQyAxNi42IDUuNjE3IDE0LjYgNC45MTcgMTIgNC45MTcgWiBNIDEyLjkgMTIuMjE3IEMgMTIuNSAxNS4wMTcgMTAuMyAxNS4wMTcgOC4zIDE1LjAxNyBMIDcuMSAxNS4wMTcgTCA3LjkgOS44MTcgQyA3LjkgOS41MTcgOC4yIDkuMzE3IDguNSA5LjMxNyBMIDkgOS4zMTcgQyAxMC40IDkuMzE3IDExLjcgOS4zMTcgMTIuNCAxMC4xMTcgQyAxMi45IDEwLjUxNyAxMy4xIDExLjIxNyAxMi45IDEyLjIxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSAzNS4yIDEyLjExNyBMIDMxLjUgMTIuMTE3IEMgMzEuMiAxMi4xMTcgMzAuOSAxMi4zMTcgMzAuOSAxMi42MTcgTCAzMC43IDEzLjYxNyBMIDMwLjQgMTMuMjE3IEMgMjkuNiAxMi4wMTcgMjcuOCAxMS42MTcgMjYgMTEuNjE3IEMgMjEuOSAxMS42MTcgMTguNCAxNC43MTcgMTcuNyAxOS4xMTcgQyAxNy4zIDIxLjMxNyAxNy44IDIzLjQxNyAxOS4xIDI0LjgxNyBDIDIwLjIgMjYuMTE3IDIxLjkgMjYuNzE3IDIzLjggMjYuNzE3IEMgMjcuMSAyNi43MTcgMjkgMjQuNjE3IDI5IDI0LjYxNyBMIDI4LjggMjUuNjE3IEMgMjguNyAyNi4wMTcgMjkgMjYuNDE3IDI5LjQgMjYuNDE3IEwgMzIuOCAyNi40MTcgQyAzMy4zIDI2LjQxNyAzMy44IDI2LjAxNyAzMy45IDI1LjUxNyBMIDM1LjkgMTIuNzE3IEMgMzYgMTIuNTE3IDM1LjYgMTIuMTE3IDM1LjIgMTIuMTE3IFogTSAzMC4xIDE5LjMxNyBDIDI5LjcgMjEuNDE3IDI4LjEgMjIuOTE3IDI1LjkgMjIuOTE3IEMgMjQuOCAyMi45MTcgMjQgMjIuNjE3IDIzLjQgMjEuOTE3IEMgMjIuOCAyMS4yMTcgMjIuNiAyMC4zMTcgMjIuOCAxOS4zMTcgQyAyMy4xIDE3LjIxNyAyNC45IDE1LjcxNyAyNyAxNS43MTcgQyAyOC4xIDE1LjcxNyAyOC45IDE2LjExNyAyOS41IDE2LjcxNyBDIDMwIDE3LjQxNyAzMC4yIDE4LjMxNyAzMC4xIDE5LjMxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSA1NS4xIDEyLjExNyBMIDUxLjQgMTIuMTE3IEMgNTEgMTIuMTE3IDUwLjcgMTIuMzE3IDUwLjUgMTIuNjE3IEwgNDUuMyAyMC4yMTcgTCA0My4xIDEyLjkxNyBDIDQzIDEyLjQxNyA0Mi41IDEyLjExNyA0Mi4xIDEyLjExNyBMIDM4LjQgMTIuMTE3IEMgMzggMTIuMTE3IDM3LjYgMTIuNTE3IDM3LjggMTMuMDE3IEwgNDEuOSAyNS4xMTcgTCAzOCAzMC41MTcgQyAzNy43IDMwLjkxNyAzOCAzMS41MTcgMzguNSAzMS41MTcgTCA0Mi4yIDMxLjUxNyBDIDQyLjYgMzEuNTE3IDQyLjkgMzEuMzE3IDQzLjEgMzEuMDE3IEwgNTUuNiAxMy4wMTcgQyA1NS45IDEyLjcxNyA1NS42IDEyLjExNyA1NS4xIDEyLjExNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA2Ny41IDQuOTE3IEwgNTkuNyA0LjkxNyBDIDU5LjIgNC45MTcgNTguNyA1LjMxNyA1OC42IDUuODE3IEwgNTUuNSAyNS43MTcgQyA1NS40IDI2LjExNyA1NS43IDI2LjQxNyA1Ni4xIDI2LjQxNyBMIDYwLjEgMjYuNDE3IEMgNjAuNSAyNi40MTcgNjAuOCAyNi4xMTcgNjAuOCAyNS44MTcgTCA2MS43IDIwLjExNyBDIDYxLjggMTkuNjE3IDYyLjIgMTkuMjE3IDYyLjggMTkuMjE3IEwgNjUuMyAxOS4yMTcgQyA3MC40IDE5LjIxNyA3My40IDE2LjcxNyA3NC4yIDExLjgxNyBDIDc0LjUgOS43MTcgNzQuMiA4LjAxNyA3My4yIDYuODE3IEMgNzIgNS42MTcgNzAuMSA0LjkxNyA2Ny41IDQuOTE3IFogTSA2OC40IDEyLjIxNyBDIDY4IDE1LjAxNyA2NS44IDE1LjAxNyA2My44IDE1LjAxNyBMIDYyLjYgMTUuMDE3IEwgNjMuNCA5LjgxNyBDIDYzLjQgOS41MTcgNjMuNyA5LjMxNyA2NCA5LjMxNyBMIDY0LjUgOS4zMTcgQyA2NS45IDkuMzE3IDY3LjIgOS4zMTcgNjcuOSAxMC4xMTcgQyA2OC40IDEwLjUxNyA2OC41IDExLjIxNyA2OC40IDEyLjIxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA5MC43IDEyLjExNyBMIDg3IDEyLjExNyBDIDg2LjcgMTIuMTE3IDg2LjQgMTIuMzE3IDg2LjQgMTIuNjE3IEwgODYuMiAxMy42MTcgTCA4NS45IDEzLjIxNyBDIDg1LjEgMTIuMDE3IDgzLjMgMTEuNjE3IDgxLjUgMTEuNjE3IEMgNzcuNCAxMS42MTcgNzMuOSAxNC43MTcgNzMuMiAxOS4xMTcgQyA3Mi44IDIxLjMxNyA3My4zIDIzLjQxNyA3NC42IDI0LjgxNyBDIDc1LjcgMjYuMTE3IDc3LjQgMjYuNzE3IDc5LjMgMjYuNzE3IEMgODIuNiAyNi43MTcgODQuNSAyNC42MTcgODQuNSAyNC42MTcgTCA4NC4zIDI1LjYxNyBDIDg0LjIgMjYuMDE3IDg0LjUgMjYuNDE3IDg0LjkgMjYuNDE3IEwgODguMyAyNi40MTcgQyA4OC44IDI2LjQxNyA4OS4zIDI2LjAxNyA4OS40IDI1LjUxNyBMIDkxLjQgMTIuNzE3IEMgOTEuNCAxMi41MTcgOTEuMSAxMi4xMTcgOTAuNyAxMi4xMTcgWiBNIDg1LjUgMTkuMzE3IEMgODUuMSAyMS40MTcgODMuNSAyMi45MTcgODEuMyAyMi45MTcgQyA4MC4yIDIyLjkxNyA3OS40IDIyLjYxNyA3OC44IDIxLjkxNyBDIDc4LjIgMjEuMjE3IDc4IDIwLjMxNyA3OC4yIDE5LjMxNyBDIDc4LjUgMTcuMjE3IDgwLjMgMTUuNzE3IDgyLjQgMTUuNzE3IEMgODMuNSAxNS43MTcgODQuMyAxNi4xMTcgODQuOSAxNi43MTcgQyA4NS41IDE3LjQxNyA4NS43IDE4LjMxNyA4NS41IDE5LjMxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA5NS4xIDUuNDE3IEwgOTEuOSAyNS43MTcgQyA5MS44IDI2LjExNyA5Mi4xIDI2LjQxNyA5Mi41IDI2LjQxNyBMIDk1LjcgMjYuNDE3IEMgOTYuMiAyNi40MTcgOTYuNyAyNi4wMTcgOTYuOCAyNS41MTcgTCAxMDAgNS42MTcgQyAxMDAuMSA1LjIxNyA5OS44IDQuOTE3IDk5LjQgNC45MTcgTCA5NS44IDQuOTE3IEMgOTUuNCA0LjkxNyA5NS4yIDUuMTE3IDk1LjEgNS40MTcgWiI+PC9wYXRoPjwvc3ZnPg=="
+                            alt="Donate" height="16" width="26">
+                        <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+                        <span style="font-size:1rem;display: block;">${{totalPrice}}</span>
+                        <span style="display: block;">PayPal</span>
+                    </button>
+                </form>
+                <button onclick="ChooseSteem()" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/steem.png" height="16" width="16">
+                    <span id="steemprice" style="font-size:1rem;display: block;">{{coinPrice 'steem'}}</span>
+                    <span style="display: block;">STEEM</span>
+                </button>
+
+                <button onclick="ChooseTron()" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/trx.png">
+                    <span id="tronprice" style="font-size:1rem;display: block;">{{coinPrice 'tron'}}</span>
+                    <span style="display: block;">TRX</span>
+                </button>
+
+                <button onclick="ChooseSBD()" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/steem.png" height="16" width="16">
+                    <span style="font-size:1rem;display: block;">{{coinPrice 'steem-dollars'}}</span>
+                    <span style="display: block;">SBD</span>
+                </button>
+
+                <button onclick="ChooseCoin('btc')" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/btc.png">
+                    <span id="btcprice" style="font-size:1rem;display: block;">{{estimatePrice 'btc'}}</span>
+                    <span style="display: block;">BTC</span>
+                </button>
+
+                <button onclick="ChooseCoin('eth')" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/eth.png">
+                    <span id="ethprice" style="font-size:1rem;display: block;">{{estimatePrice 'eth'}}</span>
+                    <span style="display: block;">ETH</span>
+                </button>
+
+                <button onclick="ChooseCoin('ltc')" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/ltc.png">
+                    <span id="ltcprice" style="font-size:1rem;display: block;">{{estimatePrice 'ltc'}}</span>
+                    <span style="display: block;">LTC</span>
+                </button>
+
+                <button onclick="ChooseCoin('xmr')" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/xmr.png">
+                    <span id="xmrprice" style="font-size:1rem;display: block;">{{estimatePrice 'xmr'}}</span>
+                    <span style="display: block;">XMR</span>
+                </button>
+
+                <!-- <button onclick="ChooseCoin('bts')" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/bts.png">
+                    <span id="btsprice" style="font-size:1rem;display: block;">{{estimatePrice 'bts'}}</span>
+                    <span style="display: block;">BTS</span>
+                </button> -->
+
+                <button onclick="ChooseCoin('dash')" class="ui black inverted button ongame" style="padding:0.78571429em 1em 0.78571429em;">
+                    <img src="./images/coins/dash.png">
+                    <span id="dashprice" style="font-size:1rem;display: block;">{{estimatePrice 'dash'}}</span>
+                    <span style="display: block;">DASH</span>
+                </button>
+            </div>
+
+            <div class="ui row topay dspnone" style="    display: grid;margin: 0px;">
+                <div class="ui mini header steem dspnone">TO PAY : ${{totalPrice}}</div>
+                <div class="ui button green steem dspnone" onclick="ConfirmPaymentSteem()">PAY NOW</div>
+            </div>
+            {{#with mainuser}}
+            <div class="ui row" style="margin:0px;">
+                <h4>AVAILABLE IN YOUR STEEM WALLET : {{balance}}
+                    - {{sbd_balance}}</h4>
+            </div>
+            {{/with}}
+            {{#if tronlink_logged}}
+            <div class="ui row" style="margin:0px;">
+                <h4>AVAILABLE IN YOUR TRON WALLET : {{trx_balance}} TRX</h4>
+            </div>
+            {{/if}}
+        </div>
+        {{#if depositAdress}}
+        <div class="ui grid padded two column stackable center aligned">
+            <div class="twelve wide column">
+                <div class="ui mini header adress pay dspnone" style="text-transform: uppercase">TO PAY :
+                    ${{totalPrice}}</div>
+                <div class="ui mini header green deposit adress dspnone" style="margin:0px;    overflow-wrap: break-word;">Deposit Adress :
+                    {{depositAdress}}</div>
+            </div>
+            <div class="four wide column">
+                <div class="ui mini header scan dspnone">
+                    Scan the QR code to donate faster
+                </div>
+                <div id="qrcode" style="margin-top:10px;"></div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    <div class="ui purple segment bottom">
+        <!-- <div class="ui row huge header">IMPORTANT : YOUR MEMBERSHIP WILL START THE 1ST DECEMBER</div> -->
+    </div>
+    <script>
+        function Copyadress() {
+            var toCopy = document.getElementById('depositadress')
+            var btnCopy = document.getElementById('adresscopy')
+            toCopy.select();
+            if (document.execCommand('copy')) {
+                $('#adresscopy').addClass('green');
+                $('#adresscopy').removeClass('red');
+                $('#adresscopy').text("Copied to clipboard")
+                var temp = setInterval(function () {
+                    $('#adresscopy').removeClass('green');
+                    $('#adresscopy').addClass('red');
+                    $('#adresscopy').text("Copy in clipboard")
+                    clearInterval(temp);
+                }, 600);
+
+            } else {
+                console.info('document.execCommand went wrong…')
+            }
+            return false;
+        }
+        function ChooseSteem() {
+            var amount = Session.get('paymentamount')
+            Session.set('paymentcoin', 'STEEM')
+            var steem = Coins.findOne({ 'id': 'steem' }).price_usd
+            var steemamount = parseFloat(amount / steem).toFixed(3)
+            Session.set('cryptopayment', steemamount)
+            $('.topay').removeClass('dspnone')
+            $('.header.steem').removeClass('dspnone')
+            $('.green.steem').removeClass('dspnone')
+            $('.adress.header').addClass('dspnone')
+            $('.scan.header').addClass('dspnone')
+            $('.steem.header').text('TO PAY ' + steemamount + ' STEEM')
+            $('.adress.pay').addClass('dspnone')
+            $('.adress.deposit').addClass('dspnone')
+            $('#qrcode').empty()
+        }
+        function ChooseSBD() {
+            var amount = Session.get('paymentamount')
+            Session.set('paymentcoin', 'SBD')
+            var steem = Coins.findOne({ 'id': 'steem-dollars' }).price_usd
+            var steemamount = parseFloat(amount / steem).toFixed(3)
+            Session.set('cryptopayment', steemamount)
+            $('.topay').removeClass('dspnone')
+            $('.header.steem').removeClass('dspnone')
+            $('.green.steem').removeClass('dspnone')
+            $('.scan.header').addClass('dspnone')
+            $('.steem.header').text('TO PAY ' + steemamount + ' SBD')
+            $('.adress.pay').addClass('dspnone')
+            $('.adress.deposit').addClass('dspnone')
+            $('#qrcode').empty()
+        }
+
+        function ChooseTron() {
+            event.preventDefault()
+            if (Session.get('paymentamount')) {
+                $('.topay').removeClass('dspnone')
+                var coinamount = document.getElementById('tronprice')
+                var value = parseFloat(coinamount.innerText).toFixed(6)
+                $('.green.steem').addClass('dspnone')
+                $('.header.steem').addClass('dspnone')
+                $('.adress.pay').text('TO PAY ' + value + ' TRON')
+                $('.scan.header').removeClass('dspnone')
+                Session.set('DepositAdress', 'TELUCyWVaGBA2gpSbuJxNnueyWHUDFGAyA')
+                $('.adress.pay').removeClass('dspnone')
+                $('.adress.deposit').removeClass('dspnone')
+                $('#qrcode').empty()
+                $('#qrcode').qrcode({
+                    render: 'image',
+                    size: '150',
+                    fill: '#fff',
+                    text: Session.get("DepositAdress")
+                });
+            }
+        }
+
+        function ChooseCoin(coin) {
+            event.preventDefault()
+            if (Session.get('paymentamount')) {
+                var coinamount = document.getElementById(coin + 'price')
+                var value = parseFloat(coinamount.innerText).toFixed(6)
+                Coins.GetDepositAdress(coin, JSON.stringify(Session.get('productlist')), function (error) {
+                    if (!error) {
+                        $('.topay').removeClass('dspnone')
+                        $('.green.steem').addClass('dspnone')
+                        $('.header.steem').addClass('dspnone')
+                        $('.adress.pay').text('TO PAY ' + value + ' ' + coin)
+                        $('.adress.pay').removeClass('dspnone')
+                        $('.scan.header').removeClass('dspnone')
+                        $('.adress.deposit').removeClass('dspnone')
+                        $('#qrcode').empty()
+                        $('#qrcode').qrcode({
+                            render: 'image',
+                            size: '150',
+                            fill: '#fff',
+                            text: Session.get("DepositAdress")
+                        });
+                    }
+                })
+            }
+        }
+
+        function ConfirmPaymentSteem() {
+            var url = "https://steemconnect.com/sign/transfer?to=ongame-shop" + Session.get('and') + "amount=" + Session.get('cryptopayment') + " " + Session.get('paymentcoin') + Session.get('and') + "memo=" + Session.get('productlist') + "&redirect_uri=https://ongame.io/complete"
+            window.open(url.split('+').join('_'), "_blank")
+        }
+    </script>
+</template>

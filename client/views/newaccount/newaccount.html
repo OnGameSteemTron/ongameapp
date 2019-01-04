@@ -1,0 +1,33 @@
+<template name="newaccount">
+    <h1 class="ui violet banner label fluid big fundition">
+        {{translator "SIGNUP_TO_STEEM"}}
+        <div class="ui container">
+            <h5> {{translator "SIGNUP_MESSAGE"}}</h5>
+            <a href="https://discord.gg/26j74Hr" target="_blank" class="ui button action icon red labeled right">
+                <i class="world icon"></i> {{translator "ABOUTUS_DISCORD"}}</a>
+        </div>
+    </h1>
+    <div class="ui container">
+        <div class="ui grid stackable two column" style="margin-top: 0px;">
+            <div class="ui embed newaccount column" data-url="https://signup.steemit.com/" style="margin-top:30px;min-height:725px;">
+                <div style="position: absolute;padding-left: 10px;top: 20px;color: black;z-index: 10;left: 50px;font-weight: 600;">Fundition {{translator "SIGNUP_POWERED_BY"}}</div>
+                <!-- <img src="./images/fundition.svg" style="position: absolute;width: 100%;padding-left: 0px;top: 160px;z-index: 10;background: white;height: 186px;margin-left: -10px;"> -->
+            </div>
+            <div class="ui column" style="margin-top:30px; background: #22252c;">
+                <div class="header" style="text-align: center;padding: 20px;">
+                    <div style="color:white;">
+                        <h2 class="header">
+                            <span> {{translator "SIGNUP_ONE_ACCOUNT"}}</span>
+                        </h2>
+                        <p>
+                            <span style="font-weight: bold;"> {{translator "SIGNUP_ONE_ACCOUNT_DESCRIPTION"}}</span>
+                        </p>
+                        <a href="/howitworks" class="ui red button icon labeled right">
+                            <i class="icon help"></i> {{translator "COMMON_LEARN_MORE"}}</a>
+                    </div>
+                    <img src="./images/signup.png" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,63 @@
+<template name="contact">
+    <h1 class="ui violet banner label fluid big fundition" >
+            {{translator "CONTACT_CONTACT_US"}}
+            <div class="ui container">
+                <h5>{{translator "CONTACT_CONTACT_WHETHER"}}</h5>
+                {{#if mainuser}}
+                <a href="/newproject" class="ui button action icon red labeled right"><i class="rocket icon"></i>{{translator "HOW_IT_WORKS_START"}}</a>
+                {{else}}
+                <a href="https://discord.me/fundition" target="_blank" class="ui button action icon red labeled right"><i class="world icon"></i>    {{translator "ABOUTUS_DISCORD"}}</a>
+                {{/if}}
+            </div>
+        </h1>
+    <div class="ui grid centered" style="margin-top:4em;    overflow: hidden;">
+        <img src="./images/map.png" style="object-fit: contain;opacity: 0.1;position: absolute;    width: 80%;pointer-events: none;" >
+        <div>
+            <div class="row">
+                    <h2>Contact us</h2>
+                    <h4 style="margin-top:5px;">{{translator "CONTACT_CONTACT_BYMAIL"}}</h4>
+                    <a class="ui massive red circular mail icon button" href="mailto:info@fundition.org">
+                        <i class="mail icon"></i>
+                    </a>
+                    <a href="https://discord.me/fundition" target="_blank">
+                        <div class="ui massive circular black icon button" >
+                            <img src="./images/apps/discord.svg" style="height: 0.85714286em;width: 1em;">
+                        </div>
+                    </a>
+            </div>
+            <div class="row" style="padding-top:3em;">
+                    <h2>{{translator "CONTACT_CONTACT_CHECK"}}</h2>
+                    <h4 style="margin-top:5px;">{{translator "CONTACT_CONTACT_TOSTAY"}}</h4>
+                    <a href="https://busy.org/@fundition" target="_blank">
+                        <div class="ui massive circular icon button" style="background:#4757b2;">
+                            <img src="./images/apps/busy.svg" style="height: 0.85714286em;width: 1em;">
+                        </div>
+                    </a>
+                    <a href="https://steemit.com/@fundition" target="_blank">
+                        <div class="ui massive circular icon button" style="background:#06D6A9;">
+                            <img src="./images/apps/steemit.svg" style="height: 0.85714286em;width: 1em;">
+                        </div>
+                    </a>
+            </div>
+            <div class="row" style="padding-top:3em;padding-bottom:3em;">
+                    <h2>{{translator "CONTACT_CONTACT_FOLLOWUS"}}</h2>
+                    <h4 style="margin-top:5px;">{{translator "CONTACT_CONTACT_SPREAD"}}</h4>
+                <a class="ui massive circular facebook icon button" href="https://www.facebook.com/funditionio" target="_blank">
+                    <i class="facebook icon"></i>
+                </a>
+                <a class="ui massive circular twitter icon button" href="https://twitter.com/funditionio" target="_blank">
+                    <i class="twitter icon"></i>
+                </a>
+                <a class="ui massive circular youtube icon button" href="https://www.youtube.com/channel/UCc4hJ7vZXatUos8DDR9swag" target="_blank">
+                    <i class="youtube icon"></i>
+                </a>
+                <a class="ui massive circular instagram icon button" href="https://www.instagram.com/funditionio" target="_blank">
+                    <i class="instagram icon"></i>
+                </a>
+                <a class="ui massive circular yellow icon button" href="https://minds.com/funditionofficial" target="_blank">
+                    <i class="lightbulb icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>

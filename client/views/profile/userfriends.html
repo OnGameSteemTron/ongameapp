@@ -1,0 +1,55 @@
+<template name="userfriends">
+    {{#with currentAuthor}}
+    <div class="ui purple segment top">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid two column stackable center aligned">
+            <div class="column npdg sec">
+                <div class="middle aligned content" style="padding: 2em">
+                    <div class="ui huge header">
+                        ONGAME FRIENDS {{follower_count}}
+                    </div>
+                    <div class="ui four doublig cards">
+                        {{#each currentAuthorFollowers}}
+                        <div class="friend card">
+                            <div class="ui huge image rounded">
+                                <img src="https://steemitimages.com/u/{{follower}}/avatar">
+                            </div>
+                            <a target="_blank" href="/@{{follower}}">{{follower}}</a>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="ui mini purple ongame button">
+                        SEARCH ON ONGAME
+                    </div>
+                </div>
+            </div>
+            <div class="column npdg">
+                    <div class="middle aligned content" style="padding: 2em">
+                        <div class="ui huge header">
+                            STEAM FRIENDS {{userTotalSteamFriends}}
+                        </div>
+                        <div class="ui four doublig cards">
+                            {{#each userFriends}}
+                            <div class="friend card">
+                                <div class="ui huge image rounded">
+                                    <img src="{{profile.avatar.medium}}">
+                                </div>
+                                <a target="_blank" href="{{profile.url}}">{{profile.nickname}}</a>
+                            </div>
+                            {{/each}}
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="ui mini purple ongame button">
+                            SEARCH ON STEAM
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+
+    </div>
+    {{/with}}
+</template>

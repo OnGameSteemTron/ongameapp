@@ -1,0 +1,301 @@
+<template name="singlegame">
+    {{#with currentSingleGame}}
+    <div class="ui container segment inverted game" style="padding: 0em;">
+        <!-- <div class="ui top cover" style="background-image:url({{background}});"></div> -->
+        <div class="ui column stackable padded">
+            {{>singlegametop}}
+            {{#if price_overview.final}}
+            {{#if mainuser}}
+            <div class="ui right floated" style="    position: absolute;
+    box-shadow: 0px 0px 5px black;
+    width: 202px;
+    top: 150px;
+    left: -10px;    text-shadow: 2px 2px 5px black;
+">
+
+                <div class="ui button icon labeled tiny green buygame noradius fluid" style="    text-shadow: 2px 2px 5px black;">
+                    <i class="ion-ios-cart icon" style="    font-size: 16px;"></i>
+                    <div>ADD TO CART : ${{normalizePrice price_overview.final}}</div>
+
+                </div>
+            </div>
+
+            {{else}}
+            <div class="ui right floated" style="    position: absolute;
+    box-shadow: 0px 0px 5px black;
+    width: 202px;
+    top: 150px;
+    left: -10px;    text-shadow: 2px 2px 5px black;
+">
+
+                <div class="ui button icon labeled tiny green  noradius fluid" style="    text-shadow: 2px 2px 5px black;" data-tooltip="You need to login first">
+                    <i class="ion-ios-cart icon" style="    font-size: 16px;"></i>
+                    <div>ADD TO CART : ${{normalizePrice price_overview.final}}</div>
+
+                </div>
+            </div>
+            {{/if}}
+            {{/if}}
+            <div class="ui button mini blue ongame create labeled icon noradius right floated" style="position: absolute;
+            box-shadow: 0px 0px 5px black;
+            width: 446px;
+            top: 190px;
+            left: -13px;    text-shadow: 2px 2px 5px black;
+            text-transform: uppercase;"><i
+                class="icon add"></i> CREATE CONTENT ABOUT {{name}} AND GET REWARDED</div>
+            <div class="ui small stackable top attached tabular menu game borderless  compact" style="    overflow-x: scroll;
+                overflow: hidden;">
+                <a name="about" class="active item" data-tab="first">Presentation</a>
+                <a name="post" class="item" data-tab="second">News</a>
+                <a name="stream" class="item" data-tab="third">Streams</a>
+                <a name="video" class="item" data-tab="fourth">Videos</a>
+                <a name="screenshot" class="item" data-tab="fifth">Screenshots</a>
+                <a name="review" class="item" data-tab="sixth">Review</a>
+                <a name="tips" class="item" data-tab="seventh">Cheats & Tips</a>
+                <!-- <a name="wiki" class="item disabled" data-tab="eigth">Wiki (Coming Soon)</a> -->
+            </div>
+            <div class="ui bottom attached active tab borderless game" data-tab="first">
+                {{#if equals currenTab 'about'}}
+                {{>aboutgame}}
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" data-tab="second">
+                {{#if equals currenTab 'post'}}
+                <div class="ui purple segment top">
+                </div>
+                <div class="ui container middle inverted segment">
+                    {{#if currentGameNews 'news'}}
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui huge header">Latest posts about {{name}}</div>
+                    </div>
+                    <div class="ui cards four stackable doubling">
+                        {{#each currentGameNews 'news'}}
+                        {{>card}}
+                        {{/each}}
+                    </div>
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> CREATE NEW POST
+                            AND GET REWARDED</div>
+                    </div>
+                    {{else}}
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui huge header fluid">There is no posts about {{name}}</div>
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> BE THE FIRST TO
+                            CREATE A POST AND GET REWARDED</div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="ui purple segment bottom">
+
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" data-tab="third">
+                {{#if equals currenTab 'stream'}}
+                <div class="ui purple segment top">
+                </div>
+                <div class="ui container middle inverted segment">
+                    {{#if currentGameNews 'streaming'}}
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui huge header">Latest streams about {{name}}</div>
+                    </div>
+                    <div class="ui cards four stackable doubling">
+                        {{#each currentGameNews 'streaming'}}
+                        {{>card}}
+                        {{/each}}
+                    </div>
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> CREATE NEW POST
+                            AND GET REWARDED</div>
+                    </div>
+                    {{else}}
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui huge header fluid">There is no streamings about {{name}}</div>
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> BE THE FIRST TO
+                            CREATE A POST AND GET REWARDED</div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="ui purple segment bottom">
+
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" style="width: 100%;" data-tab="fourth">
+                {{#if equals currenTab 'video'}}
+                <div class="ui purple segment top">
+                </div>
+                <div class="ui container middle inverted segment">
+                    {{#if currentGameNews 'video'}}
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui huge header">Latest videos about {{name}}</div>
+                    </div>
+                    <div class="ui cards four stackable doubling">
+                        {{#each currentGameNews 'video'}}
+                        {{>card}}
+                        {{/each}}
+                    </div>
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> CREATE NEW POST
+                            AND GET REWARDED</div>
+                    </div>
+                    {{else}}
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui huge header fluid">There is no videos about {{name}}</div>
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> BE THE FIRST TO
+                            CREATE A POST AND GET REWARDED</div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="ui purple segment bottom">
+
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" data-tab="fifth">
+                {{#if equals currenTab 'screenshot'}}
+                <div class="ui purple segment top">
+                </div>
+                <div class="ui container middle inverted segment">
+                    {{#if currentGameNews 'screenshot'}}
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui huge header">Latest Screenshots about {{name}}</div>
+                    </div>
+                    <div class="ui cards four stackable doubling">
+                        {{#each currentGameNews 'screenshot'}}
+                        {{>card}}
+                        {{/each}}
+                    </div>
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> CREATE NEW POST
+                            AND GET REWARDED</div>
+                    </div>
+                    {{else}}
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui huge header fluid">There is no screenshots about {{name}}</div>
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> BE THE FIRST TO
+                            CREATE A POST AND GET REWARDED</div>
+                    </div>
+                    {{/if}}
+                    {{>screenshotgame}}
+                </div>
+                <div class="ui purple segment bottom">
+
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" data-tab="sixth">
+                {{#if equals currenTab 'review'}}
+                <div class="ui purple segment top">
+                </div>
+                <div class="ui container middle inverted segment">
+                    {{#if currentGameNews 'review'}}
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui huge header">Latest reviews about {{name}}</div>
+                    </div>
+                    <div class="ui cards four stackable doubling">
+                        {{#each currentGameNews 'review'}}
+                        {{>card}}
+                        {{/each}}
+                    </div>
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> CREATE NEW POST
+                            AND GET REWARDED</div>
+                    </div>
+                    {{else}}
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui huge header fluid">There is no reviews about {{name}}</div>
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> BE THE FIRST TO
+                            CREATE A POST AND GET REWARDED</div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="ui purple segment bottom">
+
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" data-tab="seventh">
+                {{#if equals currenTab 'tips'}}
+                <div class="ui purple segment top">
+                </div>
+                <div class="ui container middle inverted segment">
+                    {{#if currentGameNews 'tips'}}
+                    <div class="ui grid center aligned" style="padding: 2em;">
+                        <div class="ui huge header">Latest tips about {{name}}</div>
+                    </div>
+                    <div class="ui cards four stackable doubling">
+                        {{#each currentGameNews 'tips'}}
+                        {{>card}}
+                        {{/each}}
+                    </div>
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> CREATE NEW POST
+                            AND GET REWARDED</div>
+                    </div>
+                    {{else}}
+                    <div class="ui grid center aligned" style="padding: 2em;display: grid;">
+                        <div class="ui huge header fluid">There is no tips about {{name}}</div>
+                        <div class="ui button mini blue ongame create labeled icon" style="    margin-top: 1em;"><i
+                                class="icon add"></i> BE THE FIRST TO
+                            CREATE A POST AND GET REWARDED</div>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="ui purple segment bottom">
+
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui bottom attached tab borderless game" data-tab="eigth">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.menu.game .item').tab()
+        if (Session.get('currentgametab')) {
+            var tabmenu = Session.get('currentgametab');
+            switch (tabmenu) {
+                case 'about':
+                    $('.menu.game .item').tab('change tab', 'first')
+                    break;
+                case 'post':
+                    $('.menu.game .item').tab('change tab', 'second')
+                    break;
+                case 'stream':
+                    $('.menu.game .item').tab('change tab', 'third')
+                    break;
+                case 'video':
+                    $('.menu.game .item').tab('change tab', 'fourth')
+                    break;
+                case 'screenshot':
+                    $('.menu.game .item').tab('change tab', 'fifth')
+                    break;
+                case 'review':
+                    $('.menu.game .item').tab('change tab', 'sixth')
+                    break;
+                case 'tips':
+                    $('.menu.game .item').tab('change tab', 'seventh')
+                    break;
+                case 'wiki':
+                    $('.menu.game .item').tab('change tab', 'eigth')
+                    break;
+                default:
+                    $('.menu.game .item').tab('change tab', 'first')
+            }
+        }
+    </script>
+    {{/with}}
+</template>

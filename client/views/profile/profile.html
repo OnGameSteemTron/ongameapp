@@ -1,0 +1,211 @@
+<template name="profile">
+  {{#with currentAuthor}}
+  <div class="ui container segment inverted profile" style="padding-top: 2em;">
+    <div class="ui top cover profile" style="background-image:url({{json_metadata.profile.cover_image}});"></div>
+    <div class="ui right floated menu" style="background: transparent;    position: absolute;z-index: 999;
+    right: 1em;box-shadow: none;border: none;">
+      <a href="https://steemit.com/@{{name}}" target="_blank">
+        <div class="ui transparent circular icon button">
+          <img src="./images/apps/steemit.svg" style="height: 0.85714286em;width: 1em;">
+        </div>
+      </a>
+      <!-- <a class="ui transparent circular icon button" href="https://twitter.com/funditionio" target="_blank">
+        <i class="twitter icon"></i>
+      </a>
+      <a class="ui transparent circular icon button" href="https://www.instagram.com/funditionio" target="_blank">
+        <i class="instagram icon"></i>
+      </a> -->
+      {{#if youtube_id}}
+      <a class="ui transparent circular icon button" href="https://www.youtube.com/channel/{{youtube_id}}"
+        target="_blank">
+        <i class="youtube icon"></i>
+      </a>
+      {{/if}}
+      {{#if twitch_id}}
+      <a class="ui transparent circular icon button" href="https://www.twitch.tv/{{twitchsettings.display_name}}" target="_blank">
+        <i class="twitch icon"></i>
+      </a>
+      {{/if}}
+      {{#if steam_id}}
+      <a class="ui transparent circular icon button" href="https://steamcommunity.com/profiles/{{steam_id}}" target="_blank">
+        <i class="ion-steam icon"></i>
+      </a>
+      {{/if}}
+      <!-- <a class="ui transparent circular icon button" href="https://minds.com/funditionofficial" target="_blank">
+        <i class="twitch icon"></i>
+      </a> -->
+    </div>
+    <div class="ui grid column stackable padded">
+      <div id="articleside" class="column">
+        <div class="ui centered grid padded" style="padding-top:3em;padding-bottom:3em;">
+            <div class="avatar top profile" style="margin-right:0px;padding: 0px;box-shadow: 0px 0px 5px #0f0d15, 0px 0px 5px #0f0d15;">
+                <img class="ui centered image" style="border-radius: 0.3125em 0 0 0.3125em;"
+                  src="https://steemitimages.com/u/{{name}}/avatar">
+              </div>
+          <div class="ui inverted segment left aligned padded" style="     margin: 0px;
+          padding: 0.5em 1em;
+          box-shadow: 0px 0px 5px #0f0d15, 0px 0px 5px #0f0d15;
+          border-radius: 0 0.3125em 0.3125em 0;
+          background: #6b08f82e!important;">
+            <div class="ui header" style="margin:0px;">
+              {{name}}
+            </div>
+            <span>Level {{details.level}}</span>
+            <div class="ui purple xp progress" style="margin:0px;" data-percent="{{details.xp}}">
+              <div class="bar">
+                <div class="progress"></div>
+              </div>
+            </div>
+            <span>Mana</span>
+            <div class="ui blue mana progress" style="margin:0px;" data-percent="{{currentMana}}">
+              <div class="bar">
+              </div>
+            </div>
+            <script>
+              $('.purple.xp').progress({ autoSuccess: false, showActivity: true })
+              $('.blue.mana').progress({ autoSuccess: false, showActivity: true })
+            </script>
+          </div>
+        </div>
+        <div class="extra">
+            {{#if equals mainuser.wallets.steem.username currentAuthor.name}}
+            <div class="ui mini red ongame right floated button">
+                CREATE MY TEAM
+              </div>
+            {{else}}
+          <div class="ui mini red ongame right floated button">
+            INVITE TO TEAM
+          </div>
+          {{/if}}
+
+          {{#if isFollowing name}}
+          <div class="ui mini blue ongame unfollow right floated button" onclick="Unfollow('{{name}}')">
+              REMOVE FRIEND
+            </div>
+          <script>
+              Unfollow = function (name) {
+                $(".mini.unfollow").addClass('loading')
+                  steemconnect.unfollow(name, function (error) {
+                      if (error) {
+
+                      } else {
+                        Followers.remove({})
+                          Followers.loadFollowers(name, function (error) {
+                              if (error) {
+                                  console.log(error)
+                              }
+                              else{
+                                $(".mini.unfollow").removeClass('loading')
+                              }
+                          })
+                      }
+                  }
+                  )
+              }
+          </script>
+          {{else}}
+          {{#unless equals mainuser.wallets.steem.username currentAuthor.name}}
+          <div class="ui mini purple ongame follow right floated button" onclick="Follow('{{name}}')">
+              + ADD FRIEND
+            </div>
+          <script>
+              Follow = function (name) {
+                $(".mini.follow").addClass('loading')
+                  steemconnect.follow(name, function (error) {
+                      if (error) {
+
+                      } else {
+                        Followers.remove({})
+                          Followers.loadFollowers(name, function (error) {
+                              if (error) {
+                                  console.log(error)
+                              }
+                              else{
+                                $(".mini.follow").removeClass('loading')
+                              }
+                          })
+                      }
+                  }
+                  )
+              }
+          </script>
+          {{/unless}}
+          {{/if}}
+        </div>
+        <div class="ui small stackable top attached tabular menu profile borderless  compact" style="    overflow-x: scroll;
+        overflow: hidden;">
+          <a name="overview" class="active item" data-tab="first">OVERVIEW</a>
+          <a name="friends" class="item" data-tab="third">FRIENDS</a>
+          <a name="rewards" class="item" data-tab="fourth">REWARDS</a>
+          <a name="wallet" class="item" data-tab="fifth">WALLET</a>
+          <a name="comments" class="item" data-tab="sixth">COMMENTS/REPLIES</a>
+          <a name="transfer" class="item" data-tab="seventh">TRANSFERS</a>
+          <a name="achievements" class="item" data-tab="eigth">ACHIEVEMENTS</a>
+          <a name="statistics" class="item" data-tab="nineth">STATISTICS</a>
+        </div>
+        <div class="ui bottom attached active tab borderless profile" data-tab="first">
+          {{>useroverview}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="third">
+          {{>userfriends}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="fourth">
+          {{>userrewards}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="fifth">
+          {{>wallet}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="sixth">
+          {{>usercomments}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="seventh">
+          {{>usertransfer}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="eigth">
+          {{>userachievements}}
+        </div>
+        <div class="ui bottom attached tab borderless profile" data-tab="nineth">
+          {{>userstatistics}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $('.menu.profile .item').tab()
+    if (Session.get('currentprofiletab')) {
+      var tabmenu = Session.get('currentprofiletab');
+      switch (tabmenu) {
+        case 'overview':
+          $('.menu.profile .item').tab('change tab', 'first')
+          break;
+        case 'blog':
+          $('.menu.profile .item').tab('change tab', 'second')
+          break;
+        case 'friends':
+          $('.menu.profile .item').tab('change tab', 'third')
+          break;
+        case 'rewards':
+          $('.menu.profile .item').tab('change tab', 'fourth')
+          break;
+        case 'wallet':
+          $('.menu.profile .item').tab('change tab', 'fifth')
+          break;
+        case 'comments':
+          $('.menu.profile .item').tab('change tab', 'sixth')
+          break;
+        case 'transfer':
+          $('.menu.profile .item').tab('change tab', 'seventh')
+          break;
+        case 'achievements':
+          $('.menu.profile .item').tab('change tab', 'eigth')
+          break;
+        case 'statistics':
+          $('.menu.profile .item').tab('change tab', 'nineth')
+          break;
+        default:
+          $('.menu.profile .item').tab('change tab', 'first')
+      }
+    }
+  </script>
+  {{/with}}
+</template>

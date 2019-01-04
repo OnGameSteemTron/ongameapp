@@ -1,0 +1,461 @@
+<template name="powermodal">
+    <div class="ui power modal">
+        <div class="ui vertical stripe segment" style="padding: 0px;">
+            <h1 class="ui violet label fluid big" style="border-radius:0px;text-align: center;padding: 1em;font-family: 'Fundition';font-weight:500;font-size: 3em;">
+                {{translator "POWERMODAL_BUY"}}
+            </h1>
+        </div>
+        {{#if mainuser}} {{else}}
+        <h3 class="ui label fluid big" style="text-align: center;padding-left: 0px; margin-left: 0px;">{{translator "DONATE_YOU_NEED_TO_LOGIN_TO_ACCESS_TO_STEEMCONNECT_NO_ACCOUNT"}}
+            <a href="https://signup.steemit.com/"> {{translator "DONATE_SIGNUP_HERE"}}</a>
+        </h3>
+        {{/if}}
+        <div class="ui styled accordion fluid">
+            <div class="title active">
+                <i class="dropdown icon"></i>
+                {{translator "DONATE_PAYMENT_METHOD"}}
+            </div>
+            <div class="content active">
+                <div class="ui grid stackable two column" style="padding:1em;">
+                    <div class="column">
+                        <button onclick="chooseCrypto()" class="ui violet button fluid big choose crypto">
+                            <img src="./images/coins.svg" height="128" width="128">
+                            <span style="display: block;">{{translator "DONATE_CRYPTOCURRENCY"}}</span>
+                            <span style="display: block;font-size:12px;">{{translator "POWERMODAL_SMALL"}}</span>
+                        </button>
+                    </div>
+                    <script>
+                        function chooseCrypto() {
+                            $('.ui.styled.accordion').accordion('toggle', 1)
+                            Session.set('donationmode', 'crypto')
+                            Session.set('donationamount', false)
+                            Session.set('donationcrypto', false)
+                            Session.set("DepositAdress", false)
+                            $('#steemtypetitle').addClass('transition hidden')
+                            $('#steemtypecontent').addClass('transition hidden')
+                            $('#cryptotypetitle').removeClass('transition hidden')
+                            $('#cryptotypecontent').removeClass('transition hidden')
+                            var adresstodeposit = document.getElementById('depositadress')
+                            adresstodeposit.innerHTML = 'waiting';
+                            $('.ui.red.info.message.send').addClass('transition hidden')
+                        }
+                    
+                        function chooseCoinbase() {
+                            $('.ui.styled.accordion').accordion('toggle', 1)
+                            Session.set('donationmode', 'coinbase')
+                            Session.set('donationamount', false)
+                            Session.set('donationcrypto', false)
+                            Session.set("DepositAdress", false)
+                            $('#steemtypetitle').addClass('transition hidden')
+                            $('#steemtypecontent').addClass('transition hidden')
+                            $('#cryptotypetitle').addClass('transition hidden')
+                            $('#cryptotypecontent').addClass('transition hidden')
+                            var adresstodeposit = document.getElementById('depositadress')
+                            adresstodeposit.innerHTML = 'waiting'
+                            $('.ui.red.info.message.send').addClass('transition hidden')
+                        }
+                        function ChangeAmount() {
+                            var value = document.getElementById('amountopowerup').value
+                            var hearts = document.getElementById('heartamountheader')
+                            var doll = document.getElementById('dollamountheader')
+                            doll.innerHTML = (value / Coins.findOne({ 'id': 'steem' }).price_usd).toFixed(3)
+                            hearts.innerHTML = (value / Coins.findOne({ 'id': 'steem' }).price_usd).toFixed(3)
+                            Session.set('donationamount', value)
+                            var int = Session.get('donationamount')
+                                var currency = Session.get('currency')
+                                switch (currency) {
+                                    case 'USD':
+                                        amount = int;
+                                        break;
+                                    case 'USDCAD':
+                                        amount = int * Session.get('currencies').USDCAD;
+                                        break;
+                                    case 'USDCNY':
+                                        amount = int * Session.get('currencies').USDCNY;
+                                        break;
+                                    case 'USDEUR':
+                                        amount = int * Session.get('currencies').USDEUR;
+                                        break;
+                                    case 'USDGBP':
+                                        amount = int * Session.get('currencies').USDGBP;
+                                        break;
+                                    case 'USDIDR':
+                                        amount = int * Session.get('currencies').USDIDR;
+                                        break;
+                                    case 'USDJPY':
+                                        amount = int * Session.get('currencies').USDJPY;
+                                        break;
+                                    case 'USDKRW':
+                                        amount = int * Session.get('currencies').USDKRW;
+                                        break;
+                                    case 'USDPHP':
+                                        amount = int * Session.get('currencies').USDPHP;
+                                        break;
+                                    case 'USDTRY':
+                                        amount = int * Session.get('currencies').USDTRY;
+                                        break;
+                                    default:
+                                        amount = int;
+                                        break;
+                                }
+                                var cc = document.getElementById('amountodonatecc')
+                                cc.value = parseFloat(amount).toFixed(2)
+                            if (Session.get('donationmode') === 'crypto') {
+                                var coins = ['steem', 'btc', 'bch', 'bts', 'dash', 'eth', 'ltc', 'xmr'];
+                                var i;
+                                for (i = 0; i + Session.get('lower') + coins.length; i++) {
+                                    if (!coins[i]) return
+                                    var coinamount = document.getElementById(coins[i] + 'price')
+                                    if (coins[i] === "btc") {
+                                        coins[i] = "bitcoin"
+                                    }
+                                    else if (coins[i] === "bch") {
+                                        coins[i] = "bitcoin-cash"
+                                    }
+                                    else if (coins[i] === "bts") {
+                                        coins[i] = "bitshares"
+                                    }
+                                    else if (coins[i] === "eth") {
+                                        coins[i] = "ethereum"
+                                    }
+                                    else if (coins[i] === "ltc") {
+                                        coins[i] = "litecoin"
+                                    }
+                                    else if (coins[i] === "xmr") {
+                                        coins[i] = "monero"
+                                    }
+                                    coinamount.innerHTML = (Session.get('donationamount') / Coins.findOne({ 'id': coins[i] }).price_usd).toFixed(6)
+                                }
+                            }
+                            if (Session.get('donationmode') === 'sc2') {
+                                var steemcost = parseFloat(Session.get('donationamount')) / Coins.findOne({ 'id': 'steem' }).price_usd
+                                var steemamount = document.getElementById('steemamount')
+                                steemamount.innerHTML = steemcost.toFixed(3) + " STEEM"
+                                steemamount.name = steemcost.toFixed(3)
+                                var sbdcost = parseFloat(Session.get('donationamount')) / Coins.findOne({ 'id': 'steem-dollars' }).price_usd
+                                var sbdamount = document.getElementById('sbdamount')
+                                sbdamount.innerHTML = sbdcost.toFixed(3) + " SBD"
+                                sbdamount.name = sbdcost.toFixed(3)
+                            }
+                        }
+                        function ConfirmAmount() {
+                            if (Session.get('donationamount')) {
+                                if (Session.get('donationmode') === 'sc2') {
+                                    $('.ui.styled.accordion').accordion('toggle', 2)
+
+                                    $('#steemtypetitle').removeClass('transition hidden')
+                                    $('#steemtypecontent').removeClass('transition hidden')
+                                }
+                                else if (Session.get('donationmode') === 'crypto') {
+                                    $('.ui.styled.accordion').accordion('toggle', 3)
+                                    $('#cryptotypetitle').removeClass('transition hidden')
+                                    $('#cryptotypecontent').removeClass('transition hidden')
+
+                                }
+                                else if (Session.get('donationmode') === 'coinbase') {
+                                    $('.ui.styled.accordion').accordion('toggle', 4)
+                                    $('.ui.approve.button').removeClass('transition hidden')
+                                    $('.ui.help.button').addClass('transition hidden')
+                                    $('#cryptotypetitle').addClass('transition hidden')
+                                    $('#cryptotypecontent').addClass('transition hidden')
+                                    $('#steemtypetitle').addClass('transition hidden')
+                                    $('#steemtypecontent').addClass('transition hidden')
+                                }
+                            }
+                        }
+                        function ChooseCoin(coin) {
+                            if (Session.get('donationamount')) {
+                                var coinamount = document.getElementById(coin + 'price')
+                                Session.set('donationamount', coinamount)
+                                Session.set('donationcrypto', coin)
+                                $('.ui.styled.accordion').accordion('toggle', 4)
+                            }
+                        }
+
+                        function ConfirmDonation() {
+                            if (Session.get('donationmode') === 'crypto') {
+                                // GetDepositAdress('ltc', "{{mainuser.name}}", "Project=Fundition-{{permlink}} Name=" + nick + " Secret=" + encryptedemail)
+                                // console.log('cryptoconfirm')
+                            }
+                            else if (Session.get('donationmode') === 'sc2') {
+                                nick = nick.replace(/ /g, "_")
+                                var url = "https://steemconnect.com/sign/transfer?to={{mainuser.name}}" + Session.get('and') + "amount=" + Session.get('donationamount') + " " + Session.get('donationcrypto') + Session.get('and') + "memo=Project=Fundition-{{permlink}} Name=" + nick + " Secret=" + encryptedemail
+                                window.open(url.split('+').join('_'), "_blank")
+                            }
+                            else if (Session.get('donationmode') === 'coinbase') {
+                                Session.set('donationcrypto', 'ltc')
+                                Coins.GetDepositAdressForSP("{{mainuser.name}}", "Buy=Fundition-SP", function (error) {
+                                    if (!error) {
+                                        var adresstodeposit = document.getElementById('depositadress')
+                                        adresstodeposit.innerHTML = Session.get("DepositAdress")
+                                        var url = "https://buy.coinbase.com/widget?code=9e4c4501-54eb-5d5a-92f9-189e354bb082" + Session.get('and') + "amount=" + Session.get('donationamount') + Session.get('and') + "address=" + Session.get("DepositAdress") + Session.get('and') + "currency=USD" + Session.get('and') + "crypto_currency=LTC" + Session.get('and') + "redirect_uri="
+                                        window.open(url, "_blank")
+                                    }
+                                })
+                            }
+                        }
+
+                        function LoadDepositAdress() {
+                            if (Session.get('donationmode') === 'crypto') {
+                                Coins.GetDepositAdressForSP("{{mainuser.name}}", "Buy=Fundition-SP", function (error) {
+                                    if (!error) {
+                                        var adresstodeposit = document.getElementById('depositadress')
+                                        adresstodeposit.innerHTML = Session.get("DepositAdress")
+
+                                        Session.set('donationmemo', "Buy=Fundition-SP")
+                                        $('.field.custom.transition.hidden').removeClass('transition hidden')
+                                        $('#qrcode').empty()
+                                        $('#qrcode').qrcode({
+                                            render: 'image',
+                                            size: '150',
+                                            fill: '#000',
+                                            text: Session.get("DepositAdress")
+                                        });
+                                        $('.ui.red.info.message.send').removeClass('transition hidden')
+                                    }
+                                })
+                            }
+                        }
+
+                        function GetPriceForCoin(amount, coin) {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', 'https://blocktrades.us:443/api/v2/estimate-input-amount?outputAmount=' + amount + '&inputCoinType=btc&outputCoinType=' + coin);
+                            xhr.send();
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4) {
+                                    if (xhr.status == 200) {
+                                        var ticker = JSON.parse(xhr.responseText)[0]
+                                        console.log(ticker)
+                                    } else {
+                                        console.log("Error: API not responding!");
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+                    <div class="column">
+                        <button onclick="chooseCoinbase()" class="ui black button fluid big choose coinbase disabled">
+                            <img src="./images/card.svg" height="128" width="128">
+                            <span style="display: block;">{{translator "DONATE_DEBITCARD"}}</span>
+                            <span style="display: block;font-size:12px;">{{translator "DONATE_REGULAR_FEES"}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{translator "DONATE_AMOUNT_TO_BUY"}}
+            </div>
+            <div class="content">
+                <div class="ui stackable grid two column">
+                    <div class="four wide column" style="display: -webkit-box;">
+                        <div class="grid">
+                            <div class="row" style="display: -webkit-box;">
+                                <img src="./images/coins/steem-logo.png" style="width: 3em;margin-right: 5px;">
+                                <h1 class="header dollam" id="dollamountheader" style="margin-top: 0px; font-family: 'Fundition'; font-size: 3em;line-height: 1em;">
+                                </h1>
+                            </div>
+                            <div class="row" style="display: -webkit-box;">
+                                <img src="./images/heartp.svg" style="width: 2em;margin-right: 5px;margin-top: 4px;">
+                                <h1 class="header heartam" id="heartamountheader" style="margin-top: 0px; font-family: 'Fundition'; font-size: 2em;line-height: 1em;">
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="twelve wide column">
+                        <div class="ui right labeled input massive fluid">
+                            <input id="amountopowerup" onchange="ChangeAmount()" type="number" placeholder="20" style="padding: 0.47861429em 0em 0.47861429em 0.2em;text-align:center;">
+                            <div class="ui basic label" style="border-radius: 0px!important;color: #c7c7c7;padding: 0.733em 0.833em;">
+                                {{translator "COMMON_COUNTRY_CURRENCY_SYMBOL"}}
+                                <!-- <img style="height: 16px!important;" width="16" height="16" src="./images/coins/steem.png"> -->
+                            </div>
+                            {{#if isConverted}}
+                            <input id="amountodonatecc" disabled="true" type="number" style="max-width: 160px;padding: 0.47861429em 0em 0.47861429em 0.2em;text-align:center;">
+                            <div class="ui basic label" style="border-radius: 0px!important;border-color:#f0f0f1;color: #dbdbdb;padding: 0.733em 0.833em;    font-size: 1em;">
+                                {{cconverter}}
+                                <!-- <img style="height: 16px!important;" width="16" height="16" src="./images/coins/steem.png"> -->
+                            </div>
+                            {{/if}}
+                            <div onclick="ConfirmAmount()" class="ui red button left pointing label confirm donate" style="font-family:'Fundition';font-weight:500;text-align: center;">{{translator "DONATE_CONFIRM"}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="steemtypetitle" class="title transition hidden">
+                <i class="dropdown icon"></i>
+                {{translator "DONATE_CHOOSE_TYPE"}}
+            </div>
+            <div id="steemtypecontent" class="content transition hidden">
+                <div class="ui grid two column">
+                    <div class="column">
+                        <button onclick="ChooseSteem()" class="ui blue button fluid big">
+                            <img src="./images/apps/steem.svg" height="128" width="128">
+                            <span id="steemamount" style="display: block;">STEEM</span>
+                        </button>
+                    </div>
+                    <div class="column">
+                        <button onclick="ChooseSBD()" class="ui blue button fluid big">
+                            <img src="./images/apps/steem.svg" height="128" width="128">
+                            <span id="sbdamount" style="display: block;">SBD</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="cryptotypetitle" class="title transition hidden">
+                <i class="dropdown icon"></i>
+                {{translator "DONATE_CHOOSE_TYPE"}}
+            </div>
+            <div id="cryptotypecontent" class="content transition hidden">
+                <div class="ui grid four column">
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('btc')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/btc.png">
+                            <span id="btcprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">BTC</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('eth')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/eth.png">
+                            <span id="ethprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">ETH</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('ltc')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/ltc.png">
+                            <span id="ltcprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">LTC</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('bch')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/bch.png">
+                            <span id="bchprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">BCH</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('xmr')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/xmr.png">
+                            <span id="xmrprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">XMR</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('steem')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/steem.png">
+                            <span id="steemprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">STEEM</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('bts')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/bts.png">
+                            <span id="btsprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">BTS</span>
+                        </button>
+                    </div>
+                    <div class="column" style="padding-bottom:0px!important;">
+                        <button onclick="ChooseCoin('dash')" class="ui black button fluid big" style="padding:0.78571429em 1em 0.78571429em;">
+                            <img src="./images/coins/dash.png">
+                            <span id="dashprice" style="font-size:1rem;display: block;"></span>
+                            <span style="display: block;">DASH</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{translator "DONATE_CONFIRM_PAYMENT"}}
+            </div>
+            <div class="content">
+                <div class="ui grid two column stackable" style="margin-left: 0px; margin-right: 0px;">
+
+                    <div class="column" style="padding-bottom: 1rem!important;">
+                        <form class="ui form">
+                            <div class="field">
+                                <div class="row">
+                                    <div class="ui red adress info message" style="width: 100%">
+                                        <div class="header">
+                                            1. Click on this button to obtain the Address
+                                        </div>
+                                        <div style="margin-top: 10px;" onclick="LoadDepositAdress()" class="ui help button red fluid">{{translator "CHOOSEMODAL_GET_ADRESS"}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="column adressbar" style="padding-bottom: 1rem!important;">
+                        <div class="ui grid centered stackable">
+                            <div class="row">
+                                <div class="ui red info message send" style="width: 100%;">
+                                    <div class="header adress">
+                                        2. {{translator "CHOOSEMODAL_SEND"}} {{currentcrypto}}
+                                    </div>
+                                    <textarea readonly class="ui label fluid" rows="1" id="depositadress" style="margin-top: 5px;resize: none; overflow-y: hidden;padding: 0px;height: 25px;text-align: center;"></textarea>
+                                    <div id="adresscopy" onclick="Copyadress()" class="ui red button fluid" style="margin: 0px;" type="button">Copy Address in clipboard</div>
+                                    <script>
+                                        function Copyadress() {
+                                            var toCopy = document.getElementById('depositadress')
+                                            var btnCopy = document.getElementById('adresscopy')
+                                            toCopy.select();
+                                            if (document.execCommand('copy')) {
+                                                $('#adresscopy').addClass('green');
+                                                $('#adresscopy').removeClass('red');
+                                                $('#adresscopy').text("Copied to clipboard")
+                                                var temp = setInterval(function () {
+                                                    $('#adresscopy').removeClass('green');
+                                                    $('#adresscopy').addClass('red');
+                                                    $('#adresscopy').text("Copy in clipboard")
+                                                    clearInterval(temp);
+                                                }, 600);
+
+                                            } else {
+                                                console.info('document.execCommand went wrong…')
+                                            }
+                                            return false;
+                                        }
+                                    </script>
+                                    <div class="field" style="margin-top: 10px;">
+                                        <div class="header">
+                                            or Scan the QR code to donate faster
+                                        </div>
+                                        <div id="qrcode" style="margin-top:10px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <form class="ui form">
+                        <div class="field">
+                            <div class="row">
+                                <div class="field" style="text-align:center;">
+                                    <div onclick="LoadDepositAdress()" class="ui help button blue">{{translator "POWERMODAL_ADRESS"}}</div>
+                                </div>
+                                <div class="field custom transition hidden">
+                                    <div class="ui info message">
+                                        <div class="header">
+                                            {{translator "POWERMODAL_HOW_TO"}}
+                                        </div>
+                                        <ul class="list">
+                                            <li>{{translator "POWERMODAL_SEND"}}</li>
+                                        </ul>
+                                        <div id="depositadress" class="header">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form> -->
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui help button blue right floated rmod">{{translator "DONATE_HELP"}}</div>
+            <div class="ui approve button red right floated transition hidden" onclick="ConfirmDonation()" style="margin-bottom:20px;margin-left:20px;">{{translator "DONATE_CONFIRM"}}</div>
+            <div class="ui cancel button violet left floated" style="margin-bottom:20px;margin-left:20px;">{{translator "DONATE_CANCEL"}}</div>
+        </div>
+    </div>
+    {{init}}
+</template>

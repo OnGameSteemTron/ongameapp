@@ -1,0 +1,21 @@
+<template name="steamitem">
+    <div class="item">
+        <div class="image">
+            <img src="{{imgFromBody contents}}">
+        </div>
+        <div class="content">
+            <a class="header">{{title}}</a>
+            <div class="meta">
+                <span class="date">{{DisplayTimeFrom created}}</span>
+                {{#if author}}
+                <span>{{author}}</span>
+                {{else}}
+                <span>{{feedname}}</span>
+                {{/if}}
+            </div>
+            <div class="description">
+                {{shortDescription (remarkableFormatter contents)}}
+            </div>
+        </div>
+    </div>
+</template>

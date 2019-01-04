@@ -1,0 +1,24 @@
+<template name="streamcard">
+  <div class="example-2 card eight wide">
+      <a href="/@{{author}}" class="wrapper back noradius">
+  
+        <div class="image lazy">
+          <img src="{{json_metada.header_image}}">
+        </div>
+        <div class="data">
+  
+        </div>
+        <div class="tags">
+            <div class="ui mini label purple noradius">{{stream_game}}</div>
+          </div>
+        <div class="data2">
+          <div class="ui mini label purple">@{{display_name}}</div>
+
+          <div class="avatar top"><img src="{{avatar}}"></div>
+        </div>
+        <div class="data3">
+          <div class="ui title huge header" style="margin-top:0px;">{{shortDescription stream_title}}</div>
+        </div>
+      </a>
+    </div>
+</template>

@@ -1,0 +1,47 @@
+<template name="twitchcard">
+  <div class="example-2 card" style="    height: 215px!important;    ">
+    {{#if steam_appid}}
+    <a href="/game-{{steam_appid}}" class="wrapper" style="     height: 215px!important;   min-height: 160px!important;
+                                                            background-size: cover;
+    border-radius: 0px!important;
+    background-position: center;">
+      <div class="image lazy" style="max-height: 215px;">
+          <img src="{{box_art_url}}" style="max-height: 215px;">
+        </div>
+      <div style="position: absolute;
+                    bottom: 22px;    width: 100%;
+          padding-left: 44px;">
+          <!-- <a
+          style="   overflow: hidden;
+         text-overflow: ellipsis;
+         display: -webkit-box;
+         -webkit-box-orient: vertical;
+         -webkit-line-clamp: 2;
+         max-height: 3.5em;width:100%;border-radius:0em;"
+          class="ui label black">{{name}}</a> -->
+        </div>
+  </a>
+  {{else}}
+  <a href="/game-{{appidFromName name}}" class="wrapper" style="     height: 215px!important;   min-height: 160px!important;
+  background-size: cover;
+border-radius: 0px!important;
+background-position: center;">
+      <div class="image lazy" style="max-height: 215px;">
+          <img src="{{box_art_url}}" style="max-height: 215px;">
+        </div>
+<div style="position: absolute;
+bottom: 22px;    width: 100%;
+padding-left: 44px;">
+<!-- <a
+style="   overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2;
+max-height: 3.5em;width:100%;border-radius:0em;"
+class="ui label black">{{name}}</a> -->
+</div>
+</a>
+  {{/if}}
+  </div>
+</template>

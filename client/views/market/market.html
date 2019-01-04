@@ -1,0 +1,134 @@
+<template name="market">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid center aligned" style="padding: 2em;">
+            <div class="ui row huge header">MARKET</div>
+            {{#if market}}
+            <div class="ui fluid items" style="    width: 100%;">
+                {{#each market}}
+                <div class="item inverted" style="    background: #0b0c11b7;padding: 10px;">
+                    <div class="ui tiny image" style="    width: 170px;">
+                        <img src="{{image}}" style="object-fit: cover;">
+                    </div>
+                    <div class="content">
+                        <div class="ui right floated big header">${{usd_price}}</div>
+                        <div class="ui big header">{{name}} {{#if equals type 'premium'}} {{else}} <div class="ui mini label blue"><i
+                                    class="ion-steam icon"></i>Steam Key</div> {{/if}}</div>
+                        <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                            {{short_description}} by : <a href="/@{{seller}}">@{{seller}}</a>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui right floated button purple buysteem" id="{{id}}">
+                                {{toSTEEM usd_price}} STEEM
+                            </div>
+                            <div class="ui right floated button purple buysbd" id="{{id}}">
+                                {{toSBD usd_price}} SBD
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+            <div class="ui grid row center aligned fluid ">
+                <div class="ui divider row" style="    padding: 0px;"></div>
+                <div class="ui mini button blue ongame startsell">SELL GAME</div>
+            </div>
+            <form id="sell_form" class="ui inverted form dspnone">
+                <div class="field" style="margin:0em 0em 1em;">
+                    <div class="ui button mini icon purple">STEP 1</div>
+                    <label>SEARCH FOR A GAME TO SELL</label>
+                    {{#if customGames}}
+                    <div class="ui fluid buy search">
+                        <div class="ui icon input">
+                            <input class="prompt" type="text" placeholder="Search games...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                    <script>
+                        $('.ui.search.buy')
+                            .search({
+                                source: Session.get('games'),
+                                searchFields: ['name'],
+                                maxResults: 10,
+                                fullTextSearch: 'exact',
+                                fields: {
+                                    title: 'name',
+                                },
+                                onSelect: function (result, response) {
+                                    Session.set('gametosellid', result.appid)
+                                    Session.set('gametosell', result.name)
+                                    steam.getGameDetails(result.appid)
+                                }
+                            })
+                    </script>
+                    {{/if}}
+                </div>
+                <div class="ui two fields">
+                    <div class="field">
+                        <div class="ui button mini icon purple">STEP 2</div>
+                        <label style="font-weight: bold;">TYPE YOUR PRICE IN USD</label>
+                        <input id="price" type="number" value="">
+                        <div class="ui cards" style="margin-top:1em;">
+                            {{#with currentSingleGame}}
+                            {{>gamesellcard}}
+                            {{/with}}
+                        </div>
+                    </div>
+                    <div class="ui field price transition hidden">
+                        <div class="ui button mini icon purple">STEP 3</div>
+                        <label style="font-weight: bold;">CONFIRMATION (ONGAME USE AN ESCROW SYSTEM)</label>
+                        <input id="gamename" type="text" value="{{gametosell}}" placeholder="Game Name" readonly=true
+                            disabled style="margin-bottom: 10px">
+                        <input id="gameid" type="text" value="{{gametosellid}}" placeholder="Game ID" readonly=true
+                            disabled style="margin-bottom: 10px">
+                        <div class="ui two fields">
+                            <div class="ui field">
+                                <label style="font-weight: bold;">USD PRICE </label>
+                                <input id="usdprice" type="text" value="{{gametosellprice}}" placeholder="Game Price"
+                                    readonly=true disabled style="margin-bottom: 10px">
+                            </div>
+                            <div class="ui field">
+                                <label style="font-weight: bold;">STEEM PRICE </label>
+                                <input id="steemprice" type="text" value="{{gametosellpricesteem}}" placeholder="Game Price"
+                                    readonly=true disabled>
+                            </div>
+                        </div>
+                        <label style="font-weight: bold;">FEES </label>
+                        <div class="ui two fields">
+                            <div class="ui field">
+                                <input id="fee" type="text" value="{{fee}}" placeholder="Fees" readonly=true disabled
+                                    style="margin-bottom: 10px">
+                            </div>
+                            <div class="ui field">
+                                <input id="feesteem" type="text" value="{{feesteem}}" placeholder="Fees" readonly=true
+                                    disabled>
+                            </div>
+                        </div>
+                        <label style="font-weight: bold;">YOU WILL RECEIVE APPROXIMATELY </label>
+                        <div class="ui two fields">
+                            <div class="ui field">
+                                <input id="finalprice" type="text" value="{{finalsellprice}}" placeholder="Game Name"
+                                    readonly=true disabled style="margin-bottom: 10px">
+                            </div>
+                            <div class="ui field">
+                                <input id="finalpricesteem" type="text" value="{{finalsellpricesteem}}" placeholder="Game Name"
+                                    readonly=true disabled style="margin-bottom: 10px">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui mini button red ongame cancel">CANCEL</div>
+                <div class="ui mini button purple sellitem ongame">SUBMIT</div>
+                <div class="field">
+                    <div class="ui error message"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+</template>

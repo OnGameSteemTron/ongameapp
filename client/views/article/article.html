@@ -1,0 +1,217 @@
+<template name="article">
+    {{#with currentArticle}}
+    {{#if equals json_metadata.content 'streaming'}}
+    <div class="ui grid three column stackable" style="background: #160034;">
+        <div class="three wide column">
+            {{#with currentAuthor}}
+            {{>profilecard}}
+            {{/with}}
+            <div class="ui divided cards" style="margin-top:1em;">
+                {{#if currentSuggestions}}
+                {{#each currentSuggestions}}
+                {{#unless equals this.permlink currentArticle.permlink}}
+                {{> suggestioncard}}
+                {{/unless}}
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+        <div class="thirteen wide column">
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+                <div class="ui mini header">{{title}}</div>
+            </div>
+            {{#if json_metadata.stream_url }}
+            <video id="player" width=620 height=350 class="video-js streaming" controls preload="auto" data-setup='{ "controls": true, "autoplay": true, "preload": "auto" }'></video>
+
+            {{else}}
+            <div class="description">
+                {{#if vimm body}}
+                <iframe width="100%" height="360px" src="https://www.vimm.tv/@{{author}}/embed" frameborder=0></iframe>
+                {{else}}
+                {{{remarkableFormatter body}}}
+                {{/if}}
+            </div>
+            {{/if}}
+            
+            <div class="ui purple segment top" style="padding-bottom: 50px;     margin-top: 0px;">
+                {{>upvote}}
+            </div>
+            {{#with currentSingleGame}}
+            <div class="ui purple segment top">
+                <div class="ui mini header">ABOUT THE GAME</div>
+            </div>
+            <div class="ui middle inverted segment" style="cursor: pointer;">
+                {{> singlegametop}}
+                {{#if price_overview.final}}
+                <div class="ui button green buygame ongame noradius fluid" style="margin-top:10px;margin-bottom:10px;">
+                    BUY FOR ${{normalizePrice price_overview.final}}
+                </div>
+                <div class="ui button mini blue ongame create fluid noradius" style="text-transform: uppercase;">
+                    CREATE CONTENT ABOUT {{name}} AND GET REWARDED</div>
+                {{/if}}
+            </div>
+            {{/with}}
+        </div>
+        <!-- <div class="four wide column">
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+                <div class="ui mini header">CHAT</div>
+            </div>
+            {{>chat}}
+            {{#with currentSingleGame}}
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+                <div class="ui mini header">DONATION & TIPS</div>
+            </div>
+            <div class="ui middle inverted segment">
+                COMING SOON
+            </div>
+            {{/with}}
+        </div> -->
+
+    </div>
+    <div class="ui grid column stackable" style="background: #160034;">
+        <!-- <div class="four wide column">
+            {{#with currentAuthor}}
+            {{>profilecard}}
+            {{/with}}
+        </div> -->
+        <div class="five wide column">
+
+            {{#if myStreamInfo}}
+            <div class="ui purple segment top" style="margin-top:1em!important;">
+                <div class="ui mini header">CURRENT STREAM INFORMATION</div>
+            </div>
+            <div class="ui middle inverted segment">
+                <div class="item">
+                    Server : <div class="selectable">{{myStreamInfo.primary_server}}</div>
+                </div>
+                <div class="item">
+                    Stream Key : <span class="selectable" style="color: #10101b;">{{myStreamInfo.stream_name}}</span><i
+                        class="icon eye"></i>
+                </div>
+                <div class="item">
+                    Username : <span class="selectable">{{myStreamInfo.username}}</span>
+                </div>
+                <div class="item">
+                    Password : <span class="selectable" style="color: #10101b;">{{myStreamInfo.password}}</span><i
+                        class="icon eye"></i>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    {{else}}
+    <div class="ui grid three column stackable">
+        <div class="three wide column">
+            {{#with currentAuthor}}
+            {{>profilecard}}
+            {{/with}}
+            <div class="ui divided cards" style="margin-top:1em;">
+                {{#if currentSuggestions}}
+                {{#each currentSuggestions}}
+                {{#unless equals this.permlink currentArticle.permlink}}
+                {{> suggestioncard}}
+                {{/unless}}
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+        <div id="articleside" class="eight wide column">
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+                <h1 class="ui header huge">{{title}}</h1>
+            </div>
+            <div class="ui middle inverted segment npdg" style="background: #0d1015!important">
+                <div class="content article" style="background: #0d1015">
+                    <div class="ui fluid black label noradius"><span>Published on : {{DisplayTimeCreated created}}</span>
+                    </div>
+                    {{#if equals json_metadata.content 'news'}}
+                    <div class="description" style="padding:1em;">
+                        {{{remarkableFormatter body}}}
+                    </div>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    {{/if}}
+                    {{#if equals json_metadata.content 'review'}}
+                    <div class="description" style="padding:1em;">
+                        {{{remarkableFormatter body}}}
+                    </div>
+                    {{>articlereview}}
+                    {{/if}}
+                    {{#if equals json_metadata.content 'video'}}
+                    {{#if equals json_metadata.app 'ongame'}}
+                    <div class="description" style="padding:1em;">
+                        {{{remarkableFormatter body}}}
+                    </div>
+                    {{else}}
+                    <div style="width:100%;height:350px;">
+                        {{>player json_metadata.video.content}}
+                    </div>
+                    {{/if}}
+                    {{/if}}
+                    {{#if equals json_metadata.content 'tips'}}
+                    <div class="description" style="padding:1em;">
+                        {{{remarkableFormatter body}}}
+                    </div>
+                    {{/if}}
+                    {{#if equals json_metadata.content 'screenshot'}}
+                    <div class="description screenshot" style="padding:1em;">
+                        {{{remarkableFormatter body}}}
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="ui purple segment top" style="padding-bottom: 50px;">
+                {{>upvote}}
+            </div>
+            <div class="ui middle inverted com segment npdg">
+                {{#if equals json_metadata.content 'streaming'}}
+                {{else}}
+                {{>comments}}
+                {{/if}}
+            </div>
+            <div class="ui purple segment bottom" style="margin-top:0px!important;">
+            </div>
+        </div>
+        <div class="five wide column">
+            {{#with currentSingleGame}}
+            <div class="ui purple segment top" style="margin-top:0px!important;">
+                <div class="ui mini header">ABOUT THE GAME</div>
+            </div>
+            <div class="ui middle inverted segment" style="cursor: pointer;">
+                {{> gametopsmall}}
+                {{#if price_overview.final}}
+                <div class="ui button green buygame ongame noradius fluid" style="margin-top:10px;margin-bottom:10px;">
+                    BUY FOR ${{normalizePrice price_overview.final}}
+                </div>
+                {{/if}}
+                <div class="ui button mini blue ongame create fluid noradius" style="text-transform: uppercase;">
+                    CREATE CONTENT ABOUT {{name}} AND GET REWARDED</div>
+            </div>
+            <div class="ui small header">OFFICIAL NEWS</div>
+            <div class="ui items" style="padding: 0px;">
+                {{#if gameNews}}
+                {{#each gameNews}}
+                {{>feedgamenews}}
+                {{/each}}
+                {{/if}}
+            </div>
+            {{/with}}
+            {{#if json_metadata.stream_url}}
+            {{#if myStreamInfo}}
+            {{myStreamInfo.password}}
+            {{/if}}
+            {{/if}}
+            {{#with currentSingleGame}}
+            <div class="ui huge header">Screenshots</div>
+            <div class="ui row" style="margin-top: 0px;padding-top: 0px;">Click to enlarge</div>
+            <div class="ui two cards">
+                {{#each screenshots}}
+                <div class="card screenshot" style="cursor: pointer;">
+                    <img style="max-height: 250px;" src="{{path_thumbnail}}">
+                </div>
+                {{/each}}
+            </div>
+            {{/with}}
+        </div>
+    </div>
+    {{/if}}
+    {{/with}}
+</template>

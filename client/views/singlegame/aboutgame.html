@@ -1,0 +1,138 @@
+<template name="aboutgame">
+    <div class="ui purple segment top">
+
+    </div>
+    <div class="ui middle inverted segment npdg">
+        <div class="ui two column stackable aligned doubling grid padded  npdg">
+            <div class="nine wide column npdg">
+                <div class="middle aligned content" style="padding: 2em">
+                    <div class="ui header" style="text-transform: uppercase">ABOUT {{name}}</div>
+                    {{#if movies}}
+                    <div style="width:100%;height:316px;">
+                        {{>player movies}}
+                    </div>
+                    {{else}}
+
+                    {{/if}}
+                    <!-- <div class="date">
+                        {{{about_the_game}}}
+                    </div> -->
+                    <div class="ui divider" style="    margin-top: 4em;"></div>
+                    <div class="date">
+                        Description : {{{detailed_description}}}
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="date">
+                        Publisher : {{{publishers}}}
+                    </div>
+                    <div class="date">
+                        Email : {{support_info.url}}
+                    </div>
+                    <div class="date">
+                            Support : {{support_info.email}}
+                        </div>
+                    <div class="date">
+                        Website : {{website}}
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="date">
+                        Languages : {{{supported_languages}}}
+                    </div>
+                </div>
+            </div>
+            <div class="seven wide column sec inverted segment npdg">
+                <div class="middle aligned content" style="padding: 2em">
+                    {{#if gameNews}}
+                    <div class="ui header">OFFICIAL NEWS</div>
+                    <div class="ui items" style="padding: 0em;">
+                        {{#each gameNews}}
+                        {{>feedgamenews}}
+                        {{/each}}
+                    </div>
+                    {{/if}}
+                    <div class="ui header">SCREENSHOTS</div>
+                    <div class="ui four cards">
+                        {{#each screenshots}}
+                        <div class="card screenshot" style="cursor: pointer;">
+                            <img style="    max-height: 135px;" src="{{path_thumbnail}}">
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="middle aligned content" style="padding: 2em">
+                    <div class="ui items">
+                        <div class="ui header">Requirements</div>
+                        <div class="ui divider"></div>
+                        <div class="ui tiny header">Microsoft</div>
+                        <div class="date">
+                            Minimum : {{{pc_requirements.minimum}}}
+                        </div>
+                        <div class="date">
+                            Recommended : {{{pc_requirements.recommended}}}
+                        </div>
+                        <div class="ui tiny header">Mac</div>
+                        <div class="date">
+                            Minimum : {{{mac_requirements.minimum}}}
+                        </div>
+                        <div class="date">
+                            Recommended : {{{mac_requirements.recommended}}}
+                        </div>
+                        <div class="ui tiny header">Linux</div>
+                        <div class="date">
+                            Minimum : {{{linux_requirements.minimum}}}
+                        </div>
+                        <div class="date">
+                            Recommended : {{{linux_requirements.recommended}}}
+                        </div>
+                        <div class="ui divider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui middle  inverted segment">
+        <div class="ui seven statistics inverted">
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-steam icon"></i>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="twitch icon"></i>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="youtube icon"></i>
+                </div>
+            </div>
+
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-xbox icon"></i>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <i class="ion-playstation icon"></i>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/origin.svg">
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    <img src="./images/apps/epic.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+
+    </div>
+
+
+</template>

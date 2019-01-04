@@ -1,0 +1,152 @@
+<template name="rightsidebar">
+    <div class="ui right sidebar labeled icon inverted vertical menu visible" style="  overflow-y: visible!important;padding-top: 60px;width: 380px;">
+        <div class="ui small vertical top attached tabular menu" style="    position: absolute;
+            border: 0px;
+            top: 65px;
+            width: 72px;
+            border: 0px #6b08f8 solid!important;">
+            <div class="active item ch" name='general' data-tab="first"><i class="icon comments"></i>GENERAL</div>
+            {{#with currentAuthor}}
+            <div class="item ch" name='{{currentAuthor.name}}' data-tab="second"> <img style="    width: 26px;
+                        margin: 8px;"
+                    src="https://steemitimages.com/u/{{currentAuthor.name}}/avatar">ROOM</div>
+            <script>
+                $('.menu .item').tab()
+            </script>
+            {{/with}}
+            <div class="item" data-tab="third"><i class="icon ion-ios-people"></i>USERLIST</div>
+            <div class="item" data-tab="fourth"><i class="icon users"></i>FRIENDS</div>
+            <div class="item" data-tab="fifth"><i class="icon ion-ios-cog-outline"></i>SETTINGS</div>
+            <div class="item" data-tab="sixth"> <i class="ion-card icon"></i>WALLET</div>
+        </div>
+        <div class="ui grid padded" style="    padding-left: 75px;">
+            <!-- <div class="join-chat" style="margin-top:10px;">
+                {{#if mainuser}}
+                <label for="username">Welcome {{mainuser.name}}</label>
+                {{else}}
+                <label for="username">Username:</label>
+                <div class="ui input">
+                    <input type="text" id="username" name="username" />
+                </div>
+                {{/if}}
+                <input class="ui button ongame violet mini" type="button" id="join-chat" value="Join Chat" />
+            </div> -->
+            <div class="ui small top attached tabular menu " style="    margin-top: 4px;padding: 0px 1px;">
+                <div class="item" data-tab="seventh"><i class="icon lock"></i>PRIVATE</div>
+                <div class="item" data-tab="eight"><i class="icon ion-ios-cog-outline"></i>SETTINGS</div>
+                <div class="item" data-tab="nineth"><i class="icon home"></i>MAIN</div>
+                <div class="item"><i class="icon users"></i>
+                    <div class="chat-info"></div>
+                </div>
+            </div>
+            <div class="ui bottom attached active tab segment inverted npdg" data-tab="first" style="    border: 0px;margin-bottom: 0px;">
+                <div class="chat">
+                    {{#with currentRoom}}
+                    <div class="messages general" style="height: calc(100vh - 245px);
+                                    overflow: auto;text-align: left">
+                        {{#each chatHistory currentRoom}}
+                        <div class='msg' style="background: #ffffff0a;padding: 5px;margin-bottom: 2px;    display: inline-block;
+                                          width: 100%;">
+                            <div style="    font-size: 0.7em;
+                                          color: #5d5c5d;">{{date}}</div>
+                            <div class="avatar ui mini top" style="    width: 20px;border-radius: 25px!important;margin-right: 5px;
+                                                  float: left;"><img
+                                    src="https://steemitimages.com/u/{{sender}}/avatar" style="border-radius: 25px!important;"></div>
+                                    <a class="ui dropdown">
+                                            <input type="hidden" name="test">
+                                            {{#if equals mainsteemuser.name sender}}
+                                           <span style="color:yellow">{{sender}}</span> 
+                                            {{else}}
+                                            {{sender}}
+                                            {{/if}}
+                                            <div class="inverted menu">
+                                              <a href="/@{{sender}}" target="_blank" class="item">View profile</a>
+                                              <div class="item" data-value="one">Send message</div>
+                                              <div class="item" data-value="one">Send tip</div>
+                                              <div class="item" data-value="one">Invite to guild</div>
+                                              <div class="item" data-value="one">Report</div>
+                                            </div>
+                                          </a>
+                                          <script>
+                                              $('.ui.dropdown').dropdown()
+                                          </script>
+                            <!-- <a target="_blank" href="/@{{sender}}">{{sender}}</a> : -->
+                            <div style="font-size:10px;float: right;margin-right: 5px;">
+
+                            </div>
+                            {{{remarkableFormatter message}}}
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{/with}}
+                    <!-- <input class="ui button ongame red mini" type="button" id="leave-chat" data-username="" value="Leave Chat"> -->
+                    <textarea class="replyareachat" autocomplete="off" id="message" name="message" placeholder="Your message"
+                        style="height:2.5em; min-height:3.5em;      width: calc(100% - 20px);  margin-top: 20px;resize: none;    margin-bottom: 10px;"></textarea>
+                        <div class="ui mini button black ongame icon left floated" style="margin-left: 10px;border-radius: 0px;"><i class="icon cogs"></i></div>
+                        <div class="ui mini button black ongame icon left floated" style="border-radius: 0px;"><i class="icon keyboard"></i></div>
+                    <input class="ui button ongame violet mini" type="button" id="send-message" data-username="" value="Send Message" style="    margin-bottom: 20px;
+                    float: right;
+                    margin-right: 10px;">
+                </div>
+            </div>
+            <div class="ui bottom attached tab segment inverted npdg" data-tab="second" style="    border: 0px;margin-bottom: 0px;">
+                <div class="chat">
+                    <div class="messages {{currentRoom}}" style="height: calc(100vh - 245px);
+                                    overflow: auto;text-align: left">
+                        {{#each chatHistory currentRoom}}
+                        <div class='msg' style="background: #ffffff0a;padding: 5px;margin-bottom: 2px;    display: inline-block;
+                                          width: 100%;">
+                            <div style="    font-size: 0.7em;
+                                          color: #5d5c5d;">{{date}}</div>
+                            <div class="avatar ui mini top" style="    width: 20px;border-radius: 25px!important;margin-right: 5px;
+                                                  float: left;"><img
+                                    src="https://steemitimages.com/u/{{sender}}/avatar" style="border-radius: 25px!important;"></div>
+                            <a target="_blank" href="/@{{sender}}">{{sender}}</a> :
+                            <div style="font-size:10px;float: right;margin-right: 5px;">
+
+                            </div>
+                            {{message}}
+                        </div>
+                        {{/each}}
+                    </div>
+                    <!-- <input class="ui button ongame red mini" type="button" id="leave-chat" data-username="" value="Leave Chat"> -->
+                    <textarea  class="replyareachat" autocomplete="off" id="messageroom" name="message" placeholder="Your message"
+                        style="height:2.5em; min-height:3.5em;      width: calc(100% - 20px);  margin-top: 20px;    resize: none;    margin-bottom: 10px;"></textarea>
+                        <div class="ui mini button icon"><i class="icon cogs"></i></div>
+                    <input class="ui button ongame violet mini" type="button" id="send-message" data-username="" value="Send Message" style="    margin-bottom: 20px;
+                    float: right;
+                    margin-right: 10px;">
+                </div>
+            </div>
+            <div class="ui bottom attached tab segment inverted" data-tab="third" style="    border: 0px;">
+                <div class="ui comments">
+                    {{#each chatusers}}
+                    <div class="comment">
+                        <a href='/@{{this}}' target="_blank" class="avatar" style="    width: 2em!important;height:2em!important;">
+                            <img src="https://steemitimages.com/u/{{this}}/avatar">
+                        </a>
+                        <div class="content" style="text-align: left;">
+                            <a href='/@{{this}}' target="_blank" class="author">{{this}}</a>
+                            <div class="actions">
+                                <a href='/@{{this}}' target="_blank"><i class="icon eye"></i>View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="ui bottom attached tab segment inverted" data-tab="fourth" style="    border: 0px;">
+                In construction...
+            </div>
+            <div class="ui bottom attached tab segment inverted" data-tab="fifth" style="    border: 0px;">
+                    In construction...
+            </div>
+            <div class="ui bottom attached tab segment inverted" data-tab="sixth" style="    border: 0px;margin: 1px;padding: 0px;">
+                {{#with mainuser}}
+                {{>chatwallet}}
+                {{/with}}
+            </div>
+
+        </div>
+    </div>
+</template>

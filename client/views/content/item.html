@@ -1,0 +1,26 @@
+<template name="item">
+    <a href="/@{{author}}/{{permlink}}" class="item" style="background: #0f1217bd;
+    padding: 0.3em 0.3em 0em;
+    text-align: left;
+    border: 1px #161b23 solid;
+    border-radius: 5px;">
+        <div class="image" style="height: 100%;      width: 70px!important;">
+            <img src="{{imgFromBody this}}" style="    object-fit: cover;    border-radius: 3px 0px 0px 3px;">
+        </div>
+        <div class="content" style="    padding-left: 0.5em!important;">
+            <a class="header" style="    font-size: 1em;">{{title}}</a>
+            <div class="meta" style="    margin-top: 0px;">
+                <span class="date">{{DisplayTimeFrom created}}</span>
+                <span>{{author}}</span>
+            </div>
+            <div class="meta">
+                <p class="text" style="    max-height: 3em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-left: 0px;
+                padding: 0px;">{{shortDescriptionForCard
+                    (xssTxtFormatter body)}}</p>
+            </div>
+        </div>
+    </a>
+</template>

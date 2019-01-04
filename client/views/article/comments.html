@@ -1,0 +1,16 @@
+<template name="comments">
+    <div class="ui comments inverted segment" style="max-width: 100%!important;padding-bottom: 0px;">
+        <h3 class="ui dividing header">Comments</h3>
+        {{#if currentArticleComments}}
+        {{>reply this isRootComment=false}}
+        {{#transition in="fadeInUp" out="slideOutDown"}}
+        {{#each currentArticleComments}}
+        {{>comment}}
+        {{/each}}
+        {{/transition}}
+        {{else}}
+        {{>reply isRootComment=true}}
+        {{/if}}
+    </div>
+    <br>
+</template>

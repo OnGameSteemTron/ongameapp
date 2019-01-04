@@ -1,0 +1,101 @@
+<template name="linkwallets">
+    <img src="./images/login2.png" style="    position: absolute;right: 0px;
+            bottom: 0px;">
+    <div class="ui grid centered three column stackable">
+        <div class="four wide column" style="padding: 2em;">
+        </div>
+        <div class="five wide column" style="padding: 2em;">
+            <form class="ui vertical inverted menu massive step1" style="box-shadow: 5px 5px 5px black;padding: 1em;">
+                <div class="ui mini button ongame noradius purple fluid">
+                    CONNECT YOUR WALLETS</div>
+                <div style="    margin: 20px 0px;">
+                    <img src="./images/apps/tron.svg" style="margin-right: 10px;    width: 15%;
+                            float: left;">
+                    Tron Wallet allows you to tip content and <strong>collect ONG Tokens</strong>.
+                </div>
+                {{#if currentUser.wallets.tron.address.base58}}
+                <div class="ui mini fluid button green ongame labeled icon " style="margin-top:20px;"><i class="icon"><img
+                            width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>
+                    Tron Wallet Linked</div>
+                {{else}}
+                <div class="ui mini fluid button red ongame labeled icon createtron" style="margin-top:20px;"><i class="icon"><img
+                            width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>Create
+                    Tron Wallet</div>
+                {{#if tronlink_logged}}
+                <div class="ui ongame message mini">
+                    <div>We have detected a Tron Wallet with the following
+                        address: <span style="color:red;overflow-wrap: break-word">{{trx_address.base58}}</span></div>
+                    <div>Do you want to link this Wallet?</div>
+                    <div onclick="linkWT()" class="ui mini fluid button red ongame labeled icon linkwt" style="margin-top:10px;"><i
+                            class="icon"><img width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>Link
+                        this Wallet</div>
+                    <script>
+                        function linkWT() {
+                            Meteor.callPromise('userTronWallet', Session.get('trx_address').base58, Session.get('trx_address').hex)
+                            tronWeb.trx.getBalance(Session.get('trx_address').base58, (err, balance) => {
+                                if (err)
+                                    return console.error(err);
+                                Session.set('trx_balance', balance);
+                            });
+                        }
+                    </script>
+                </div>
+                {{else}}
+                {{#if tronlink}}
+                <div style="margin-top:10px;font-size: 0.8em;">Tronlink detected. Login to quick link your wallet.</div>
+                <div class="ui mini fluid button red ongame labeled icon " style="margin-top:20px;"><i class="icon"><img
+                            width="14" src="./images/apps/tron.svg" style=" margin-top: 7px;"></i>Link
+                    Tron Wallet</div>
+                {{/if}}
+                {{/if}}
+                {{#unless trx_address}}
+                {{#unless tronlink}}
+                <div style="margin-top:10px;font-size: 0.8em;">Already have a TRON wallet? Use <a href="https://chrome.google.com/webstore/detail/tronlink/ibnejdfjmmkpcnlpebklmnkoeoihofec"
+                        target="_blank">Tronlink</a>.</div>
+                {{/unless}}
+                {{/unless}}
+                {{/if}}
+
+                <div class="ui divider"></div>
+                <div style="    margin: 20px 0px;">
+                    <img src="./images/apps/steem.svg" style="margin-right: 10px;    width: 15%;
+                                float: left;">
+                    Steem Wallet allows you to publish, upvote, share content and collect Steem Tokens.
+                </div>
+                {{#if currentUser.wallets.steem.username}}
+                <div class="ui mini fluid button green ongame labeled icon" style="margin-top:20px;"><i class="icon"><img
+                            width="14" src="./images/apps/steem.svg" style=" margin-top: 7px;"></i>Steem Wallet Linked</div>
+                {{else}}
+                <a class="ui mini fluid button blue ongame labeled icon createsteem" style="margin-top:20px;"><i class="icon"><img
+                            width="14" src="./images/apps/steem.svg" style=" margin-top: 7px;"></i>Create
+                    Steem Account</a>
+                <a class="ui mini fluid button blue ongame labeled icon gueststeem" style="margin-top:20px;"><i class="icon"><img
+                        width="14" src="./images/apps/steem.svg" style=" margin-top: 7px;"></i>Start
+                as Guest</a>
+                <div class="ui mini fluid button blue ongame labeled icon scconnect" style="margin-top:20px;"><i class="icon"><img
+                            width="14" src="./images/apps/steem.svg" style=" margin-top: 7px;"></i>Link
+                    Steem Wallet</div>
+                {{/if}}
+                <div class="ui divider"></div>
+                {{#if currentUser.wallets.tron.address.base58}}
+                {{#if currentUser.wallets.steem.username}}
+                <!-- <div>Click on continue only if you have saved your TRON wallet keys.</div> -->
+                <div class="ui ongame message mini">
+                        ATTENTION : By clicking on continue you accept these rules. 
+                    </div>
+                <a href="/@{{currentUser.wallets.steem.username}}" class="ui mini fluid button black ongame continue" style="margin-top:10px;">
+                    Continue
+                </a>
+                {{/if}}
+                {{else}}
+                <a class="ui mini fluid button black ongame disabled" style="margin-top:10px;">
+                    Continue
+                </a>
+                {{/if}}
+            </form>
+        </div>
+
+        <div class="four wide column" style="padding: 2em;">
+        </div>
+    </div>
+</template>

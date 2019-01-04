@@ -1,0 +1,73 @@
+<template name="chatwallet">
+        <div class="ui segment inverted">
+            <div class="ui header">
+                POWER TOKENS
+            </div>
+            <div class="ui dropdown steempower item">
+                {{#if currentUser.steem}}
+                <div class="ui tiny teal header">{{DisplaySteemPower vesting_shares delegated_vesting_shares
+                    received_vesting_share}}</div>
+                    {{/if}}
+                {{#if mainuser}}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item">Power Down</div>
+                    <div class="item">Delegate</div>
+                </div>
+                <script>
+                    $('.ui.dropdown.steempower').dropdown()
+                </script>
+                {{/if}}
+            </div>
+            <p>Influence tokens which give you more control over content payouts and allow you to earn more Power and OG on curation
+                rewards.
+            </p>
+            <div class="ui button ongame violet mini">     BUY STEEMPOWER</div>
+        </div>
+        <div class="ui segment inverted">
+            <div class="ui header">
+               LIQUID TOKENS
+            </div>
+            <div class="ui dropdown item">
+                    <a class="ui tiny teal header">{{ogt_balance}} OG</a>
+                </div>
+            <div class="ui dropdown balance item">
+                <a class="ui tiny teal header">{{balance}}</a> - <a class="ui tiny teal header">{{sbd_balance}}</a>
+                {{#if equals currentAuthor.name mainuser.name}}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div id="transfer" class="item transfer">Transfer</div>
+                   <div class="item">Transfer to Savings</div>
+                   <div class="item">Power Up</div> 
+                </div>
+                <script>
+                    $('.ui.dropdown.balance').dropdown()
+                </script>
+                {{/if}}
+            </div>
+            <div class="ui dropdown item">
+                    <a class="ui tiny teal header">{{trx_balance}} TRX</a>
+                </div>
+                <p>OG, STEEM, SBDs and TRX are tradeable to any other
+                    cryptocurrency or
+                    FIAT.
+                    They can be converted to STEEM POWER and OG POWER in a
+                    process called powering up.</p>
+            <div class="ui button ongame violet mini">     BUY OG</div>
+            <div class="ui button ongame violet mini">     BUY STEEM</div>
+            <div class="ui button ongame violet mini">     BUY TRX</div>
+        </div>
+        <div class="ui segment inverted">
+            <div class="ui header">
+                ESTIMATED ACCOUNT VALUE
+            </div>
+            <div class="ui dropdown account">
+                {{#if currentUser.steem}}
+                <a class="ui tiny teal header">{{estimateAccount this}}$</a>
+                {{/if}}
+            </div>
+            <div class="description">
+                <p>The estimated value based on US dollars.</p>
+            </div>
+        </div>
+</template>

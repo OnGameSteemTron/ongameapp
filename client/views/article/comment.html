@@ -1,0 +1,44 @@
+<template name="comment">
+    <div name="{{permlink}}" class="animated out comment {{permlink}}">
+            {{#if equals author 'cheetah'}}
+            <a href="/@ongame" class="avatar">
+                <img class="noradius" src="https://steemitimages.com/u/ongame/avatar/">
+            </a>
+            {{else}}
+            <a href="/@{{author}}" class="avatar">
+                <img class="noradius" src="https://steemitimages.com/u/{{author}}/avatar/">
+            </a>
+            {{/if}}
+     
+        <div class="content">
+            {{#if equals author currentAuthor.name}}
+            <span class="ui red op mini ongame button noradius">OP</span>
+            {{/if}}
+            {{#if equals author 'cheetah'}}
+            <a href="/@{{ongame}}" class="author">OnGameBot</a>
+            {{else}}
+            <a href="/@{{author}}" class="author">{{author}}</a>
+            {{/if}}
+            <div class="metadata">
+                <div class="date">{{DisplayTimeCreated created}}</div>
+            </div>
+            {{#if equals author 'cheetah'}}
+            <div class="extra">
+                    {{{remarkableFormatter body}}}
+            </div>
+            {{else}}
+            <div class="extra">
+                    {{{remarkableFormatter body}}}
+                  {{>commentupvote}}
+                    {{>reply this isRootComment=false }}
+                </div>
+                <div class="comments">
+                    {{#transition in="fadeInUp" out="slideOutDown"}}
+                    {{#each currentCommentsSubcomments this}} {{>comment}} {{/each}}
+                    {{/transition}}
+                </div>
+            {{/if}}
+          
+        </div>
+    </div>
+</template>

@@ -1,0 +1,61 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@fontName          : 'Poppins';
+@fontSmoothing     : antialiased;
+
+@headerFont        : @fontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont          : @fontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+@googleFontName    : @fontName;
+@importGoogleFonts : true;
+@googleFontSizes   : '400,500,600,700,400italic,700italic';
+@googleSubset      : 'latin';
+
+@googleProtocol    : 'https://';
+@googleFontRequest : '@{googleFontName}:@{googleFontSizes}&subset=@{googleSubset}';
+
+@defaultBorderRadius: 0em;
+@purple           : #6b07f8;
+@black : #0c0e12;
+@blue : #161fc8;
+@green : #00861f;
+
+@linkColor: #2988ff;
+
+/* Hover */
+.ui.tabular.menu .item:hover {
+     background-color: white;
+     color: #6b07f8;
+   }
+
+   .ui.menu .ui.dropdown .menu > .item:hover {
+     background: @purple !important;
+     color: white !important;
+   }
+
+   .ui.inverted.menu .active.item:hover {
+    background:#6b07f8!important;
+    color:  white!important;
+  }
+
+  .ui.inverted.menu .item:hover {
+    background:#6b07f8!important;
+    color:  white!important;
+  }
+
+  .ui.menu .item {
+   border: 0px!important;
+}
+
+  .ui.menu .active.item {
+    background:#6b07f8!important;
+    color:  white!important;
+    font-weight: normal;
+    box-shadow: none;
+}
+
+.ui.attached.segment{
+  margin:0px;
+}

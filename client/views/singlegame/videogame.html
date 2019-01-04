@@ -1,0 +1,20 @@
+<template name="videogame">
+        <div class="ui purple segment top">
+        </div>
+        <div class="ui middle inverted segment npdg">
+                <div class="ui grid center aligned items">
+                        <div class="ui huge header">Videos</div>
+                        {{#with movies}}
+                        {{>player}}
+                        {{/with}}
+                        <div class="ui four cards">
+                                {{#each currentGameNews 'video'}}
+                                {{>card}}
+                                {{/each}}
+                        </div>
+                </div>
+        </div>
+        <div class="ui purple segment bottom">
+
+        </div>
+</template>

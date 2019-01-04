@@ -1,0 +1,156 @@
+<template name="articlereview">
+    <div class="ui grid centered aligned padded">
+        <div class="ui massive button ongame purple">TOTAL SCORE : {{json_metadata.review.score}}</div>
+    </div>
+    <div class="ui four column grid padded" style="background: #0d1015">
+        <div class="column" style="margin:1em 0em 1em;">
+            <div id="arc-slider" class="rslider story" value="{{json_metadata.review.story}}" style="margin:0px;"></div>
+        </div>
+        <div class="column" style="margin:1em 0em 1em;">
+            <div id="arc-slider" class="rslider gameplay" style="margin:0px;"></div>
+        </div>
+        <div class="column" style="margin:1em 0em 1em;">
+            <div id="arc-slider" class="rslider dialogue" style="margin:0px;"></div>
+        </div>
+        <div class="column" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider replayability" style="margin:0px;"></div>
+            </div>
+    </div>
+    <div class="ui four column grid padded" style="background: #0d1015">
+        <div class="column" style="margin:1em 0em 1em;">
+            <div id="arc-slider" class="rslider level" style="margin:0px;"></div>
+        </div>
+        <div class="column" style="margin:1em 0em 1em;">
+            <div id="arc-slider" class="rslider graphic" style="margin:0px;"></div>
+        </div>
+        <div class="column" style="margin:1em 0em 1em;">
+            <div id="arc-slider" class="rslider sound" style="margin:0px;"></div>
+        </div>
+        <div class="column" style="margin:1em 0em 1em;">
+                <div id="arc-slider" class="rslider valueperdollar" style="margin:0px;"></div>
+            </div>
+    </div>
+    <script>
+        var post = Content.findOne({ 'permlink': Session.get('article') })
+        $(".rslider.story").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.story,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "STORY " + args.value;
+            }
+        });
+        $(".rslider.gameplay").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.gameplay,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "GAMEPLAY " + args.value;
+            }
+        });
+        $(".rslider.dialogue").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.dialogue,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "DIALOGUE " + args.value;
+            }
+        });
+        $(".rslider.level").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.level,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "LEVEL DESIGN " + args.value;
+            }
+        });
+        $(".rslider.graphic").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.graphic,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "GRAPHIC " + args.value;
+            }
+        });
+        $(".rslider.sound").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.sound,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "SOUND " + args.value;
+            }
+        });
+        $(".rslider.replayability").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.replayability,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "REPLAYABILITY " + args.value;
+            }
+        });
+        $(".rslider.valueperdollar").roundSlider({
+            sliderType: "min-range",
+            editableTooltip: false,
+            radius: 70,
+            width: 14,
+            value: post.json_metadata.review.valueperdollar,
+            readOnly: true,
+            handleSize: 0,
+            handleShape: "square",
+            circleShape: "pie",
+            startAngle: 315,
+            tooltipFormat: function (args) {
+                return "VALUE PER DOLLAR " + args.value;
+            }
+        });
+    </script>
+</template>

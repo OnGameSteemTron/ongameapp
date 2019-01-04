@@ -1,0 +1,30 @@
+<template name="reply">
+    <div class="actions">
+        {{#if permlink}}
+        {{#if equals mainuser.name author}}
+            {{#unless equals currentArticle.permlink permlink}}
+                {{#if commentIsDeletable this}}
+                <div class="ui ongame {{permlink}} green button mini remove com icon button right floated">
+                    Confirm
+                </div>
+                <div class="ui ongame red button mini remove com  button noradius right floated">
+                    Delete
+                </div>
+                {{/if}}
+            {{/unless}}
+        {{/if}}
+        <form class="ui reply-{{permlink}} form">
+            <div class="field">
+                <textarea class="replyarea" id="reply-content-{{permlink}}" placeholder="Your message" style="height:2.5em;min-height:2.5em;"></textarea>
+            </div>
+            <div id="submit-{{permlink}}" class="ui ongame purple button mini submit com labeled icon button dspnone" style="margin-bottom: 10px;">
+                <i class="icon edit"></i> Add Reply
+            </div>
+        </form>
+        {{else}}
+        {{#with currentArticle}}
+        {{>reply this isRootComment=false}}
+        {{/with}}
+        {{/if}}
+    </div>
+</template>

@@ -1,0 +1,8 @@
+<template name="profiledropwdown">
+        {{#each userGames}}
+        <a href="/game-{{appID}}" class="item" data-value="{{name}}">
+            <img src="{{logo}}">
+            {{name}}
+        </a>
+        {{/each}}
+</template>

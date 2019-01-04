@@ -1,0 +1,52 @@
+<template name="transfermodal">
+    <div class="ui small segment transfer inverted modal">
+        <div class="ui segment inverted column">
+            <div class="row">
+                <h2 style="border-top:4px solid #db2828!important;    padding-top: 0.5em;">
+                    Wallet Transfer</h2>
+                <h5>Move funds to another Steem account.</h5>
+                <div class="ui divider"></div>
+            </div>
+            <form class="ui form inverted">
+                <div class="field">
+                    <label>From</label>
+                    <div class="ui left icon input">
+                        <i class="at icon"></i>
+                        <input type="text" name="from" readonly="true" value="{{mainuser.name}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>To</label>
+                    <div class="ui left icon input">
+                        <i class="at icon"></i>
+                        <input id="to" type="text" name="to" placeholder="Account name">
+                    </div>
+                </div>
+                <div class="ui mini to message green hidden">
+                    <p>Account is valid</p>
+                </div>
+                <div class="ui mini to message red hidden">
+                    <p>Account not found</p>
+                </div>
+                <div class="field">
+                    <label>Amount to transfer</label>
+                    <input id="amount" type="number" name="amount" placeholder="Amount" disabled="true">
+                    {{#with mainuser}}
+                    <div id="addbalance" class="ui button teal inverted disabled" style="margin-top:5px;">BALANCE : {{balance}} </div>
+                    {{/with}}
+                </div>
+                <div class="ui mini amount message red hidden">
+                        <p>You have not enough STEEM in your wallet</p>
+                    </div>
+                <div class="field">
+                    <label>Public memo</label>
+                    <input id="memo" type="text" name="memo" placeholder="Memo" disabled="true">
+                </div>
+            </form>
+        </div>
+        <div class="actions" style="background: transparent;">
+            <div class="ui cancel red button">Cancel</div>
+            <div id="confirmtransfer" class="ui confirm green button disabled">Confirm</div>
+        </div>
+    </div>
+</template>

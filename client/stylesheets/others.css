@@ -1,0 +1,5 @@
+.ui.active.dimmer.ongame{
+    position: relative!important;
+    min-height: 170px;
+    background:transparent;
+}

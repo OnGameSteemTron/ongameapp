@@ -1,0 +1,27 @@
+<template name="feedgamenews">
+        <div class="item feed" style="display: block;word-wrap: break-word;color: white;padding: 5px;    background: #0c0e12d1!important;">
+                <div class="content" style="display: block;word-wrap: break-word;color: white;">
+                  <div class="summary" style="display: block;word-wrap: break-word;color: white;">
+                        {{date}}
+                    <a class="user" >
+                            {{feedlabel}}
+                    </a> 
+                    <div class="date" style="display: block;word-wrap: break-word;color: white;">
+                            {{title}}
+                    </div>
+                  </div>
+                  <div class="meta" style="display: block;word-wrap: break-word;color: white;     max-height: 7em;overflow: hidden;    line-height: 1.7em;">
+                        {{{CleanTextShort contents}}}
+                  </div>
+                  <a class="meta" href="{{url}}" target="_blank">
+                      View Source
+                  </a>
+                </div>
+              </div>
+    <!-- {{{contents}}} -->
+
+
+    <!-- {{title}} -->
+
+
+    </template>

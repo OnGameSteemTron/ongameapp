@@ -1,0 +1,47 @@
+<template name="profilecard">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+            <div class="ui mini header">PLAYER INFORMATION</div>
+    </div>
+    <div class="ui middle  inverted segment">
+        <div class="content">
+            <a  href="/@{{name}}" class="avatar" style="margin-right:0px;padding: 0px;box-shadow: 0px 0px 5px #6b07f8!important;display: block;">
+                <img class="ui image" style="    border: #0c0e12!important;
+                height: 10em!important;
+                border-radius: 0px!important;
+                width: 100%!important;
+                object-fit: cover;"
+                    src="https://steemitimages.com/u/{{name}}/avatar">
+            </a>
+            <div class="ui small header" style="margin-top: 0.5em;">
+                <a href="/@{{name}}" class="header name">@{{name}}</a>
+            </div>
+            <span>Level</span>
+            <div class="ui purple xp progress" style="margin:0px;" data-percent="{{details.xp}}">
+                <div class="bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            <span>Mana</span>
+            <div class="ui blue mana progress" style="margin:0px;" data-percent="{{currentMana}}">
+                <div class="bar">
+                </div>
+            </div>
+            <script>
+                $('.purple.xp').progress({ autoSuccess: false, showActivity: true })
+                $('.blue.mana').progress({ autoSuccess: false, showActivity: true })
+            </script>
+                        <div class="ui divider"></div>
+            <div class="date">
+                Reputation : {{displayReputation reputation}}
+            </div>
+            <div class="date">
+                {{follower_count}} Followers
+            </div>
+            <div class="date">
+                {{following_count}} Following
+            </div>
+            <div class="ui divider"></div>
+            <div class="date">Last vote : {{DisplayTimeFrom last_vote_time}}</div>
+        </div>
+    </div>
+</template>

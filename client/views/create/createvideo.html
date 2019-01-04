@@ -1,0 +1,16 @@
+<template name="createvideo">
+        <form class="ui aligned segment inverted form">
+            <div class="field" style="margin:0em 0em 1em;"><div class="ui button mini icon purple">STEP 1</div>
+                <label>YOUR TITLE</label>
+                <input id="title" type="text" name="title" placeholder="{{translator 'COMMON_TITLE'}}">
+            </div>
+            <div class="field"><div class="ui button mini icon purple">STEP 2</div>
+                <label style="font-weight: bold;">YOUR LINK (YOUTUBE, VIMEO, TWITCH, OR ANYTHING ELSE THAT ARE LEGIT) </label>
+                <input id="url" type="text" value="{{Url}}" name="url" placeholder="YOUR LINK">
+            </div>
+            <div class="ui divider"></div>
+            <div class="field">
+                <div class="ui error message"></div>
+            </div>
+        </form>
+    </template>

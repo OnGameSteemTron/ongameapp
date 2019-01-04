@@ -1,0 +1,29 @@
+<template name="games">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+            <div class="ui grid center aligned" style="padding: 2em;">
+            <div class="ui row huge header">MOST PLAYED GAMES </div>
+            <div class="ui row divided doubling stackable nine cards" style="max-width: 100%;">
+                {{#if mostPlayed}}
+                {{#each mostPlayed}}
+                {{> twitchcard}}
+                {{/each}}
+                {{else}}
+                <div class="ui active dimmer ongame" >
+                    <div class="ui massive text loader purple ongame">Loading Games</div>
+                </div>
+                {{/if}}
+            </div>
+            <div class="ui row big search category fluid inverted">
+                <div class="ui icon input">
+                    <input class="prompt" type="text" placeholder="Search for a Game...">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+</template>

@@ -1,0 +1,176 @@
+<template name="tournament">
+    <div class="ui purple segment top" style="margin-top:0px!important;">
+    </div>
+    <div class="ui middle inverted segment">
+        <div class="ui grid center aligned" style="padding: 2em;">
+            <div class="ui row huge header">UPCOMING SERIES</div>
+            {{#if upcomingSeries}}
+            <div class="ui fluid cards doubling five" style="    width: 100%;">
+                {{#each upcomingSeries}}
+                <div class="card inverted" style="    background: #0b0c1194;padding: 0px;box-shadow: 0px 1px 3px 0px #080808, 0px 0px 0px 1px #222222;">
+                    <div class="content" style="background: #0b0c1194;">
+                        <div class="ui tiny image" style="height: 85px;width: 100%;">
+                            <img src="{{league.image_url}}" style="object-fit: contain;    height: 70px;
+                                        width: 100%;">
+                            {{league.name}}
+                            {{displayDateFull begin_at}}
+                            {{#if equals status 'finished'}}
+                            <div class="ui red button circular icon" style="position: absolute;right:0em;bottom: 1em;">Finished</div>
+                            {{else}}
+                            <div class="ui green button circular icon" style="position: absolute;right:0em;bottom: 1em;">{{status}}</div>
+                            {{/if}}
+                        </div>
+                        <div class="ui big header">
+                            {{full_name}}
+
+                            <!-- {{#each tournaments}}
+                                <div class="ui mini label">{{name}}</div>
+                                {{/each}} -->
+                        </div>
+
+                        <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                            {{short_description}}
+                        </div>
+                        <div class="description">Game : {{videogame.name}} {{games.length}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="ui active dimmer ongame">
+                <div class="ui massive text loader purple ongame">Loading Series</div>
+            </div>
+            {{/if}}
+            <div class="ui row huge header">UPCOMING MATCHS</div>
+            {{#if upcomingMatchs}}
+            <div class="ui fluid cards doubling five" style="    width: 100%;">
+                {{#each upcomingMatchs}}
+                <div class="card inverted" style="    background: #0b0c1194;padding: 0px;box-shadow: 0px 1px 3px 0px #080808, 0px 0px 0px 1px #222222;">
+                    <div class="content" style="background: #0b0c1194;">
+                        <div class="ui tiny image" style="height: 85px;width: 100%;">
+                            <img src="{{league.image_url}}" style="object-fit: contain;    height: 70px;
+                                        width: 100%;">
+                            {{league.name}}
+                            {{displayDateFull begin_at}}
+                            {{#if equals status 'finished'}}
+                            <div class="ui red button circular icon" style="position: absolute;right:0em;bottom: 1em;"></div>
+                            {{else}}
+                            <div class="ui green button circular icon" style="position: absolute;right:0em;bottom: 1em;"></div>
+                            {{/if}}
+                        </div>
+                        <div class="ui big header">
+                            {{full_name}}
+
+                            <!-- {{#each tournaments}}
+                                <div class="ui mini label">{{name}}</div>
+                                {{/each}} -->
+                        </div>
+
+                        <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                            {{short_description}}
+                        </div>
+                        <div class="description">Game : {{videogame.name}} {{games.length}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="ui active dimmer ongame">
+                <div class="ui massive text loader purple ongame">Loading Matchs</div>
+            </div>
+            {{/if}}
+            <div class="ui row huge header">CURRENT MATCHS </div>
+            {{#if currentMatchs}}
+            <div class="ui fluid items" style="    width: 100%;">
+                {{#each currentMatchs}}
+                <div class="item inverted" style="    background: #0b0c11b7;padding: 10px;">
+                    <div class="ui tiny image" style="    width: 170px;">
+                        Begin at {{displayDateFull begin_at}}
+                        <img src="{{header_image}}" style="object-fit: cover;">
+                        Status
+                        {{#if equals status 'finished'}}
+                        <div class="ui basic red label">Finished</div>
+                        {{else}}
+                        <div class="ui basic green label">{{status}}</div>
+                        {{/if}}
+                    </div>
+                    <div class="content">
+                        <div class="ui mini right floated black ongame icon">
+                            <div class="ui tiny image">
+                                <img src="{{league.image_url}}" style="object-fit: cover;">
+                            </div>
+                            {{league.name}}
+                        </div>
+                        <div class="ui big header">
+                            {{match.name}}
+                            <div class="description">Match type : {{match_type}} {{games.length}}-
+                                Opponents :
+                                {{#each opponents}}
+                                <span>
+                                    {{opponent.acronym}} {{opponent.name}}</span>
+                                {{/each}}
+                            </div>
+                            {{#if header_image}}
+                            <div class="ui mini label blue"><i class="ion-steam icon"></i>Steam Key</div>
+                            {{/if}}
+                        </div>
+                        <div class="description" style="margin-top: 0px;color:rgb(179, 179, 179)">
+                            {{short_description}}
+                        </div>
+                        <div class="extra content">
+                            <div class="ui accordion" style="color:white">
+                                {{#each games}}
+                                <div class="title" style="color:white">
+                                    <i class="dropdown icon"></i>
+                                    Match id : {{id}} - Length : {{length}}
+                                </div>
+                                <div class="content">
+                                    {{winner_type}}
+                                    {{#if finished}}
+                                    Match is over
+                                    {{/if}}
+                                </div>
+                                {{/each}}
+                            </div>
+                            <script>
+                                $('.ui.accordion')
+                                    .accordion()
+                                    ;
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="ui active dimmer ongame">
+                <div class="ui massive text loader purple ongame">Loading Matches</div>
+            </div>
+            {{/if}}
+            <div class="ui row huge header">LEAGUES </div>
+                <div class="ui doubling stackable ten cards">
+                    {{#if tournamentGames}}
+                    {{#each tournamentGames}}
+                    {{#each leagues}}
+                    {{#if image_url}}
+                    <div class="card" style="border:1px solid #6b07f8;border-radius: 5px;box-shadow: 0px 0px 5px black;background: azure!important">
+                        <img class="tiny ui image" src="{{image_url}}" style="    object-fit: cover;
+                            height: 80px;width: 100%">
+                        <!-- {{name}} -->
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                    {{/each}}
+                    {{else}}
+                    <div class="ui active dimmer ongame">
+                        <div class="ui massive text loader purple ongame">Loading Leagues</div>
+                    </div>
+                    {{/if}}
+                </div>
+        </div>
+    </div>
+    <div class="ui purple segment bottom">
+    </div>
+</template>
